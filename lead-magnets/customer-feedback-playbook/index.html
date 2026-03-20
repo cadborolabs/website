@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Customer Feedback Playbook for Product Managers | Cadboro Labs</title>
+    <meta name="description" content="NPS vs CSAT vs CES — which survey to use when, how to design questions that get real answers, and how to close the feedback loop. The complete PM reference.">
+    <meta name="keywords" content="customer feedback playbook, NPS vs CSAT vs CES, customer survey guide, product feedback loop, NPS survey best practices, customer satisfaction metrics, PM feedback strategy 2026">
+    <meta property="og:title" content="The Customer Feedback Playbook — Cadboro Labs">
+    <meta property="og:description" content="Pick the right survey, ask better questions, and actually act on feedback. Interactive survey picker + templates for NPS, CSAT, and CES.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cadborolabs.com/lead-magnets/customer-feedback-playbook/">
+    <link rel="canonical" href="https://cadborolabs.com/lead-magnets/customer-feedback-playbook/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #09090b; --bg-raised: #111113; --bg-card: #16161a;
+            --border: #222228; --border-hover: #38383f;
+            --gold: #c9a84c; --gold-light: #e6d59c; --gold-dim: #6b5a2a;
+            --text: #eeeeed; --text-2: #8b8b96; --text-3: #55555e;
+            --red: #e85d5d; --green: #5dcc72; --blue: #5d9ee8;
+            --purple: #a87de8; --orange: #e8a85d; --teal: #5dccc9;
+            --gold-glow: rgba(201,168,76,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        ::selection { background: var(--gold); color: var(--bg); }
+
+        .grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.03; z-index: 9999; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: rgba(9,9,11,0.85); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; }
+
+        .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 88px 40px 0; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+        .breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        /* HERO */
+        .hero { text-align: center; padding: 40px 0 20px; }
+        .hero-badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 100px; padding: 6px 16px; margin-bottom: 20px; }
+        .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; margin-bottom: 16px; }
+        .hero h1 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .hero p { font-size: 1.05rem; color: var(--text-2); max-width: 620px; margin: 0 auto 28px; line-height: 1.65; }
+        .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bg); background: var(--gold); border: none; border-radius: 8px; padding: 14px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .btn-secondary { display: inline-flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-2); background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 14px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-secondary:hover { border-color: var(--gold-dim); color: var(--gold); }
+        .hero-meta { font-size: 0.78rem; color: var(--text-3); margin-top: 8px; }
+
+        /* SECTION HEADERS */
+        .section { margin-bottom: 48px; }
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .section-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500; color: var(--gold); background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 6px; padding: 4px 10px; letter-spacing: 0.05em; }
+        .section-header h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+
+        /* PICKER */
+        .picker { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 12px; }
+        .picker-intro { text-align: center; margin-bottom: 28px; }
+        .picker-intro h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+        .picker-intro p { font-size: 0.85rem; color: var(--text-2); }
+        .pk-question { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; transition: border-color 0.2s; }
+        .pk-question.active { border-color: var(--gold-dim); }
+        .pk-q-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+        .pk-q-text { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 14px; }
+        .pk-options { display: flex; gap: 10px; flex-wrap: wrap; }
+        .pk-opt { font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500; color: var(--text-2); background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; padding: 10px 18px; cursor: pointer; transition: all 0.2s; user-select: none; }
+        .pk-opt:hover { border-color: var(--border-hover); color: var(--text); }
+        .pk-opt.selected { border-color: var(--gold); color: var(--gold); background: var(--gold-glow); }
+        .pk-result { display: none; background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 12px; padding: 24px; text-align: center; margin-top: 8px; }
+        .pk-result.show { display: block; animation: fadeIn 0.3s ease; }
+        .pk-result-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+        .pk-result-model { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+        .pk-result-why { font-size: 0.85rem; color: var(--text-2); margin-bottom: 16px; max-width: 520px; margin-left: auto; margin-right: auto; }
+        .pk-result a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: color 0.2s; }
+        .pk-result a:hover { color: var(--gold-light); }
+        .pk-reset { font-family: 'Outfit', sans-serif; font-size: 0.78rem; color: var(--text-3); background: none; border: none; cursor: pointer; margin-top: 12px; text-decoration: underline; transition: color 0.2s; }
+        .pk-reset:hover { color: var(--text-2); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* METHOD CARDS */
+        .methods-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+        .method-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 14px; padding: 24px; transition: border-color 0.2s, transform 0.2s; }
+        .method-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+        .method-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; }
+        .method-name { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; }
+        .method-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+        .method-subtitle { font-size: 0.78rem; color: var(--text-3); font-style: italic; margin-bottom: 12px; }
+        .method-how { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; }
+        .method-how-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .method-how code { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--gold-light); line-height: 1.5; }
+        .method-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+        .method-list h4 { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+        .method-list.pro h4 { color: var(--green); }
+        .method-list.con h4 { color: var(--red); }
+        .method-list ul { list-style: none; font-size: 0.78rem; color: var(--text-2); line-height: 1.6; }
+        .method-list ul li::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; margin-right: 8px; position: relative; top: -2px; }
+        .method-list.pro ul li::before { background: var(--green); }
+        .method-list.con ul li::before { background: var(--red); }
+        .method-example { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; }
+        .method-example-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+        .method-example p { font-size: 0.8rem; color: var(--text-2); line-height: 1.55; }
+        .method-example .highlight { font-family: 'JetBrains Mono', monospace; color: var(--gold-light); font-size: 0.78rem; }
+        .method-footer { display: flex; align-items: center; justify-content: space-between; }
+        .method-link { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; color: var(--gold); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+        .method-link:hover { color: var(--gold-light); }
+
+        /* COMPARISON TABLE */
+        .compare-wrap { overflow-x: auto; }
+        .compare-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+        .compare-table thead th { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+        .compare-table tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-2); vertical-align: top; }
+        .compare-table tbody tr:hover td { background: var(--bg-raised); color: var(--text); }
+        .compare-table .method-col { font-weight: 500; color: var(--text); white-space: nowrap; font-family: 'Syne', sans-serif; font-size: 0.82rem; }
+        .compare-table .good { color: var(--green); }
+        .compare-table .ok { color: var(--gold); }
+        .compare-table .bad { color: var(--red); }
+
+        /* SURVEY TEMPLATES */
+        .templates-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .template-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 14px; padding: 24px; transition: border-color 0.2s; }
+        .template-card:hover { border-color: var(--border-hover); }
+        .template-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .template-icon { font-size: 1.3rem; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; flex-shrink: 0; }
+        .template-header h3 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; }
+        .template-header p { font-size: 0.75rem; color: var(--text-3); }
+        .template-questions { list-style: none; }
+        .template-questions li { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 8px; }
+        .template-q-num { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--gold); font-weight: 500; margin-bottom: 2px; }
+        .template-q-text { font-size: 0.85rem; color: var(--text); font-weight: 500; margin-bottom: 4px; }
+        .template-q-type { font-size: 0.72rem; color: var(--text-3); font-style: italic; }
+        .template-q-options { margin-top: 6px; display: flex; gap: 6px; flex-wrap: wrap; }
+        .template-q-opt { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-3); background: var(--bg-raised); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; }
+
+        /* FEEDBACK LOOP */
+        .loop-steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+        .loop-step { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; transition: border-color 0.2s; position: relative; }
+        .loop-step:hover { border-color: var(--border-hover); }
+        .loop-step-num { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500; color: var(--gold); background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
+        .loop-step h3 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; }
+        .loop-step p { font-size: 0.78rem; color: var(--text-2); line-height: 1.5; }
+        .loop-arrow { display: none; }
+        @media (min-width: 900px) {
+            .loop-arrow { display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--gold-dim); }
+        }
+
+        /* MISTAKES */
+        .mistakes-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+        .mistake { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; transition: border-color 0.2s; }
+        .mistake:hover { border-color: var(--border-hover); }
+        .mistake-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; color: var(--red); background: rgba(232,93,93,0.1); border: 1px solid rgba(232,93,93,0.2); border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .mistake-body h3 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+        .mistake-body p { font-size: 0.8rem; color: var(--text-2); line-height: 1.55; }
+        .mistake-fix { margin-top: 8px; font-size: 0.78rem; color: var(--green); }
+        .mistake-fix strong { font-weight: 600; }
+
+        /* BENCHMARKS */
+        .benchmarks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+        .bench-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 20px; transition: border-color 0.2s; }
+        .bench-card:hover { border-color: var(--border-hover); }
+        .bench-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .bench-value { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+        .bench-value span { color: var(--gold); }
+        .bench-context { font-size: 0.78rem; color: var(--text-2); }
+        .bench-bar { height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; margin-top: 10px; }
+        .bench-fill { height: 100%; border-radius: 3px; }
+
+        /* CTA */
+        .cta-section { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; margin: 48px 0; }
+        .cta-section h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+        .cta-section h2 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .cta-section p { color: var(--text-2); font-size: 0.9rem; max-width: 480px; margin: 0 auto 24px; }
+        .cta-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+        .cta-chip { display: inline-flex; align-items: center; gap: 6px; font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text-2); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; text-decoration: none; transition: all 0.2s; }
+        .cta-chip:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 48px 40px 32px; border-top: 1px solid var(--border); }
+        .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .footer-text { font-size: 0.75rem; color: var(--text-3); margin-top: 8px; }
+        .footer-text a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .footer-text a:hover { color: var(--gold); }
+
+        /* PRINT */
+        @media print {
+            nav, .grain, .hero-actions, .cta-section, footer, .method-link, .pk-reset, .btn-primary, .btn-secondary { display: none !important; }
+            body { background: #fff; color: #111; font-size: 10pt; }
+            .container { max-width: 100%; padding: 0 20px; }
+            .breadcrumb { display: none; }
+            .hero { padding: 10px 0; }
+            .hero h1 { font-size: 22pt; color: #111; }
+            .hero h1 em { color: #8b7430; }
+            .picker, .method-card, .template-card, .loop-step, .mistake, .bench-card { background: #fafafa; border-color: #ddd; break-inside: avoid; }
+            .pk-question, .method-how, .method-example, .template-questions li { background: #f5f5f5; border-color: #ddd; }
+            .method-how code { color: #8b7430; }
+            .compare-table thead th { border-bottom-color: #ccc; }
+            .compare-table tbody td { border-bottom-color: #eee; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .methods-grid { grid-template-columns: 1fr; }
+            .loop-steps { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-toggle { display: block; }
+            .breadcrumb { padding: 80px 20px 0; }
+            .container { padding: 0 20px; }
+            .hero h1 { font-size: 1.6rem; }
+            .picker { padding: 20px; }
+            .cta-section { padding: 28px 20px; }
+            .method-lists { grid-template-columns: 1fr; }
+            .pk-options { flex-direction: column; }
+            .benchmarks-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<svg class="grain" xmlns="http://www.w3.org/2000/svg"><filter id="g"><feTurbulence baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>
+
+<nav>
+    <a href="/" class="nav-logo">CADBORO LABS</a>
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/lead-magnets/saas-metrics-cheat-sheet/">Metrics Cheat Sheet</a></li>
+        <li><a href="/lead-magnets/saas-pricing-strategy-guide/">Pricing Guide</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <a href="/lead-magnets/">Resources</a><span class="sep">/</span>
+    Customer Feedback Playbook
+</div>
+
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+        <span class="hero-badge">Interactive Playbook &mdash; 2026 Edition</span>
+        <h1>The Customer Feedback <em>Playbook</em></h1>
+        <p>NPS vs CSAT vs CES &mdash; which survey to use when, how to write questions that get real answers, and how to close the feedback loop so insights actually ship.</p>
+        <div class="hero-actions">
+            <button class="btn-primary" onclick="window.print()">&#9662; Save as PDF</button>
+            <a href="/tools/nps-calculator/" class="btn-secondary">Open NPS Calculator &rarr;</a>
+        </div>
+        <p class="hero-meta">3 survey methods &middot; Interactive survey picker &middot; Ready-to-use templates &middot; Feedback loop framework</p>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 1: SURVEY TYPE PICKER -->
+    <!-- ============================================= -->
+    <div class="section" id="survey-picker">
+        <div class="section-header">
+            <span class="section-num">01</span>
+            <h2>Pick Your Survey Type</h2>
+        </div>
+
+        <div class="picker">
+            <div class="picker-intro">
+                <h3>Which feedback method should you use?</h3>
+                <p>Answer three questions. We'll recommend the right survey for your situation.</p>
+            </div>
+
+            <div class="pk-question active" id="sq1">
+                <div class="pk-q-label">Question 1 of 3</div>
+                <div class="pk-q-text">What do you want to measure?</div>
+                <div class="pk-options">
+                    <div class="pk-opt" onclick="sAnswer(1,'loyalty')">Overall loyalty &amp; likelihood to recommend</div>
+                    <div class="pk-opt" onclick="sAnswer(1,'satisfaction')">Satisfaction with a specific interaction or feature</div>
+                    <div class="pk-opt" onclick="sAnswer(1,'effort')">How easy or hard something was to do</div>
+                    <div class="pk-opt" onclick="sAnswer(1,'discovery')">Open-ended insights &mdash; what to build next</div>
+                </div>
+            </div>
+
+            <div class="pk-question" id="sq2" style="display:none">
+                <div class="pk-q-label">Question 2 of 3</div>
+                <div class="pk-q-text">When in the customer journey?</div>
+                <div class="pk-options">
+                    <div class="pk-opt" onclick="sAnswer(2,'onboarding')">During or right after onboarding</div>
+                    <div class="pk-opt" onclick="sAnswer(2,'ongoing')">Ongoing &mdash; regular pulse check</div>
+                    <div class="pk-opt" onclick="sAnswer(2,'post-interaction')">Right after a support ticket, purchase, or feature use</div>
+                    <div class="pk-opt" onclick="sAnswer(2,'churn')">At risk of churning or just cancelled</div>
+                </div>
+            </div>
+
+            <div class="pk-question" id="sq3" style="display:none">
+                <div class="pk-q-label">Question 3 of 3</div>
+                <div class="pk-q-text">What will you do with the results?</div>
+                <div class="pk-options">
+                    <div class="pk-opt" onclick="sAnswer(3,'benchmark')">Track a score over time &amp; benchmark against industry</div>
+                    <div class="pk-opt" onclick="sAnswer(3,'fix')">Identify and fix specific friction points</div>
+                    <div class="pk-opt" onclick="sAnswer(3,'roadmap')">Inform the product roadmap with customer voice</div>
+                    <div class="pk-opt" onclick="sAnswer(3,'segment')">Segment customers by satisfaction for targeted actions</div>
+                </div>
+            </div>
+
+            <div class="pk-result" id="pk-result">
+                <div class="pk-result-label">Recommended Survey</div>
+                <div class="pk-result-model" id="pk-survey-name"></div>
+                <div class="pk-result-why" id="pk-survey-why"></div>
+                <a href="/tools/nps-calculator/" id="pk-survey-link">Calculate your score &rarr;</a>
+                <br>
+                <button class="pk-reset" onclick="resetSurveyPicker()">Start over</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 2: THE THREE METHODS -->
+    <!-- ============================================= -->
+    <div class="section" id="methods">
+        <div class="section-header">
+            <span class="section-num">02</span>
+            <h2>NPS vs CSAT vs CES, Explained</h2>
+        </div>
+
+        <div class="methods-grid">
+
+            <!-- NPS -->
+            <div class="method-card" id="m-nps">
+                <div class="method-top">
+                    <div class="method-name">NPS</div>
+                    <span class="method-tag" style="color:var(--green);background:rgba(93,204,114,0.1)">Most Popular</span>
+                </div>
+                <div class="method-subtitle">Net Promoter Score &mdash; measures loyalty and advocacy</div>
+                <div class="method-how">
+                    <div class="method-how-label">The Question</div>
+                    <code>"How likely are you to recommend [product] to a colleague?"<br>Scale: 0&ndash;10</code>
+                </div>
+                <div class="method-how" style="margin-top:-6px">
+                    <div class="method-how-label">Formula</div>
+                    <code>NPS = % Promoters (9&ndash;10) &minus; % Detractors (0&ndash;6)<br>Range: &minus;100 to +100</code>
+                </div>
+                <div class="method-lists">
+                    <div class="method-list pro">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Industry-standard benchmark</li>
+                            <li>Predicts growth and retention</li>
+                            <li>Easy to track over time</li>
+                            <li>One question = high response rate</li>
+                        </ul>
+                    </div>
+                    <div class="method-list con">
+                        <h4>Limitations</h4>
+                        <ul>
+                            <li>Doesn't explain why</li>
+                            <li>Cultural bias in scoring</li>
+                            <li>Lagging indicator</li>
+                            <li>Gaming risk if tied to comp</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="method-example">
+                    <div class="method-example-label">When to send</div>
+                    <p>Quarterly relationship survey to all active users. <span class="highlight">Best timing: 30+ days after signup</span>, then every 90 days. Avoid sending after negative support interactions.</p>
+                </div>
+                <div class="method-footer">
+                    <a href="/tools/nps-calculator/" class="method-link">Calculate NPS &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CSAT -->
+            <div class="method-card" id="m-csat">
+                <div class="method-top">
+                    <div class="method-name">CSAT</div>
+                    <span class="method-tag" style="color:var(--blue);background:rgba(93,158,232,0.1)">Most Versatile</span>
+                </div>
+                <div class="method-subtitle">Customer Satisfaction Score &mdash; measures happiness with a specific thing</div>
+                <div class="method-how">
+                    <div class="method-how-label">The Question</div>
+                    <code>"How satisfied are you with [specific experience]?"<br>Scale: 1&ndash;5 stars, or Very Unsatisfied &rarr; Very Satisfied</code>
+                </div>
+                <div class="method-how" style="margin-top:-6px">
+                    <div class="method-how-label">Formula</div>
+                    <code>CSAT = (Satisfied responses / Total responses) &times; 100<br>"Satisfied" = top 2 boxes (4&ndash;5 on a 5-point scale)</code>
+                </div>
+                <div class="method-lists">
+                    <div class="method-list pro">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Granular &mdash; measure anything specific</li>
+                            <li>Intuitive for respondents</li>
+                            <li>Flexible scale and wording</li>
+                            <li>Great for A/B testing changes</li>
+                        </ul>
+                    </div>
+                    <div class="method-list con">
+                        <h4>Limitations</h4>
+                        <ul>
+                            <li>Point-in-time, not predictive</li>
+                            <li>Scale inconsistency across surveys</li>
+                            <li>Recency bias</li>
+                            <li>Doesn't predict retention</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="method-example">
+                    <div class="method-example-label">When to send</div>
+                    <p>Immediately after a specific interaction: <span class="highlight">post-onboarding, post-support ticket, after using a new feature</span>. Best within 24 hours of the experience.</p>
+                </div>
+                <div class="method-footer">
+                    <a href="/tools/nps-calculator/" class="method-link">Track satisfaction &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CES -->
+            <div class="method-card" id="m-ces">
+                <div class="method-top">
+                    <div class="method-name">CES</div>
+                    <span class="method-tag" style="color:var(--teal);background:rgba(93,204,201,0.1)">Best Churn Predictor</span>
+                </div>
+                <div class="method-subtitle">Customer Effort Score &mdash; measures friction and ease of use</div>
+                <div class="method-how">
+                    <div class="method-how-label">The Question</div>
+                    <code>"[Company] made it easy for me to [do X]."<br>Scale: 1&ndash;7 (Strongly Disagree &rarr; Strongly Agree)</code>
+                </div>
+                <div class="method-how" style="margin-top:-6px">
+                    <div class="method-how-label">Formula</div>
+                    <code>CES = Sum of all scores / Number of responses<br>Higher = easier (better). Target: 5.5+ on 7-point scale</code>
+                </div>
+                <div class="method-lists">
+                    <div class="method-list pro">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Strongest predictor of churn</li>
+                            <li>Directly actionable &mdash; reduce friction</li>
+                            <li>Identifies UX problems fast</li>
+                            <li>Less subjective than satisfaction</li>
+                        </ul>
+                    </div>
+                    <div class="method-list con">
+                        <h4>Limitations</h4>
+                        <ul>
+                            <li>Only measures effort, not delight</li>
+                            <li>Requires specific touchpoint triggers</li>
+                            <li>Less familiar to stakeholders</li>
+                            <li>Harder to benchmark externally</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="method-example">
+                    <div class="method-example-label">When to send</div>
+                    <p>After task completion: <span class="highlight">post-checkout, after setup wizard, after support resolution</span>. Triggers on the action, not on a schedule. Best for measuring process improvements.</p>
+                </div>
+                <div class="method-footer">
+                    <a href="/tools/nps-calculator/" class="method-link">Track effort scores &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 3: COMPARISON TABLE -->
+    <!-- ============================================= -->
+    <div class="section" id="comparison">
+        <div class="section-header">
+            <span class="section-num">03</span>
+            <h2>Side-by-Side Comparison</h2>
+        </div>
+        <div class="compare-wrap">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Measures</th>
+                        <th>Predicts Churn</th>
+                        <th>Benchmarkable</th>
+                        <th>Actionability</th>
+                        <th>Best Timing</th>
+                        <th>Response Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="method-col">NPS</td>
+                        <td>Loyalty &amp; advocacy</td>
+                        <td class="ok">Medium</td>
+                        <td class="good">High</td>
+                        <td class="ok">Medium</td>
+                        <td>Quarterly pulse</td>
+                        <td class="good">30&ndash;50%</td>
+                    </tr>
+                    <tr>
+                        <td class="method-col">CSAT</td>
+                        <td>Satisfaction with X</td>
+                        <td class="bad">Low</td>
+                        <td class="ok">Medium</td>
+                        <td class="good">High</td>
+                        <td>Post-interaction</td>
+                        <td class="good">30&ndash;40%</td>
+                    </tr>
+                    <tr>
+                        <td class="method-col">CES</td>
+                        <td>Effort &amp; friction</td>
+                        <td class="good">High</td>
+                        <td class="bad">Low</td>
+                        <td class="good">High</td>
+                        <td>Post-task</td>
+                        <td class="ok">20&ndash;35%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 4: SURVEY TEMPLATES -->
+    <!-- ============================================= -->
+    <div class="section" id="templates">
+        <div class="section-header">
+            <span class="section-num">04</span>
+            <h2>Ready-to-Use Survey Templates</h2>
+        </div>
+
+        <div class="templates-grid">
+
+            <!-- NPS Template -->
+            <div class="template-card">
+                <div class="template-header">
+                    <div class="template-icon">&#128200;</div>
+                    <div>
+                        <h3>NPS Relationship Survey</h3>
+                        <p>Quarterly &middot; All active users &middot; 3 questions &middot; ~60 seconds</p>
+                    </div>
+                </div>
+                <ul class="template-questions">
+                    <li>
+                        <div class="template-q-num">Q1 &mdash; Core NPS</div>
+                        <div class="template-q-text">How likely are you to recommend [Product] to a friend or colleague?</div>
+                        <div class="template-q-options">
+                            <span class="template-q-opt">0</span><span class="template-q-opt">1</span><span class="template-q-opt">2</span><span class="template-q-opt">3</span><span class="template-q-opt">4</span><span class="template-q-opt">5</span><span class="template-q-opt">6</span><span class="template-q-opt">7</span><span class="template-q-opt">8</span><span class="template-q-opt">9</span><span class="template-q-opt">10</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="template-q-num">Q2 &mdash; Follow-up (open)</div>
+                        <div class="template-q-text">What's the primary reason for your score?</div>
+                        <div class="template-q-type">Free text &mdash; this is where the real insights live</div>
+                    </li>
+                    <li>
+                        <div class="template-q-num">Q3 &mdash; Improvement (open)</div>
+                        <div class="template-q-text">What's one thing we could do to improve your experience?</div>
+                        <div class="template-q-type">Free text &mdash; optional, keep survey short</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- CSAT Template -->
+            <div class="template-card">
+                <div class="template-header">
+                    <div class="template-icon">&#11088;</div>
+                    <div>
+                        <h3>CSAT Post-Feature Survey</h3>
+                        <p>After feature use &middot; Active users of feature &middot; 3 questions &middot; ~45 seconds</p>
+                    </div>
+                </div>
+                <ul class="template-questions">
+                    <li>
+                        <div class="template-q-num">Q1 &mdash; Core CSAT</div>
+                        <div class="template-q-text">How satisfied are you with [Feature Name]?</div>
+                        <div class="template-q-options">
+                            <span class="template-q-opt">Very Unsatisfied</span><span class="template-q-opt">Unsatisfied</span><span class="template-q-opt">Neutral</span><span class="template-q-opt">Satisfied</span><span class="template-q-opt">Very Satisfied</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="template-q-num">Q2 &mdash; Expectation</div>
+                        <div class="template-q-text">Did [Feature] meet your expectations?</div>
+                        <div class="template-q-options">
+                            <span class="template-q-opt">Fell short</span><span class="template-q-opt">Met expectations</span><span class="template-q-opt">Exceeded</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="template-q-num">Q3 &mdash; Open feedback</div>
+                        <div class="template-q-text">What would make [Feature] more useful for you?</div>
+                        <div class="template-q-type">Free text &mdash; feeds directly into feature iteration</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- CES Template -->
+            <div class="template-card">
+                <div class="template-header">
+                    <div class="template-icon">&#9889;</div>
+                    <div>
+                        <h3>CES Post-Task Survey</h3>
+                        <p>After task completion &middot; Users who completed flow &middot; 2 questions &middot; ~30 seconds</p>
+                    </div>
+                </div>
+                <ul class="template-questions">
+                    <li>
+                        <div class="template-q-num">Q1 &mdash; Core CES</div>
+                        <div class="template-q-text">[Product] made it easy for me to [complete task].</div>
+                        <div class="template-q-options">
+                            <span class="template-q-opt">1 Strongly Disagree</span><span class="template-q-opt">2</span><span class="template-q-opt">3</span><span class="template-q-opt">4</span><span class="template-q-opt">5</span><span class="template-q-opt">6</span><span class="template-q-opt">7 Strongly Agree</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="template-q-num">Q2 &mdash; Friction point (conditional)</div>
+                        <div class="template-q-text">What made this harder than expected?</div>
+                        <div class="template-q-type">Show only if score is 1&ndash;4 &mdash; captures friction without annoying happy users</div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 5: THE FEEDBACK LOOP -->
+    <!-- ============================================= -->
+    <div class="section" id="feedback-loop">
+        <div class="section-header">
+            <span class="section-num">05</span>
+            <h2>The Feedback Loop Framework</h2>
+        </div>
+
+        <div class="loop-steps">
+            <div class="loop-step">
+                <div class="loop-step-num">1</div>
+                <h3>Collect</h3>
+                <p>Send the right survey at the right moment. In-app is 3x better than email. Keep it under 3 questions.</p>
+            </div>
+            <div class="loop-step">
+                <div class="loop-step-num">2</div>
+                <h3>Categorize</h3>
+                <p>Tag responses by theme: UX friction, missing features, bugs, pricing, support quality. Use consistent taxonomy.</p>
+            </div>
+            <div class="loop-step">
+                <div class="loop-step-num">3</div>
+                <h3>Analyze</h3>
+                <p>Find patterns, not anecdotes. What themes repeat across detractors? Which segments score lowest? Where did scores drop?</p>
+            </div>
+            <div class="loop-step">
+                <div class="loop-step-num">4</div>
+                <h3>Prioritize</h3>
+                <p>Feed insights into your prioritization framework. Use RICE scores weighted by feedback volume and revenue impact.</p>
+            </div>
+            <div class="loop-step">
+                <div class="loop-step-num">5</div>
+                <h3>Act</h3>
+                <p>Ship the fix or feature. Small, fast improvements build trust faster than big, slow ones.</p>
+            </div>
+            <div class="loop-step">
+                <div class="loop-step-num">6</div>
+                <h3>Close the Loop</h3>
+                <p>Tell customers what you did. "You asked, we built." This is the step 90% of companies skip &mdash; and it's the one that drives loyalty.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 6: BENCHMARKS -->
+    <!-- ============================================= -->
+    <div class="section" id="benchmarks">
+        <div class="section-header">
+            <span class="section-num">06</span>
+            <h2>Feedback Benchmarks</h2>
+        </div>
+
+        <div class="benchmarks-grid">
+            <div class="bench-card">
+                <div class="bench-label">Good NPS (B2B SaaS)</div>
+                <div class="bench-value"><span>30&ndash;50</span></div>
+                <div class="bench-context">Median B2B SaaS NPS is ~30. Best-in-class: 60+. Below 0 = urgent problem.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:50%;background:var(--green)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Good CSAT</div>
+                <div class="bench-value"><span>75&ndash;85%</span></div>
+                <div class="bench-context">Percent of top-2-box responses. Below 70% = feature or experience gap.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:65%;background:var(--blue)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Good CES</div>
+                <div class="bench-value"><span>5.5+</span> / 7</div>
+                <div class="bench-context">On a 7-point scale. Below 5.0 = high-friction experience likely causing churn.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:60%;background:var(--teal)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Survey Response Rate</div>
+                <div class="bench-value"><span>25&ndash;40%</span></div>
+                <div class="bench-context">In-app surveys: 30&ndash;50%. Email surveys: 10&ndash;20%. SMS: 15&ndash;25%.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:40%;background:var(--gold)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Ideal Survey Frequency</div>
+                <div class="bench-value"><span>Every 90</span> days</div>
+                <div class="bench-context">For NPS. CSAT/CES: trigger-based (after events). Never survey same user more than 1x/month.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:55%;background:var(--purple)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Open-Ended Response Rate</div>
+                <div class="bench-value"><span>40&ndash;60%</span></div>
+                <div class="bench-context">Of people who answer the score question. Lower? Your follow-up question is too vague.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:45%;background:var(--orange)"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 7: 7 FEEDBACK MISTAKES -->
+    <!-- ============================================= -->
+    <div class="section" id="mistakes">
+        <div class="section-header">
+            <span class="section-num">07</span>
+            <h2>7 Feedback Mistakes That Waste Everyone's Time</h2>
+        </div>
+
+        <div class="mistakes-grid">
+            <div class="mistake">
+                <div class="mistake-num">1</div>
+                <div class="mistake-body">
+                    <h3>Surveying but never acting</h3>
+                    <p>You send NPS every quarter, track the score in a dashboard, and... nothing happens. Customers notice. Response rates drop 15&ndash;20% each cycle when people feel ignored.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Every survey cycle must produce at least one visible action. "You told us X, so we built Y" emails drive 2x response rates on the next survey.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">2</div>
+                <div class="mistake-body">
+                    <h3>Asking too many questions</h3>
+                    <p>Your "quick survey" has 15 questions across 4 pages. Completion rates plummet after question 3. You get biased data from the most patient (or bored) users.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> 1&ndash;3 questions max. One score question + one open-ended follow-up is the sweet spot. Respect your users' time.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">3</div>
+                <div class="mistake-body">
+                    <h3>Wrong survey at the wrong time</h3>
+                    <p>You send NPS during onboarding (too early for loyalty), CES after a quarterly review (too late for effort), or CSAT to users who haven't used the feature yet.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Match the method to the moment. NPS = relationship (quarterly). CSAT = experience (post-interaction). CES = task (post-completion).</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">4</div>
+                <div class="mistake-body">
+                    <h3>Treating all feedback equally</h3>
+                    <p>One angry power user's feature request gets the same weight as feedback from 200 casual users. You build for the loudest voice, not the biggest opportunity.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Weight feedback by revenue, user segment, and frequency. 50 users reporting the same issue > 1 user writing a novel about it.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">5</div>
+                <div class="mistake-body">
+                    <h3>Only surveying happy customers</h3>
+                    <p>Your NPS is 70 because you only survey users who are active and engaged. Churned users and inactive accounts never get asked. You have a survivor bias problem.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Include churned and at-risk customers. Send exit surveys. The most valuable feedback comes from people who left.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">6</div>
+                <div class="mistake-body">
+                    <h3>Leading questions and biased scales</h3>
+                    <p>"How much do you love our amazing new feature?" isn't a survey question &mdash; it's a compliment fishing expedition. You get inflated scores that don't reflect reality.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Use neutral wording. "How satisfied are you with X?" not "How great is X?" Use validated scales (0&ndash;10 for NPS, 1&ndash;5 for CSAT, 1&ndash;7 for CES).</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">7</div>
+                <div class="mistake-body">
+                    <h3>No segmentation</h3>
+                    <p>Your overall NPS is 35. Great? Maybe. But enterprise customers are at 55 and SMB is at 10. The aggregate number hides the real story.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Segment by plan tier, company size, tenure, feature usage, and lifecycle stage. Aggregate scores are vanity metrics without segmentation.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>Measure what matters.<br>Then <em>act on it.</em></h2>
+        <p>Our free NPS Calculator lets you compute your score, see the distribution of Promoters, Passives, and Detractors, and benchmark against your industry.</p>
+        <a href="/tools/nps-calculator/" class="btn-primary" style="display:inline-flex;">Open NPS Calculator &rarr;</a>
+        <div class="cta-links">
+            <a href="/lead-magnets/saas-metrics-cheat-sheet/" class="cta-chip">SaaS Metrics Cheat Sheet &rarr;</a>
+            <a href="/lead-magnets/saas-pricing-strategy-guide/" class="cta-chip">Pricing Strategy Guide &rarr;</a>
+            <a href="/lead-magnets/feature-prioritization-playbook/" class="cta-chip">Prioritization Playbook &rarr;</a>
+            <a href="/lead-magnets/go-to-market-sizing-toolkit/" class="cta-chip">GTM Sizing Toolkit &rarr;</a>
+            <a href="/tools/rice-scorer/" class="cta-chip">RICE Scorer &rarr;</a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <a href="/" class="footer-logo">CADBORO LABS</a>
+    <p class="footer-text">Built in Victoria, BC &mdash; <a href="/tools/">Free PM Tools</a></p>
+</footer>
+
+<script>
+const sState = { q1: null, q2: null, q3: null };
+
+function sAnswer(q, val) {
+    sState['q' + q] = val;
+    const qEl = document.getElementById('sq' + q);
+    qEl.querySelectorAll('.pk-opt').forEach(o => o.classList.remove('selected'));
+    event.target.classList.add('selected');
+
+    if (q === 1) {
+        document.getElementById('sq2').style.display = 'block';
+        document.getElementById('sq2').classList.add('active');
+        qEl.classList.remove('active');
+        document.getElementById('sq2').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (q === 2) {
+        document.getElementById('sq3').style.display = 'block';
+        document.getElementById('sq3').classList.add('active');
+        qEl.classList.remove('active');
+        document.getElementById('sq3').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (q === 3) {
+        qEl.classList.remove('active');
+        showSurveyResult();
+    }
+}
+
+function showSurveyResult() {
+    const { q1, q2, q3 } = sState;
+    let survey, why, link;
+
+    if (q1 === 'effort') {
+        survey = 'CES (Customer Effort Score)';
+        why = 'You want to measure how easy something is. CES is the strongest predictor of churn and directly identifies friction points to fix.';
+        link = '/tools/nps-calculator/';
+    } else if (q1 === 'discovery') {
+        if (q2 === 'churn') {
+            survey = 'Exit Survey (open-ended)';
+            why = 'For churning customers, skip the scores. Ask 2 open questions: "Why are you leaving?" and "What could we have done differently?" The qualitative data is more valuable than any metric.';
+            link = '/tools/nps-calculator/';
+        } else {
+            survey = 'NPS + Open Follow-up';
+            why = 'Start with the NPS score to segment users, then use the open-ended follow-up to mine for roadmap insights. Promoters tell you what to double down on; detractors tell you what to fix.';
+            link = '/tools/nps-calculator/';
+        }
+    } else if (q1 === 'loyalty' && q3 === 'benchmark') {
+        survey = 'NPS (Net Promoter Score)';
+        why = 'NPS is the industry standard for loyalty measurement and benchmarking. Send quarterly, track the trend, and segment by customer cohort for the real story.';
+        link = '/tools/nps-calculator/';
+    } else if (q1 === 'loyalty' && q3 === 'segment') {
+        survey = 'NPS with Segmentation';
+        why = 'NPS naturally creates 3 segments (Promoters, Passives, Detractors) that you can target with different actions. Layer on plan tier and usage data for powerful cohort analysis.';
+        link = '/tools/nps-calculator/';
+    } else if (q1 === 'loyalty') {
+        survey = 'NPS (Net Promoter Score)';
+        why = 'For measuring overall loyalty and advocacy, NPS is the gold standard. One question, industry-benchmarkable, and predictive of organic growth.';
+        link = '/tools/nps-calculator/';
+    } else if (q1 === 'satisfaction' && q2 === 'post-interaction') {
+        survey = 'CSAT (Customer Satisfaction)';
+        why = 'CSAT is perfect for measuring satisfaction with specific interactions. Send within 24 hours of the experience for the most accurate, actionable data.';
+        link = '/tools/nps-calculator/';
+    } else if (q1 === 'satisfaction' && q3 === 'fix') {
+        survey = 'CES + CSAT Combo';
+        why = 'Pair a CES question ("Was this easy?") with a CSAT question ("Were you satisfied?") to identify both friction AND dissatisfaction. Two questions, maximum signal.';
+        link = '/tools/nps-calculator/';
+    } else if (q1 === 'satisfaction' && q2 === 'onboarding') {
+        survey = 'CSAT Post-Onboarding';
+        why = 'Onboarding satisfaction predicts activation and early churn. Ask "How satisfied are you with the setup experience?" within 1 day of completing onboarding.';
+        link = '/tools/nps-calculator/';
+    } else if (q1 === 'satisfaction') {
+        survey = 'CSAT (Customer Satisfaction)';
+        why = 'CSAT is the most versatile satisfaction metric. Customize the question for any specific experience, feature, or interaction you want to measure.';
+        link = '/tools/nps-calculator/';
+    } else if (q2 === 'churn') {
+        survey = 'Exit Survey + CES';
+        why = 'For at-risk or churned customers, combine an effort score (was it too hard?) with open-ended questions about why they\'re leaving. This data is gold for retention.';
+        link = '/tools/nps-calculator/';
+    } else {
+        survey = 'NPS (Net Promoter Score)';
+        why = 'When in doubt, start with NPS. It\'s the most widely understood metric, easy to benchmark, and the open-ended follow-up gives you qualitative insights for free.';
+        link = '/tools/nps-calculator/';
+    }
+
+    const resultEl = document.getElementById('pk-result');
+    document.getElementById('pk-survey-name').textContent = survey;
+    document.getElementById('pk-survey-why').textContent = why;
+    document.getElementById('pk-survey-link').href = link;
+    resultEl.classList.add('show');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetSurveyPicker() {
+    sState.q1 = sState.q2 = sState.q3 = null;
+    document.querySelectorAll('.pk-opt').forEach(o => o.classList.remove('selected'));
+    document.getElementById('sq2').style.display = 'none';
+    document.getElementById('sq3').style.display = 'none';
+    document.getElementById('pk-result').classList.remove('show');
+    document.getElementById('sq1').classList.add('active');
+    document.getElementById('sq2').classList.remove('active');
+    document.getElementById('sq3').classList.remove('active');
+    document.getElementById('sq1').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+
+</body>
+</html>
