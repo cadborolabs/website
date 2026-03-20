@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Go-to-Market Sizing Toolkit for Product Managers | Cadboro Labs</title>
+    <meta name="description" content="Size your market, define your ICP, pick your GTM motion, and plan your launch. Interactive tools, frameworks, and checklists for SaaS PMs going to market.">
+    <meta name="keywords" content="go-to-market strategy, SaaS GTM plan, TAM SAM SOM guide, market sizing framework, ideal customer profile template, product launch checklist, PLG vs sales-led, SaaS launch playbook 2026">
+    <meta property="og:title" content="The Go-to-Market Sizing Toolkit — Cadboro Labs">
+    <meta property="og:description" content="Market sizing framework, ICP builder, GTM motion picker, and launch checklist. Everything a PM needs to go to market.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cadborolabs.com/lead-magnets/go-to-market-sizing-toolkit/">
+    <link rel="canonical" href="https://cadborolabs.com/lead-magnets/go-to-market-sizing-toolkit/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #09090b; --bg-raised: #111113; --bg-card: #16161a;
+            --border: #222228; --border-hover: #38383f;
+            --gold: #c9a84c; --gold-light: #e6d59c; --gold-dim: #6b5a2a;
+            --text: #eeeeed; --text-2: #8b8b96; --text-3: #55555e;
+            --red: #e85d5d; --green: #5dcc72; --blue: #5d9ee8;
+            --purple: #a87de8; --orange: #e8a85d; --teal: #5dccc9;
+            --gold-glow: rgba(201,168,76,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        ::selection { background: var(--gold); color: var(--bg); }
+
+        .grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.03; z-index: 9999; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: rgba(9,9,11,0.85); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; }
+
+        .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 88px 40px 0; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+        .breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        /* HERO */
+        .hero { text-align: center; padding: 40px 0 20px; }
+        .hero-badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 100px; padding: 6px 16px; margin-bottom: 20px; }
+        .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; margin-bottom: 16px; }
+        .hero h1 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .hero p { font-size: 1.05rem; color: var(--text-2); max-width: 600px; margin: 0 auto 28px; line-height: 1.65; }
+        .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bg); background: var(--gold); border: none; border-radius: 8px; padding: 14px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .btn-secondary { display: inline-flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-2); background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 14px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-secondary:hover { border-color: var(--gold-dim); color: var(--gold); }
+        .hero-meta { font-size: 0.78rem; color: var(--text-3); margin-top: 8px; }
+
+        /* SECTION HEADERS */
+        .section { margin-bottom: 48px; }
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .section-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500; color: var(--gold); background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 6px; padding: 4px 10px; letter-spacing: 0.05em; }
+        .section-header h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+
+        /* GTM MOTION PICKER (Interactive) */
+        .picker { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 12px; }
+        .picker-intro { text-align: center; margin-bottom: 28px; }
+        .picker-intro h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+        .picker-intro p { font-size: 0.85rem; color: var(--text-2); }
+
+        .gq { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; transition: border-color 0.2s; }
+        .gq.active { border-color: var(--gold-dim); }
+        .gq-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+        .gq-text { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 14px; }
+        .gq-options { display: flex; gap: 10px; flex-wrap: wrap; }
+        .gq-opt { font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500; color: var(--text-2); background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; padding: 10px 18px; cursor: pointer; transition: all 0.2s; user-select: none; }
+        .gq-opt:hover { border-color: var(--border-hover); color: var(--text); }
+        .gq-opt.selected { border-color: var(--gold); color: var(--gold); background: var(--gold-glow); }
+
+        .gq-result { display: none; background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 12px; padding: 24px; text-align: center; margin-top: 8px; }
+        .gq-result.show { display: block; animation: fadeIn 0.3s ease; }
+        .gq-result-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+        .gq-result-model { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+        .gq-result-why { font-size: 0.85rem; color: var(--text-2); margin-bottom: 16px; max-width: 540px; margin-left: auto; margin-right: auto; }
+        .gq-result a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: color 0.2s; }
+        .gq-result a:hover { color: var(--gold-light); }
+        .gq-reset { font-family: 'Outfit', sans-serif; font-size: 0.78rem; color: var(--text-3); background: none; border: none; cursor: pointer; margin-top: 12px; text-decoration: underline; transition: color 0.2s; }
+        .gq-reset:hover { color: var(--text-2); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* MARKET SIZING FRAMEWORK */
+        .funnel-wrap { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 16px; }
+        .funnel-wrap h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+        .funnel-wrap > p { font-size: 0.85rem; color: var(--text-2); margin-bottom: 20px; }
+        .funnel-steps { display: flex; flex-direction: column; gap: 0; }
+        .funnel-step { display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: start; position: relative; }
+        .funnel-step + .funnel-step { margin-top: 0; }
+        .funnel-bar { text-align: center; padding: 18px 0; position: relative; }
+        .funnel-bar-inner { height: 100%; border-radius: 8px; padding: 14px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .funnel-bar-label { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.04em; }
+        .funnel-bar-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 500; margin-top: 2px; opacity: 0.8; }
+        .funnel-content { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+        .funnel-content h4 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; }
+        .funnel-content p { font-size: 0.8rem; color: var(--text-2); line-height: 1.55; margin-bottom: 10px; }
+        .funnel-content .formula { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; }
+        .funnel-content .formula-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .funnel-content .formula code { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--gold-light); line-height: 1.5; }
+        .funnel-content .example { font-size: 0.78rem; color: var(--text-3); font-style: italic; }
+
+        /* ICP BUILDER */
+        .icp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+        .icp-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 22px; transition: border-color 0.2s; }
+        .icp-card:hover { border-color: var(--border-hover); }
+        .icp-icon { font-size: 1.3rem; margin-bottom: 10px; }
+        .icp-card h3 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 8px; }
+        .icp-card p { font-size: 0.78rem; color: var(--text-2); margin-bottom: 10px; line-height: 1.55; }
+        .icp-prompts { list-style: none; }
+        .icp-prompts li { font-size: 0.78rem; color: var(--text-2); padding: 4px 0; padding-left: 16px; position: relative; }
+        .icp-prompts li::before { content: '?'; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500; color: var(--gold); position: absolute; left: 0; top: 5px; }
+
+        .icp-example { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-top: 16px; }
+        .icp-example h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+        .icp-example > p { font-size: 0.85rem; color: var(--text-2); margin-bottom: 16px; }
+        .icp-example-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+        .icp-ex-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+        .icp-ex-label { font-family: 'Syne', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+        .icp-ex-value { font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+
+        /* GTM MOTIONS */
+        .motions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+        .motion-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 14px; padding: 24px; transition: border-color 0.2s, transform 0.2s; }
+        .motion-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+        .motion-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; }
+        .motion-name { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; }
+        .motion-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+        .motion-subtitle { font-size: 0.78rem; color: var(--text-3); font-style: italic; margin-bottom: 12px; }
+
+        .motion-how { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; }
+        .motion-how-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .motion-how code { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--gold-light); line-height: 1.5; }
+
+        .motion-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+        .motion-metric { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; text-align: center; }
+        .motion-metric-val { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; }
+        .motion-metric-label { font-size: 0.65rem; color: var(--text-3); font-family: 'Syne', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+
+        .motion-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+        .motion-list h4 { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+        .motion-list.fit h4 { color: var(--green); }
+        .motion-list.avoid h4 { color: var(--red); }
+        .motion-list ul { list-style: none; font-size: 0.78rem; color: var(--text-2); line-height: 1.6; }
+        .motion-list ul li::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; margin-right: 8px; position: relative; top: -2px; }
+        .motion-list.fit ul li::before { background: var(--green); }
+        .motion-list.avoid ul li::before { background: var(--red); }
+
+        .motion-footer { display: flex; align-items: center; justify-content: space-between; }
+        .motion-acv { display: flex; align-items: center; gap: 6px; }
+        .motion-acv-label { font-size: 0.68rem; color: var(--text-3); font-family: 'Syne', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+        .motion-link { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; color: var(--gold); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+        .motion-link:hover { color: var(--gold-light); }
+
+        /* COMPARISON TABLE */
+        .compare-wrap { overflow-x: auto; }
+        .compare-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+        .compare-table thead th { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+        .compare-table tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-2); vertical-align: top; }
+        .compare-table tbody tr:hover td { background: var(--bg-raised); color: var(--text); }
+        .compare-table .col-name { font-weight: 500; color: var(--text); white-space: nowrap; font-family: 'Syne', sans-serif; font-size: 0.82rem; }
+        .compare-table .good { color: var(--green); }
+        .compare-table .ok { color: var(--gold); }
+        .compare-table .bad { color: var(--red); }
+
+        /* LAUNCH CHECKLIST */
+        .launch-phases { display: flex; flex-direction: column; gap: 16px; }
+        .launch-phase { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+        .launch-phase-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .launch-phase-num { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 6px; }
+        .launch-phase-header h3 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; }
+        .launch-phase-header .timeline { font-size: 0.72rem; color: var(--text-3); margin-left: auto; font-family: 'JetBrains Mono', monospace; }
+        .checklist { list-style: none; }
+        .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; font-size: 0.82rem; color: var(--text-2); border-bottom: 1px solid rgba(34,34,40,0.5); }
+        .checklist li:last-child { border-bottom: none; }
+        .check-box { width: 18px; height: 18px; border: 1.5px solid var(--border); border-radius: 4px; flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 0.65rem; }
+        .check-box:hover { border-color: var(--gold-dim); }
+        .check-box.checked { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+        .checklist li.done { color: var(--text-3); text-decoration: line-through; }
+        .launch-progress { margin-top: 20px; }
+        .launch-progress-bar { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; }
+        .launch-progress-fill { height: 100%; background: var(--gold); border-radius: 4px; transition: width 0.3s ease; }
+        .launch-progress-text { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-3); margin-top: 6px; text-align: right; }
+
+        /* MISTAKES */
+        .mistakes-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+        .mistake { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; transition: border-color 0.2s; }
+        .mistake:hover { border-color: var(--border-hover); }
+        .mistake-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; color: var(--red); background: rgba(232,93,93,0.1); border: 1px solid rgba(232,93,93,0.2); border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .mistake-body h3 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+        .mistake-body p { font-size: 0.8rem; color: var(--text-2); line-height: 1.55; }
+        .mistake-fix { margin-top: 8px; font-size: 0.78rem; color: var(--green); }
+        .mistake-fix strong { font-weight: 600; }
+
+        /* CTA */
+        .cta-section { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; margin: 48px 0; }
+        .cta-section h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+        .cta-section h2 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .cta-section p { color: var(--text-2); font-size: 0.9rem; max-width: 480px; margin: 0 auto 24px; }
+        .cta-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+        .cta-chip { display: inline-flex; align-items: center; gap: 6px; font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text-2); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; text-decoration: none; transition: all 0.2s; }
+        .cta-chip:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 48px 40px 32px; border-top: 1px solid var(--border); }
+        .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .footer-text { font-size: 0.75rem; color: var(--text-3); margin-top: 8px; }
+        .footer-text a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .footer-text a:hover { color: var(--gold); }
+
+        /* PRINT */
+        @media print {
+            nav, .grain, .hero-actions, .cta-section, footer, .motion-link, .gq-reset, .btn-primary, .btn-secondary, .check-box { display: none !important; }
+            body { background: #fff; color: #111; font-size: 10pt; }
+            .container { max-width: 100%; padding: 0 20px; }
+            .breadcrumb { display: none; }
+            .hero { padding: 10px 0; }
+            .hero h1 { font-size: 22pt; color: #111; }
+            .hero h1 em { color: #8b7430; }
+            .picker, .motion-card, .funnel-wrap, .icp-card, .icp-example, .launch-phase, .mistake { background: #fafafa; border-color: #ddd; break-inside: avoid; }
+            .gq, .motion-how, .funnel-content, .icp-ex-item, .motion-metric { background: #f5f5f5; border-color: #ddd; }
+            .motion-how code, .funnel-content .formula code { color: #8b7430; }
+            .compare-table thead th { border-bottom-color: #ccc; }
+            .compare-table tbody td { border-bottom-color: #eee; }
+            .launch-progress { display: none; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .motions-grid { grid-template-columns: 1fr; }
+            .icp-grid { grid-template-columns: 1fr; }
+            .funnel-step { grid-template-columns: 1fr; }
+            .funnel-bar { display: none; }
+            .icp-example-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-toggle { display: block; }
+            .breadcrumb { padding: 80px 20px 0; }
+            .container { padding: 0 20px; }
+            .hero h1 { font-size: 1.6rem; }
+            .picker { padding: 20px; }
+            .cta-section { padding: 28px 20px; }
+            .motion-lists { grid-template-columns: 1fr; }
+            .motion-metrics { grid-template-columns: 1fr; }
+            .gq-options { flex-direction: column; }
+            .launch-phase-header { flex-wrap: wrap; }
+            .launch-phase-header .timeline { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<svg class="grain" xmlns="http://www.w3.org/2000/svg"><filter id="g"><feTurbulence baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>
+
+<nav>
+    <a href="/" class="nav-logo">CADBORO LABS</a>
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/lead-magnets/saas-metrics-cheat-sheet/">Metrics Cheat Sheet</a></li>
+        <li><a href="/lead-magnets/saas-pricing-strategy-guide/">Pricing Guide</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <a href="/lead-magnets/">Resources</a><span class="sep">/</span>
+    Go-to-Market Sizing Toolkit
+</div>
+
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+        <span class="hero-badge">Interactive Toolkit &mdash; 2026 Edition</span>
+        <h1>The Go-to-Market <em>Sizing Toolkit</em></h1>
+        <p>Size your market, define your ICP, pick your GTM motion, and plan your launch. Frameworks, benchmarks, and an interactive checklist for SaaS PMs.</p>
+        <div class="hero-actions">
+            <button class="btn-primary" onclick="window.print()">&#9662; Save as PDF</button>
+            <a href="/tools/tam-calculator/" class="btn-secondary">Open TAM Calculator &rarr;</a>
+        </div>
+        <p class="hero-meta">Market sizing framework &middot; ICP builder &middot; GTM motion picker &middot; Launch checklist &middot; 6 common mistakes</p>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 1: GTM MOTION PICKER -->
+    <!-- ============================================= -->
+    <div class="section" id="gtm-picker">
+        <div class="section-header">
+            <span class="section-num">01</span>
+            <h2>Pick Your GTM Motion</h2>
+        </div>
+
+        <div class="picker">
+            <div class="picker-intro">
+                <h3>Which go-to-market motion fits your product?</h3>
+                <p>Answer four questions. We'll recommend the best approach.</p>
+            </div>
+
+            <div class="gq active" id="gq1">
+                <div class="gq-label">Question 1 of 4</div>
+                <div class="gq-text">What's your average deal size?</div>
+                <div class="gq-options">
+                    <div class="gq-opt" onclick="gAnswer(1,'low')">Under $1K ACV &mdash; high volume, low touch</div>
+                    <div class="gq-opt" onclick="gAnswer(1,'mid')">$1K&ndash;$25K ACV &mdash; mid-market</div>
+                    <div class="gq-opt" onclick="gAnswer(1,'high')">$25K+ ACV &mdash; enterprise deals</div>
+                </div>
+            </div>
+
+            <div class="gq" id="gq2" style="display:none">
+                <div class="gq-label">Question 2 of 4</div>
+                <div class="gq-text">Can users experience value without talking to a human?</div>
+                <div class="gq-options">
+                    <div class="gq-opt" onclick="gAnswer(2,'yes')">Yes &mdash; self-serve signup to "aha moment" in minutes</div>
+                    <div class="gq-opt" onclick="gAnswer(2,'some')">Partially &mdash; they need some setup or onboarding</div>
+                    <div class="gq-opt" onclick="gAnswer(2,'no')">No &mdash; complex setup, integration, or configuration required</div>
+                </div>
+            </div>
+
+            <div class="gq" id="gq3" style="display:none">
+                <div class="gq-label">Question 3 of 4</div>
+                <div class="gq-text">Who is the buyer?</div>
+                <div class="gq-options">
+                    <div class="gq-opt" onclick="gAnswer(3,'user')">The end user &mdash; individual contributor or small team lead</div>
+                    <div class="gq-opt" onclick="gAnswer(3,'manager')">A manager or director &mdash; budget holder for their team</div>
+                    <div class="gq-opt" onclick="gAnswer(3,'exec')">VP / C-suite &mdash; requires procurement and legal review</div>
+                </div>
+            </div>
+
+            <div class="gq" id="gq4" style="display:none">
+                <div class="gq-label">Question 4 of 4</div>
+                <div class="gq-text">What's your current team size?</div>
+                <div class="gq-options">
+                    <div class="gq-opt" onclick="gAnswer(4,'tiny')">1&ndash;5 people &mdash; founders and early team</div>
+                    <div class="gq-opt" onclick="gAnswer(4,'small')">6&ndash;30 people &mdash; some specialization</div>
+                    <div class="gq-opt" onclick="gAnswer(4,'big')">30+ people &mdash; dedicated sales, marketing, CS teams</div>
+                </div>
+            </div>
+
+            <div class="gq-result" id="gq-result">
+                <div class="gq-result-label">Recommended GTM Motion</div>
+                <div class="gq-result-model" id="gq-motion-name"></div>
+                <div class="gq-result-why" id="gq-motion-why"></div>
+                <a href="/tools/tam-calculator/" id="gq-motion-link">Size your market &rarr;</a>
+                <br>
+                <button class="gq-reset" onclick="resetGtm()">Start over</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 2: MARKET SIZING FRAMEWORK -->
+    <!-- ============================================= -->
+    <div class="section" id="market-sizing">
+        <div class="section-header">
+            <span class="section-num">02</span>
+            <h2>Market Sizing Framework</h2>
+        </div>
+
+        <div class="funnel-wrap">
+            <h3>The TAM &rarr; SAM &rarr; SOM funnel</h3>
+            <p>Start broad, then narrow down to the market you can actually capture. Each layer applies real constraints.</p>
+
+            <div class="funnel-steps">
+                <div class="funnel-step">
+                    <div class="funnel-bar">
+                        <div class="funnel-bar-inner" style="background:rgba(93,158,232,0.15);border:1px solid rgba(93,158,232,0.3);border-radius:10px;">
+                            <div class="funnel-bar-label" style="color:var(--blue)">TAM</div>
+                            <div class="funnel-bar-sub" style="color:var(--blue)">Total</div>
+                        </div>
+                    </div>
+                    <div class="funnel-content">
+                        <h4>Total Addressable Market</h4>
+                        <p>The total revenue opportunity if you had 100% market share with zero constraints. This is the ceiling &mdash; useful for investor conversations but not for planning.</p>
+                        <div class="formula">
+                            <div class="formula-label">Top-Down Formula</div>
+                            <code>TAM = Total customers in category &times; Average annual spend</code>
+                        </div>
+                        <div class="formula">
+                            <div class="formula-label">Bottom-Up Formula</div>
+                            <code>TAM = (Your price &times; Potential customers worldwide) &times; Usage frequency</code>
+                        </div>
+                        <p class="example">Example: 500K SaaS companies worldwide &times; $5K avg annual spend on analytics = $2.5B TAM</p>
+                    </div>
+                </div>
+
+                <div class="funnel-step">
+                    <div class="funnel-bar">
+                        <div class="funnel-bar-inner" style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);border-radius:10px;">
+                            <div class="funnel-bar-label" style="color:var(--gold)">SAM</div>
+                            <div class="funnel-bar-sub" style="color:var(--gold)">Serviceable</div>
+                        </div>
+                    </div>
+                    <div class="funnel-content">
+                        <h4>Serviceable Addressable Market</h4>
+                        <p>The portion of TAM your product can actually serve, given your features, geography, language, and segment focus. This is your realistic playing field.</p>
+                        <div class="formula">
+                            <div class="formula-label">Formula</div>
+                            <code>SAM = TAM &times; Segment filter (geo, size, vertical, language)</code>
+                        </div>
+                        <p class="example">Example: 50K B2B SaaS companies in North America with 10&ndash;200 employees &times; $5K = $250M SAM</p>
+                    </div>
+                </div>
+
+                <div class="funnel-step">
+                    <div class="funnel-bar">
+                        <div class="funnel-bar-inner" style="background:rgba(93,204,114,0.15);border:1px solid rgba(93,204,114,0.3);border-radius:10px;">
+                            <div class="funnel-bar-label" style="color:var(--green)">SOM</div>
+                            <div class="funnel-bar-sub" style="color:var(--green)">Obtainable</div>
+                        </div>
+                    </div>
+                    <div class="funnel-content">
+                        <h4>Serviceable Obtainable Market</h4>
+                        <p>The realistic share you can capture in the next 1&ndash;3 years given your team, budget, brand awareness, and distribution. This is your actual planning number.</p>
+                        <div class="formula">
+                            <div class="formula-label">Formula</div>
+                            <code>SOM = SAM &times; Realistic capture rate (typically 1&ndash;5% in Year 1)</code>
+                        </div>
+                        <p class="example">Example: $250M SAM &times; 2% capture = $5M SOM (Year 1 revenue target)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="funnel-wrap">
+            <h3>Bottom-up vs. top-down: use both</h3>
+            <p>The best market sizing uses both methods and triangulates. If they're wildly different, your assumptions need work.</p>
+            <div class="compare-wrap">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Approach</th>
+                            <th>Strengths</th>
+                            <th>Weaknesses</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-name">Top-Down</td>
+                            <td>Start with industry reports, % of total market</td>
+                            <td class="good">Quick, uses published data</td>
+                            <td class="bad">Often inflated, misses nuance</td>
+                            <td>Investor decks, directional sizing</td>
+                        </tr>
+                        <tr>
+                            <td class="col-name">Bottom-Up</td>
+                            <td>Count customers &times; price &times; usage</td>
+                            <td class="good">Grounded in reality, defensible</td>
+                            <td class="bad">Slower, requires customer data</td>
+                            <td>Operational planning, pricing</td>
+                        </tr>
+                        <tr>
+                            <td class="col-name">Value-Theory</td>
+                            <td>Estimate value delivered &times; willingness to pay</td>
+                            <td class="good">Captures new-market potential</td>
+                            <td class="bad">Most speculative, hardest to validate</td>
+                            <td>New categories, disruptive products</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 3: ICP BUILDER -->
+    <!-- ============================================= -->
+    <div class="section" id="icp-builder">
+        <div class="section-header">
+            <span class="section-num">03</span>
+            <h2>ICP Builder</h2>
+        </div>
+
+        <div class="icp-grid">
+            <div class="icp-card">
+                <div class="icp-icon">&#127970;</div>
+                <h3>Company Profile</h3>
+                <p>Define the firmographic attributes of your ideal customer company.</p>
+                <ul class="icp-prompts">
+                    <li>What industry or vertical are they in?</li>
+                    <li>How many employees? (1&ndash;10, 11&ndash;50, 51&ndash;200, 201&ndash;1000, 1000+)</li>
+                    <li>What's their annual revenue range?</li>
+                    <li>What stage are they? (Pre-seed to Public)</li>
+                    <li>What geography? (Region, country, city)</li>
+                </ul>
+            </div>
+
+            <div class="icp-card">
+                <div class="icp-icon">&#128100;</div>
+                <h3>Buyer Persona</h3>
+                <p>Define the individual who champions and/or signs off on purchase.</p>
+                <ul class="icp-prompts">
+                    <li>What's their title / role?</li>
+                    <li>Who do they report to?</li>
+                    <li>What KPIs are they measured on?</li>
+                    <li>What tools do they currently use?</li>
+                    <li>Where do they spend time online?</li>
+                </ul>
+            </div>
+
+            <div class="icp-card">
+                <div class="icp-icon">&#128293;</div>
+                <h3>Pain Points</h3>
+                <p>Identify the specific problems that make them a great fit.</p>
+                <ul class="icp-prompts">
+                    <li>What problem are they trying to solve?</li>
+                    <li>What's the cost of not solving it? ($ or time)</li>
+                    <li>What have they tried before?</li>
+                    <li>What triggers the search for a solution?</li>
+                    <li>How urgent is the problem? (Hair-on-fire or nice-to-have)</li>
+                </ul>
+            </div>
+
+            <div class="icp-card">
+                <div class="icp-icon">&#9989;</div>
+                <h3>Qualification Criteria</h3>
+                <p>The signals that tell you this account is worth pursuing.</p>
+                <ul class="icp-prompts">
+                    <li>What tech stack signals fit? (Uses X, has Y integration)</li>
+                    <li>What budget authority signals? (Has dedicated team, line item)</li>
+                    <li>What behavioral signals? (Visited pricing, signed up for trial)</li>
+                    <li>What disqualifies? (Too small, wrong vertical, competitor locked)</li>
+                    <li>What's the minimum ACV to be worth a sales touch?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="icp-example">
+            <h3>Example ICP: B2B Analytics SaaS</h3>
+            <p>Here's what a filled-out ICP looks like for a product analytics tool targeting mid-market SaaS.</p>
+            <div class="icp-example-grid">
+                <div class="icp-ex-item">
+                    <div class="icp-ex-label">Company</div>
+                    <div class="icp-ex-value">B2B SaaS, 50&ndash;500 employees, Series A&ndash;C, $5M&ndash;$100M ARR, North America + Europe</div>
+                </div>
+                <div class="icp-ex-item">
+                    <div class="icp-ex-label">Buyer</div>
+                    <div class="icp-ex-value">VP Product or Head of Product Analytics, reports to CPO, measured on activation rate and feature adoption</div>
+                </div>
+                <div class="icp-ex-item">
+                    <div class="icp-ex-label">Pain Points</div>
+                    <div class="icp-ex-value">Can't tie feature launches to business outcomes. Currently using SQL queries + spreadsheets. Triggered by board asking for product metrics.</div>
+                </div>
+                <div class="icp-ex-item">
+                    <div class="icp-ex-label">Qualification</div>
+                    <div class="icp-ex-value">Uses Segment or Mixpanel (integration ready). Has 3+ PMs. Visited pricing page &ge;2 times. Disqualify: &lt;1K MAU (too small).</div>
+                </div>
+                <div class="icp-ex-item">
+                    <div class="icp-ex-label">TAM Slice</div>
+                    <div class="icp-ex-value">~12K companies match this profile globally. At $15K ACV = $180M SAM.</div>
+                </div>
+                <div class="icp-ex-item">
+                    <div class="icp-ex-label">Channels</div>
+                    <div class="icp-ex-value">LinkedIn (Product Analytics groups), Lenny's Newsletter, ProductBoard community, Product School events</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 4: GTM MOTIONS DEEP DIVE -->
+    <!-- ============================================= -->
+    <div class="section" id="gtm-motions">
+        <div class="section-header">
+            <span class="section-num">04</span>
+            <h2>Three GTM Motions, Explained</h2>
+        </div>
+
+        <div class="motions-grid">
+
+            <!-- PLG -->
+            <div class="motion-card" id="m-plg">
+                <div class="motion-top">
+                    <div class="motion-name">Product-Led Growth</div>
+                    <span class="motion-tag" style="color:var(--green);background:rgba(93,204,114,0.1)">Lowest CAC</span>
+                </div>
+                <div class="motion-subtitle">The product is the primary driver of acquisition, activation, and expansion</div>
+                <div class="motion-how">
+                    <div class="motion-how-label">The Loop</div>
+                    <code>Free signup &rarr; Aha moment &rarr; Habit &rarr; Invite team &rarr; Hit limit &rarr; Upgrade &rarr; Expand</code>
+                </div>
+                <div class="motion-metrics">
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--green)">$0&ndash;$5K</div>
+                        <div class="motion-metric-label">Typical ACV</div>
+                    </div>
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--green)">&lt;$500</div>
+                        <div class="motion-metric-label">Target CAC</div>
+                    </div>
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--blue)">2&ndash;5%</div>
+                        <div class="motion-metric-label">Free &rarr; Paid</div>
+                    </div>
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--gold)">Self-serve</div>
+                        <div class="motion-metric-label">Sales Model</div>
+                    </div>
+                </div>
+                <div class="motion-lists">
+                    <div class="motion-list fit">
+                        <h4>Best fit when</h4>
+                        <ul>
+                            <li>Users can get value in minutes</li>
+                            <li>Low ACV, high volume</li>
+                            <li>Viral or network effects possible</li>
+                            <li>End user = buyer (bottom-up)</li>
+                        </ul>
+                    </div>
+                    <div class="motion-list avoid">
+                        <h4>Challenges</h4>
+                        <ul>
+                            <li>Requires great onboarding UX</li>
+                            <li>Free tier costs real money to run</li>
+                            <li>Hard to monetize without product changes</li>
+                            <li>Enterprise deals still need sales</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="motion-footer">
+                    <div class="motion-acv">
+                        <span class="motion-acv-label">Examples: Slack, Figma, Notion, Calendly</span>
+                    </div>
+                    <a href="/tools/tam-calculator/" class="motion-link">Size market &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Sales-Led -->
+            <div class="motion-card" id="m-sales">
+                <div class="motion-top">
+                    <div class="motion-name">Sales-Led Growth</div>
+                    <span class="motion-tag" style="color:var(--purple);background:rgba(168,125,232,0.1)">Highest ACV</span>
+                </div>
+                <div class="motion-subtitle">Sales team drives acquisition through outbound, demos, and relationship-building</div>
+                <div class="motion-how">
+                    <div class="motion-how-label">The Loop</div>
+                    <code>ICP targeting &rarr; Outbound &rarr; Demo &rarr; POC/Trial &rarr; Procurement &rarr; Close &rarr; Expand via CSM</code>
+                </div>
+                <div class="motion-metrics">
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--purple)">$25K+</div>
+                        <div class="motion-metric-label">Typical ACV</div>
+                    </div>
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--orange)">$5K&ndash;$50K</div>
+                        <div class="motion-metric-label">Target CAC</div>
+                    </div>
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--blue)">15&ndash;30%</div>
+                        <div class="motion-metric-label">Demo &rarr; Close</div>
+                    </div>
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--gold)">90&ndash;180 days</div>
+                        <div class="motion-metric-label">Sales Cycle</div>
+                    </div>
+                </div>
+                <div class="motion-lists">
+                    <div class="motion-list fit">
+                        <h4>Best fit when</h4>
+                        <ul>
+                            <li>High ACV justifies sales team cost</li>
+                            <li>Complex setup or integration required</li>
+                            <li>Buyer is VP+ (needs relationship)</li>
+                            <li>Regulated industry or procurement required</li>
+                        </ul>
+                    </div>
+                    <div class="motion-list avoid">
+                        <h4>Challenges</h4>
+                        <ul>
+                            <li>Expensive &mdash; SDR + AE + CS salaries</li>
+                            <li>Slow to scale without more headcount</li>
+                            <li>Long feedback loops to product</li>
+                            <li>CAC payback can be 12&ndash;18+ months</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="motion-footer">
+                    <div class="motion-acv">
+                        <span class="motion-acv-label">Examples: Salesforce, Snowflake, Datadog</span>
+                    </div>
+                    <a href="/tools/tam-calculator/" class="motion-link">Size market &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Hybrid -->
+            <div class="motion-card" id="m-hybrid">
+                <div class="motion-top">
+                    <div class="motion-name">Hybrid (PLG + Sales)</div>
+                    <span class="motion-tag" style="color:var(--gold);background:var(--gold-glow)">Best of Both</span>
+                </div>
+                <div class="motion-subtitle">Self-serve for SMB, sales-assist for mid-market, enterprise sales for large deals</div>
+                <div class="motion-how">
+                    <div class="motion-how-label">The Loop</div>
+                    <code>Free signup &rarr; PQL signal &rarr; Sales-assist &rarr; Team expansion &rarr; Enterprise upsell &rarr; CSM renewal</code>
+                </div>
+                <div class="motion-metrics">
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--gold)">$1K&ndash;$100K+</div>
+                        <div class="motion-metric-label">ACV Range</div>
+                    </div>
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--green)">Varies</div>
+                        <div class="motion-metric-label">CAC by Segment</div>
+                    </div>
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--blue)">PQL-based</div>
+                        <div class="motion-metric-label">Lead Scoring</div>
+                    </div>
+                    <div class="motion-metric">
+                        <div class="motion-metric-val" style="color:var(--gold)">Multi-tier</div>
+                        <div class="motion-metric-label">Pricing</div>
+                    </div>
+                </div>
+                <div class="motion-lists">
+                    <div class="motion-list fit">
+                        <h4>Best fit when</h4>
+                        <ul>
+                            <li>Product works for individuals AND teams</li>
+                            <li>Multiple segments (SMB + enterprise)</li>
+                            <li>Bottom-up adoption + top-down expansion</li>
+                            <li>Product can generate PQL signals</li>
+                        </ul>
+                    </div>
+                    <div class="motion-list avoid">
+                        <h4>Challenges</h4>
+                        <ul>
+                            <li>Hardest to execute &mdash; needs both muscles</li>
+                            <li>PQL definition requires data maturity</li>
+                            <li>Sales and product teams can misalign</li>
+                            <li>Risk of over-investing in wrong segment</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="motion-footer">
+                    <div class="motion-acv">
+                        <span class="motion-acv-label">Examples: Atlassian, Zoom, Canva, Loom</span>
+                    </div>
+                    <a href="/tools/tam-calculator/" class="motion-link">Size market &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 5: LAUNCH CHECKLIST -->
+    <!-- ============================================= -->
+    <div class="section" id="launch-checklist">
+        <div class="section-header">
+            <span class="section-num">05</span>
+            <h2>Launch Readiness Checklist</h2>
+        </div>
+
+        <div class="launch-progress">
+            <div class="launch-progress-bar"><div class="launch-progress-fill" id="progress-fill" style="width:0%"></div></div>
+            <div class="launch-progress-text"><span id="progress-count">0</span> / <span id="progress-total">0</span> complete</div>
+        </div>
+
+        <div class="launch-phases" style="margin-top:16px">
+
+            <div class="launch-phase">
+                <div class="launch-phase-header">
+                    <span class="launch-phase-num" style="color:var(--blue);background:rgba(93,158,232,0.1);border:1px solid rgba(93,158,232,0.2);">P1</span>
+                    <h3>Market &amp; Positioning</h3>
+                    <span class="timeline">Weeks 1&ndash;2</span>
+                </div>
+                <ul class="checklist" data-phase="1">
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Complete TAM/SAM/SOM analysis with bottom-up validation</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Define ICP with firmographic + behavioral criteria</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Write positioning statement (For [who], [product] is a [category] that [key benefit])</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Identify 3&ndash;5 direct competitors and map differentiation</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Validate pricing model and initial price points</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Document 3 key use cases with customer language</li>
+                </ul>
+            </div>
+
+            <div class="launch-phase">
+                <div class="launch-phase-header">
+                    <span class="launch-phase-num" style="color:var(--green);background:rgba(93,204,114,0.1);border:1px solid rgba(93,204,114,0.2);">P2</span>
+                    <h3>Product &amp; Experience</h3>
+                    <span class="timeline">Weeks 2&ndash;4</span>
+                </div>
+                <ul class="checklist" data-phase="2">
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Core value proposition is achievable within first session</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Onboarding flow gets users to "aha moment" in under 5 minutes</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Billing and upgrade flows tested end-to-end</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Analytics tracking: activation, engagement, and conversion events</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Error states, empty states, and edge cases handled</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Load testing passed for expected traffic</li>
+                </ul>
+            </div>
+
+            <div class="launch-phase">
+                <div class="launch-phase-header">
+                    <span class="launch-phase-num" style="color:var(--gold);background:var(--gold-glow);border:1px solid var(--gold-dim);">P3</span>
+                    <h3>Marketing &amp; Distribution</h3>
+                    <span class="timeline">Weeks 3&ndash;5</span>
+                </div>
+                <ul class="checklist" data-phase="3">
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Landing page live with clear value prop and CTA</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>SEO: target keywords in title, meta, H1; core pages indexed</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Launch blog post or changelog entry drafted</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Social media launch posts scheduled (LinkedIn, Twitter/X)</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Email to existing list or waitlist drafted and scheduled</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Community submissions prepared (Product Hunt, Hacker News, Reddit)</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Referral or invite mechanism (if PLG) tested</li>
+                </ul>
+            </div>
+
+            <div class="launch-phase">
+                <div class="launch-phase-header">
+                    <span class="launch-phase-num" style="color:var(--purple);background:rgba(168,125,232,0.1);border:1px solid rgba(168,125,232,0.2);">P4</span>
+                    <h3>Sales &amp; Support Readiness</h3>
+                    <span class="timeline">Weeks 4&ndash;6</span>
+                </div>
+                <ul class="checklist" data-phase="4">
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Sales deck and demo script ready (if sales-led/hybrid)</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>FAQ and help docs cover top 10 questions</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Support workflow: who responds, SLA, escalation path</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>PQL definition and lead routing set up (if hybrid)</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Customer feedback loop: how to collect, triage, and act on it</li>
+                </ul>
+            </div>
+
+            <div class="launch-phase">
+                <div class="launch-phase-header">
+                    <span class="launch-phase-num" style="color:var(--orange);background:rgba(232,168,93,0.1);border:1px solid rgba(232,168,93,0.2);">P5</span>
+                    <h3>Measurement &amp; Iteration</h3>
+                    <span class="timeline">Week 6+</span>
+                </div>
+                <ul class="checklist" data-phase="5">
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>North Star metric defined and dashboard live</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Funnel metrics tracked: visitor &rarr; signup &rarr; activated &rarr; paid</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>Week 1 retro: what worked, what didn't, what to double down on</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>First A/B test identified and queued</li>
+                    <li><div class="check-box" onclick="toggleCheck(this)"></div>30-day post-launch review scheduled</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 6: COMMON GTM MISTAKES -->
+    <!-- ============================================= -->
+    <div class="section" id="mistakes">
+        <div class="section-header">
+            <span class="section-num">06</span>
+            <h2>6 Go-to-Market Mistakes That Kill Launches</h2>
+        </div>
+
+        <div class="mistakes-grid">
+            <div class="mistake">
+                <div class="mistake-num">1</div>
+                <div class="mistake-body">
+                    <h3>Building for everyone instead of a niche</h3>
+                    <p>"Our product is for all businesses" means your positioning resonates with nobody. You can't out-market incumbents by being more generic than them.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Pick one ICP segment. Win it. Then expand. Notion started with students before going enterprise.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">2</div>
+                <div class="mistake-body">
+                    <h3>Confusing TAM with SOM</h3>
+                    <p>Telling investors your TAM is $10B doesn't mean you'll capture even 0.01% of it. SOM is what matters for planning &mdash; and it requires honest constraints.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Always present TAM &rarr; SAM &rarr; SOM together. Use bottom-up SOM for operational planning, top-down TAM for vision.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">3</div>
+                <div class="mistake-body">
+                    <h3>Choosing PLG because it sounds cheaper</h3>
+                    <p>PLG isn't free. It requires great UX, self-serve onboarding, usage-based billing, and product investment in growth loops. If your product needs a demo to click, PLG will fail.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Match your GTM motion to your product's natural complexity and ACV. High-touch products need high-touch sales.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">4</div>
+                <div class="mistake-body">
+                    <h3>Launching without a distribution channel</h3>
+                    <p>"Build it and they will come" works in movies. In SaaS, you need a channel strategy before launch day. Product Hunt alone isn't a GTM strategy.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Identify 2&ndash;3 distribution channels where your ICP already hangs out. Build an audience there before launch.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">5</div>
+                <div class="mistake-body">
+                    <h3>No feedback loop in the first 30 days</h3>
+                    <p>You launched, got some signups, and... silence. No user interviews, no activation analysis, no iteration. The launch data is the most valuable data you'll ever have.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Schedule 10 user calls in Week 1. Instrument activation and dropoff. Run your first A/B test by Week 3.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">6</div>
+                <div class="mistake-body">
+                    <h3>Optimizing acquisition before activation</h3>
+                    <p>You're spending money on ads to drive signups, but 80% of users churn before experiencing value. You're filling a leaky bucket.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Fix activation first (onboarding, time-to-value, aha moment). Then scale acquisition. A 2x activation improvement beats a 2x traffic increase.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>Size your market.<br>Then <em>go get it.</em></h2>
+        <p>Our free TAM/SAM/SOM Calculator helps you build a defensible market sizing with both top-down and bottom-up methods. No signup required.</p>
+        <a href="/tools/tam-calculator/" class="btn-primary" style="display:inline-flex;">Open TAM Calculator &rarr;</a>
+        <div class="cta-links">
+            <a href="/tools/mrr-calculator/" class="cta-chip">MRR Calculator &rarr;</a>
+            <a href="/tools/pricing-calculator/" class="cta-chip">Pricing Calculator &rarr;</a>
+            <a href="/lead-magnets/saas-pricing-strategy-guide/" class="cta-chip">Pricing Strategy Guide &rarr;</a>
+            <a href="/lead-magnets/saas-metrics-cheat-sheet/" class="cta-chip">SaaS Metrics Cheat Sheet &rarr;</a>
+            <a href="/lead-magnets/feature-prioritization-playbook/" class="cta-chip">Prioritization Playbook &rarr;</a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <a href="/" class="footer-logo">CADBORO LABS</a>
+    <p class="footer-text">Built in Victoria, BC &mdash; <a href="/tools/">Free PM Tools</a></p>
+</footer>
+
+<script>
+// GTM Motion Picker
+const gState = { q1: null, q2: null, q3: null, q4: null };
+
+function gAnswer(q, val) {
+    gState['q' + q] = val;
+    const qEl = document.getElementById('gq' + q);
+    qEl.querySelectorAll('.gq-opt').forEach(o => o.classList.remove('selected'));
+    event.target.classList.add('selected');
+
+    const next = q + 1;
+    if (next <= 4) {
+        document.getElementById('gq' + next).style.display = 'block';
+        document.getElementById('gq' + next).classList.add('active');
+        qEl.classList.remove('active');
+        document.getElementById('gq' + next).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+        qEl.classList.remove('active');
+        showGtmResult();
+    }
+}
+
+function showGtmResult() {
+    const { q1, q2, q3, q4 } = gState;
+    let motion, why;
+
+    if (q1 === 'high' && q3 === 'exec') {
+        motion = 'Sales-Led Growth';
+        why = 'High ACV deals with executive buyers require relationship-based selling, custom demos, and procurement navigation. Invest in SDR + AE + CS from the start.';
+    } else if (q1 === 'high') {
+        motion = 'Sales-Led Growth';
+        why = 'At $25K+ ACV, the unit economics support a dedicated sales team. Even with product-savvy buyers, the deal size justifies high-touch engagement.';
+    } else if (q1 === 'low' && q2 === 'yes' && q3 === 'user') {
+        motion = 'Product-Led Growth';
+        why = 'Low ACV + self-serve value + end-user buyer is the classic PLG playbook. Focus everything on time-to-value, viral loops, and usage-based upgrade triggers.';
+    } else if (q1 === 'low' && q2 === 'yes') {
+        motion = 'Product-Led Growth';
+        why = 'Your product delivers value fast and your ACV is too low for sales touches. Let the product sell itself. Invest in onboarding UX and activation metrics.';
+    } else if (q1 === 'low' && q2 === 'no') {
+        motion = 'Product-Led with Sales Assist';
+        why = 'Low ACV but complex setup is tricky. Start PLG for acquisition but add lightweight sales-assist (chat, onboarding calls) to get users past the setup wall.';
+    } else if (q1 === 'mid' && q2 === 'yes' && q4 === 'tiny') {
+        motion = 'Product-Led Growth (then add sales)';
+        why = 'Mid-market ACV with self-serve value = start PLG to conserve resources, then layer on sales-assist when you have PQL signals and revenue to fund headcount.';
+    } else if (q1 === 'mid' && q2 === 'yes') {
+        motion = 'Hybrid: PLG + Sales-Assist';
+        why = 'Your product can sell itself to SMB, but mid-market deals benefit from a human touch. Use product usage signals (PQLs) to trigger sales outreach on high-value accounts.';
+    } else if (q1 === 'mid' && q2 === 'some') {
+        motion = 'Hybrid: PLG + Sales-Assist';
+        why = 'Some self-serve value + mid-market ACV is the hybrid sweet spot. Offer a free tier or trial for awareness, then use PQL-based outreach to convert and expand.';
+    } else if (q1 === 'mid' && q2 === 'no') {
+        motion = 'Sales-Led (with product demo)';
+        why = 'Complex setup + mid-market ACV requires human-led demos and onboarding. Build a great demo flow and invest in SDR outreach to your ICP.';
+    } else if (q2 === 'yes' && q4 === 'tiny') {
+        motion = 'Product-Led Growth';
+        why = 'With a tiny team and self-serve product, PLG is your only scalable path. Focus on building growth loops into the product itself.';
+    } else {
+        motion = 'Hybrid: PLG + Sales-Assist';
+        why = 'A hybrid motion gives you the best of both worlds — PLG for efficient acquisition and sales-assist for higher-value conversions. Start PLG, add sales as you scale.';
+    }
+
+    const resultEl = document.getElementById('gq-result');
+    document.getElementById('gq-motion-name').textContent = motion;
+    document.getElementById('gq-motion-why').textContent = why;
+    resultEl.classList.add('show');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetGtm() {
+    gState.q1 = gState.q2 = gState.q3 = gState.q4 = null;
+    document.querySelectorAll('.gq-opt').forEach(o => o.classList.remove('selected'));
+    for (let i = 2; i <= 4; i++) {
+        document.getElementById('gq' + i).style.display = 'none';
+        document.getElementById('gq' + i).classList.remove('active');
+    }
+    document.getElementById('gq-result').classList.remove('show');
+    document.getElementById('gq1').classList.add('active');
+    document.getElementById('gq1').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Launch Checklist
+function toggleCheck(el) {
+    el.classList.toggle('checked');
+    const li = el.parentElement;
+    li.classList.toggle('done');
+    el.textContent = el.classList.contains('checked') ? '\u2713' : '';
+    updateProgress();
+}
+
+function updateProgress() {
+    const total = document.querySelectorAll('.check-box').length;
+    const checked = document.querySelectorAll('.check-box.checked').length;
+    const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-count').textContent = checked;
+    document.getElementById('progress-total').textContent = total;
+}
+
+// Initialize progress counter
+document.addEventListener('DOMContentLoaded', updateProgress);
+</script>
+
+</body>
+</html>

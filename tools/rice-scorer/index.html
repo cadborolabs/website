@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RICE Prioritization Scorer — Score &amp; Rank Your Product Backlog | Cadboro Labs</title>
+    <meta name="description" content="Free RICE scoring calculator for product managers. Score features by Reach, Impact, Confidence, and Effort. Priority matrix, ranked table, and CSV export. No signup required.">
+    <meta name="keywords" content="RICE score calculator, RICE framework, feature prioritization, product backlog prioritization, RICE scoring, product management tools, feature scoring, backlog ranking, ICE score, prioritization framework">
+
+    <meta property="og:title" content="RICE Prioritization Scorer — Cadboro Labs">
+    <meta property="og:description" content="Score and rank your product backlog with the RICE framework. Free, no signup.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cadborolabs.com/tools/rice-scorer/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RICE Prioritization Scorer — Cadboro Labs">
+    <meta name="twitter:description" content="Free RICE scoring calculator for product managers. Score, rank, and visualize your product backlog.">
+    <link rel="canonical" href="https://cadborolabs.com/tools/rice-scorer/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"RICE Prioritization Scorer","description":"Free RICE scoring calculator that helps product managers score features by Reach, Impact, Confidence, and Effort, then rank and visualize priorities with a priority matrix.","url":"https://cadborolabs.com/tools/rice-scorer/","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Cadboro Labs","url":"https://cadborolabs.com"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the RICE scoring framework?","acceptedAnswer":{"@type":"Answer","text":"RICE is a prioritization framework developed by Intercom. It scores features by four factors: Reach (how many users are affected), Impact (how much each user is affected), Confidence (how sure you are of your estimates), and Effort (how much work is required). The formula is (Reach × Impact × Confidence) / Effort."}},{"@type":"Question","name":"How do you calculate a RICE score?","acceptedAnswer":{"@type":"Answer","text":"RICE Score = (Reach × Impact × Confidence) / Effort. Reach is measured in users per time period, Impact on a scale from 0.25 (minimal) to 3 (massive), Confidence as a percentage (50-100%), and Effort in person-months."}},{"@type":"Question","name":"What is a good RICE score?","acceptedAnswer":{"@type":"Answer","text":"RICE scores are relative, not absolute. A good score depends on your specific backlog. Features should be ranked against each other rather than compared to an external benchmark. Generally, quick wins have high scores with low effort, while money pits have low scores with high effort."}},{"@type":"Question","name":"What is the difference between RICE and ICE scoring?","acceptedAnswer":{"@type":"Answer","text":"ICE uses three factors (Impact, Confidence, Ease) while RICE adds Reach as a fourth factor. ICE is simpler but does not account for how many users a feature affects. RICE is more rigorous because a feature that deeply impacts 10 users scores differently than one that mildly impacts 10,000."}},{"@type":"Question","name":"How do I estimate Reach for RICE scoring?","acceptedAnswer":{"@type":"Answer","text":"Reach is the number of users or customers who will be affected by the feature in a defined time period (usually per quarter). Use analytics data, customer feedback frequency, or segment sizes to estimate. When uncertain, lower your Confidence score rather than inflating Reach."}},{"@type":"Question","name":"What Impact scale should I use for RICE?","acceptedAnswer":{"@type":"Answer","text":"The standard RICE impact scale is: 3 (massive — transforms the experience), 2 (high — significant improvement), 1 (medium — noticeable improvement), 0.5 (low — minor improvement), and 0.25 (minimal — barely noticeable). Use the same scale consistently across all features."}},{"@type":"Question","name":"Can I use RICE scoring for non-product decisions?","acceptedAnswer":{"@type":"Answer","text":"Yes. RICE works for any prioritization where you need to compare options with different reach, impact, certainty, and cost. Teams use it for marketing campaigns, process improvements, hiring decisions, and technical debt prioritization."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cadborolabs.com"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://cadborolabs.com/tools/"},{"@type":"ListItem","position":3,"name":"RICE Prioritization Scorer","item":"https://cadborolabs.com/tools/rice-scorer/"}]}</script>
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #09090b; --bg-raised: #111113; --bg-card: #16161a;
+            --border: #222228; --border-hover: #38383f;
+            --gold: #c9a84c; --gold-light: #e6d59c; --gold-dim: #6b5a2a;
+            --text: #eeeeed; --text-2: #8b8b96; --text-3: #55555e;
+            --red: #e85d5d; --green: #5dcc72; --green-dim: rgba(93,204,114,0.12);
+            --red-dim: rgba(232,93,93,0.1); --gold-glow: rgba(201,168,76,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        ::selection { background: var(--gold); color: var(--bg); }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+        .grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.03; z-index: 9999; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: rgba(9,9,11,0.85); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; }
+
+        .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 88px 40px 0; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+        .breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        .tool-header { text-align: center; padding: 36px 0 40px; }
+        .tool-header h1 { font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 12px; }
+        .tool-header h1 span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .tool-header p { font-size: 1rem; color: var(--text-2); max-width: 540px; margin: 0 auto; }
+
+        .calc-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 24px; margin-bottom: 64px; }
+
+        .input-panel { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+        .panel-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .panel-label { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-2); }
+        .mode-toggle { display: flex; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .mode-btn { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 14px; background: none; border: none; color: var(--text-3); cursor: pointer; transition: all 0.2s; }
+        .mode-btn.active { background: var(--gold); color: var(--bg); }
+
+        .feature-row-header { display: grid; grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr 28px; gap: 8px; padding: 0 0 8px; margin-bottom: 4px; border-bottom: 1px solid var(--border); }
+        .feature-row-header span { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
+
+        .feature-row { display: grid; grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr 28px; gap: 8px; margin-bottom: 6px; align-items: center; }
+        .feature-row input[type="text"], .feature-row input[type="number"] {
+            width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;
+            font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: var(--text); outline: none; transition: border-color 0.2s;
+        }
+        .feature-row input:focus { border-color: var(--gold-dim); }
+        .feature-row input[type="number"] { -moz-appearance: textfield; }
+        .feature-row input[type="number"]::-webkit-inner-spin-button,
+        .feature-row input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+        .feature-row select {
+            width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 8px;
+            font-family: 'Outfit', sans-serif; font-size: 0.8rem; color: var(--text); outline: none; cursor: pointer; transition: border-color 0.2s;
+            -webkit-appearance: none; -moz-appearance: none; appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2355555e' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 8px center; padding-right: 24px;
+        }
+        .feature-row select:focus { border-color: var(--gold-dim); }
+        .feature-row select option { background: var(--bg); color: var(--text); }
+
+        .remove-feature { background: none; border: none; color: var(--text-3); cursor: pointer; font-size: 1.1rem; padding: 0; line-height: 1; transition: color 0.2s; }
+        .remove-feature:hover { color: var(--red); }
+
+        .add-feature { width: 100%; padding: 12px; background: none; border: 1px dashed var(--border); border-radius: 10px; color: var(--text-3); font-family: 'Outfit', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
+        .add-feature:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+        .section-divider { display: flex; align-items: center; gap: 12px; margin: 24px 0 20px; }
+        .section-divider span { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
+        .section-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+        .adv-section { display: none; margin-bottom: 16px; }
+        .adv-section.visible { display: block; }
+
+        .setting-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .setting-label { font-size: 0.85rem; color: var(--text-2); }
+        .setting-select {
+            background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px;
+            font-family: 'Outfit', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; cursor: pointer;
+            -webkit-appearance: none; -moz-appearance: none; appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2355555e' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 8px center; padding-right: 28px;
+        }
+        .setting-select option { background: var(--bg); color: var(--text); }
+
+        .weight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+        .weight-item { display: flex; align-items: center; gap: 8px; }
+        .weight-item label { font-size: 0.8rem; color: var(--text-2); min-width: 28px; }
+        .weight-item input[type="number"] {
+            width: 64px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px;
+            font-family: 'Outfit', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; text-align: center;
+            -moz-appearance: textfield;
+        }
+        .weight-item input[type="number"]::-webkit-inner-spin-button,
+        .weight-item input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+        .weight-item input:focus { border-color: var(--gold-dim); }
+
+        .toggle-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .toggle-label { font-size: 0.85rem; color: var(--text-2); }
+        .toggle-switch { position: relative; width: 40px; height: 22px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg); border: 1px solid var(--border); border-radius: 22px; cursor: pointer; transition: 0.3s; }
+        .toggle-slider::before { content: ''; position: absolute; height: 16px; width: 16px; left: 2px; bottom: 2px; background: var(--text-3); border-radius: 50%; transition: 0.3s; }
+        .toggle-switch input:checked + .toggle-slider { background: var(--gold-dim); border-color: var(--gold-dim); }
+        .toggle-switch input:checked + .toggle-slider::before { transform: translateX(18px); background: var(--gold); }
+
+        .calc-btn { width: 100%; padding: 16px; background: var(--gold); color: var(--bg); border: none; border-radius: 12px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; margin-top: 20px; }
+        .calc-btn:hover { background: var(--gold-light); box-shadow: 0 4px 20px rgba(201,168,76,0.25); }
+
+        .results-panel { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 28px; min-height: 400px; display: flex; flex-direction: column; }
+        .results-placeholder { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: var(--text-3); gap: 16px; }
+        .results-placeholder svg { opacity: 0.3; }
+        .results-placeholder p { font-size: 0.9rem; max-width: 280px; }
+        .results-content { display: none; }
+        .results-content.visible { display: block; }
+
+        .hero-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .hero-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+        .hero-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+        .hero-value { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); line-height: 1.2; }
+        .hero-value.gold { color: var(--gold); }
+        .hero-sub { font-size: 0.78rem; color: var(--text-2); margin-top: 4px; }
+
+        .mini-metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .mini-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+        .mini-label { font-family: 'Syne', sans-serif; font-size: 0.55rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .mini-value { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text); }
+
+        .adv-metrics { display: none; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .adv-metrics.visible { display: grid; }
+        .adv-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+        .adv-label { font-family: 'Syne', sans-serif; font-size: 0.5rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 2px; }
+        .adv-value { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); }
+
+        .chart-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 16px; }
+        .chart-tabs { display: flex; gap: 0; margin-bottom: 16px; border-bottom: 1px solid var(--border); }
+        .chart-tab { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 16px; background: none; border: none; color: var(--text-3); cursor: pointer; position: relative; transition: color 0.2s; }
+        .chart-tab.active { color: var(--gold); }
+        .chart-tab.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: var(--gold); border-radius: 2px 2px 0 0; }
+        .chart-canvas-wrap { position: relative; width: 100%; height: 300px; }
+        .chart-canvas-wrap canvas { width: 100%; height: 100%; }
+        .chart-legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--text-2); }
+        .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+        .table-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 16px; }
+        .table-wrap { overflow-x: auto; }
+        .table-wrap::-webkit-scrollbar { height: 4px; }
+        .table-wrap::-webkit-scrollbar-track { background: var(--bg-card); }
+        .table-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        .results-table { width: 100%; border-collapse: collapse; min-width: 580px; }
+        .results-table th { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; position: sticky; top: 0; background: var(--bg-card); }
+        .results-table td { padding: 12px 16px; font-size: 0.85rem; color: var(--text-2); border-bottom: 1px solid var(--border); white-space: nowrap; }
+        .results-table tr:last-child td { border-bottom: none; }
+        .results-table tr.top-pick td { color: var(--text); background: rgba(201,168,76,0.04); }
+        .results-table .rank-badge { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 6px; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; }
+        .rank-1 { background: var(--gold-glow); color: var(--gold); }
+        .rank-2 { background: rgba(139,139,150,0.1); color: var(--text-2); }
+        .rank-3 { background: rgba(139,139,150,0.07); color: var(--text-3); }
+        .rank-default { background: rgba(139,139,150,0.05); color: var(--text-3); }
+        .score-bar-cell { position: relative; min-width: 120px; }
+        .score-bar-bg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); height: 6px; background: var(--border); border-radius: 3px; }
+        .score-bar-fill { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); height: 6px; background: var(--gold); border-radius: 3px; }
+        .score-val { position: relative; z-index: 1; font-weight: 600; color: var(--text); }
+        .confidence-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 500; }
+        .conf-high { background: var(--green-dim); color: var(--green); }
+        .conf-med { background: var(--gold-glow); color: var(--gold); }
+        .conf-low { background: var(--red-dim); color: var(--red); }
+
+        .export-row { display: flex; gap: 12px; }
+        .export-btn { flex: 1; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-2); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
+        .export-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+        .cta-banner { max-width: 780px; margin: 0 auto 80px; background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02)); border: 1px solid var(--gold-dim); border-radius: 16px; padding: 36px; text-align: center; }
+        .cta-banner h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+        .cta-banner p { font-size: 0.9rem; color: var(--text-2); margin-bottom: 20px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .cta-install { display: inline-flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 24px; font-family: 'Outfit', monospace; font-size: 0.85rem; color: var(--gold); cursor: pointer; transition: all 0.2s; }
+        .cta-install:hover { border-color: var(--gold-dim); box-shadow: 0 4px 16px rgba(201,168,76,0.1); }
+
+        .seo-content { max-width: 780px; margin: 0 auto; padding: 64px 0 48px; border-top: 1px solid var(--border); }
+        .seo-content h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 16px; margin-top: 48px; }
+        .seo-content h2:first-of-type { margin-top: 0; }
+        .seo-content h2 span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .seo-content p { font-size: 0.95rem; color: var(--text-2); margin-bottom: 16px; line-height: 1.75; }
+        .seo-content ul { list-style: none; margin-bottom: 16px; }
+        .seo-content ul li { font-size: 0.95rem; color: var(--text-2); padding: 6px 0 6px 24px; position: relative; line-height: 1.65; }
+        .seo-content ul li::before { content: ''; position: absolute; left: 0; top: 14px; width: 8px; height: 8px; border: 1.5px solid var(--gold-dim); border-radius: 50%; }
+        .formula-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 20px 0; font-family: 'Instrument Serif', serif; font-size: 1.15rem; color: var(--gold-light); text-align: center; font-style: italic; }
+
+        .faq-section { margin-top: 48px; }
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-q { width: 100%; background: none; border: none; padding: 18px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left; }
+        .faq-q span { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 500; color: var(--text); }
+        .faq-q svg { flex-shrink: 0; color: var(--text-3); transition: transform 0.3s; }
+        .faq-q.open svg { transform: rotate(180deg); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+        .faq-a-inner { padding: 0 0 18px; font-size: 0.9rem; color: var(--text-2); line-height: 1.7; }
+
+        footer { border-top: 1px solid var(--border); padding: 32px 40px; text-align: center; font-size: 0.78rem; color: var(--text-3); }
+        footer a { color: var(--text-3); text-decoration: none; }
+        footer a:hover { color: var(--gold); }
+
+        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--gold); color: var(--bg); padding: 12px 24px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; z-index: 10000; opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        @media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(9,9,11,0.96); backdrop-filter: blur(24px); padding: 20px; gap: 16px; border-bottom: 1px solid var(--border); }
+            .nav-toggle { display: block; }
+            .breadcrumb { padding: 76px 20px 0; }
+            .container { padding: 0 20px; }
+            .input-panel, .results-panel { padding: 20px; }
+            .feature-row-header { display: none; }
+            .feature-row { grid-template-columns: 1fr 1fr; gap: 6px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+            .feature-row .feat-name { grid-column: 1 / -1; }
+            .feature-row .feat-remove { grid-column: 2 / 3; grid-row: 1; justify-self: end; }
+            .hero-metrics { grid-template-columns: 1fr; }
+            .mini-metrics { grid-template-columns: 1fr; }
+            .adv-metrics.visible { grid-template-columns: 1fr 1fr; }
+            .tool-header { padding: 24px 0 28px; }
+            .tool-header h1 { font-size: 1.8rem; }
+            .seo-content { padding: 48px 0 40px; }
+            .cta-banner { padding: 28px 20px; margin-bottom: 48px; }
+            .export-row { flex-direction: column; }
+            .weight-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain" aria-hidden="true"><svg width="100%" height="100%"><filter id="grainy"><feTurbulence type="turbulence" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#grainy)"/></svg></div>
+
+    <nav>
+        <a href="/" class="nav-logo">CADBORO LABS</a>
+        <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')"><span></span><span></span><span></span></button>
+        <ul class="nav-links">
+            <li><a href="/#tools">Tools</a></li>
+            <li><a href="/#skills">Skills</a></li>
+            <li><a href="/#about">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="/">Home</a><span class="sep">/</span>
+        <a href="/tools/">Tools</a><span class="sep">/</span>
+        <span style="color: var(--text-2)">RICE Scorer</span>
+    </div>
+
+    <div class="container">
+        <div class="tool-header">
+            <h1>RICE <span>Prioritization</span> Scorer</h1>
+            <p>Score your product backlog by Reach, Impact, Confidence, and Effort. See what to build first.</p>
+        </div>
+
+        <div class="calc-grid">
+            <div class="input-panel">
+                <div class="panel-top">
+                    <div class="panel-label">Features</div>
+                    <div class="mode-toggle">
+                        <button class="mode-btn active" onclick="setMode('basic')">Basic</button>
+                        <button class="mode-btn" onclick="setMode('advanced')">Advanced</button>
+                    </div>
+                </div>
+
+                <div class="feature-row-header">
+                    <span>Feature</span>
+                    <span>Reach</span>
+                    <span>Impact</span>
+                    <span>Confidence</span>
+                    <span>Effort</span>
+                    <span></span>
+                </div>
+                <div id="featureRows"></div>
+                <button class="add-feature" onclick="addFeature()">+ Add feature</button>
+
+                <div class="adv-section" id="advSettings">
+                    <div class="section-divider"><span>Scoring Settings</span></div>
+                    <div class="setting-row">
+                        <span class="setting-label">Reach timeframe</span>
+                        <select class="setting-select" id="reachTimeframe">
+                            <option value="quarter">Per quarter</option>
+                            <option value="month">Per month</option>
+                            <option value="week">Per week</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Effort units</span>
+                        <select class="setting-select" id="effortUnits">
+                            <option value="person-months">Person-months</option>
+                            <option value="person-weeks">Person-weeks</option>
+                            <option value="person-days">Person-days</option>
+                            <option value="story-points">Story points</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="adv-section" id="advWeights">
+                    <div class="section-divider"><span>Custom Weights</span></div>
+                    <div class="toggle-row">
+                        <span class="toggle-label">Use weighted scoring</span>
+                        <label class="toggle-switch"><input type="checkbox" id="useWeights" onchange="toggleWeights()"><span class="toggle-slider"></span></label>
+                    </div>
+                    <div id="weightInputs" style="display:none;">
+                        <div class="weight-grid">
+                            <div class="weight-item"><label>R</label><input type="number" id="wReach" value="1.0" step="0.1" min="0"></div>
+                            <div class="weight-item"><label>I</label><input type="number" id="wImpact" value="1.0" step="0.1" min="0"></div>
+                            <div class="weight-item"><label>C</label><input type="number" id="wConfidence" value="1.0" step="0.1" min="0"></div>
+                            <div class="weight-item"><label>E</label><input type="number" id="wEffort" value="1.0" step="0.1" min="0"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="adv-section" id="advICE">
+                    <div class="section-divider"><span>Framework Comparison</span></div>
+                    <div class="toggle-row">
+                        <span class="toggle-label">Show ICE scores</span>
+                        <label class="toggle-switch"><input type="checkbox" id="showICE" onchange="calculate()"><span class="toggle-slider"></span></label>
+                    </div>
+                </div>
+
+                <button class="calc-btn" onclick="calculate()">Score &amp; Rank</button>
+            </div>
+
+            <div class="results-panel">
+                <div class="results-placeholder" id="placeholder">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 5-9"/></svg>
+                    <p>Add your features and click score to see prioritization</p>
+                </div>
+                <div class="results-content" id="results">
+                    <div class="hero-metrics">
+                        <div class="hero-card">
+                            <div class="hero-label">#1 Priority</div>
+                            <div class="hero-value gold" id="topFeature">—</div>
+                            <div class="hero-sub" id="topScore"></div>
+                        </div>
+                        <div class="hero-card">
+                            <div class="hero-label">Quick Wins</div>
+                            <div class="hero-value" id="quickWins">0</div>
+                            <div class="hero-sub">High score, low effort</div>
+                        </div>
+                    </div>
+                    <div class="mini-metrics">
+                        <div class="mini-card">
+                            <div class="mini-label">Avg Score</div>
+                            <div class="mini-value" id="avgScore">—</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mini-label">Score Spread</div>
+                            <div class="mini-value" id="scoreSpread">—</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mini-label">Features</div>
+                            <div class="mini-value" id="featureCount">—</div>
+                        </div>
+                    </div>
+                    <div class="adv-metrics" id="advMetrics">
+                        <div class="adv-card">
+                            <div class="adv-label">Highest Reach</div>
+                            <div class="adv-value" id="highReach">—</div>
+                        </div>
+                        <div class="adv-card">
+                            <div class="adv-label">Avg Confidence</div>
+                            <div class="adv-value" id="avgConf">—</div>
+                        </div>
+                        <div class="adv-card">
+                            <div class="adv-label">Total Effort</div>
+                            <div class="adv-value" id="totalEffort">—</div>
+                        </div>
+                        <div class="adv-card" id="iceCard" style="display:none;">
+                            <div class="adv-label">ICE Top Pick</div>
+                            <div class="adv-value" id="iceTop">—</div>
+                        </div>
+                        <div class="adv-card" id="effortEffCard">
+                            <div class="adv-label">Best Value</div>
+                            <div class="adv-value" id="bestValue">—</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-section">
+                        <div class="chart-tabs">
+                            <button class="chart-tab active" onclick="setChart('ranking')">Ranking</button>
+                            <button class="chart-tab" onclick="setChart('matrix')">Matrix</button>
+                        </div>
+                        <div class="chart-canvas-wrap">
+                            <canvas id="chartCanvas"></canvas>
+                        </div>
+                        <div class="chart-legend" id="chartLegend"></div>
+                    </div>
+
+                    <div class="table-section">
+                        <div class="table-wrap">
+                            <table class="results-table">
+                                <thead id="tableHead"></thead>
+                                <tbody id="tableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="export-row">
+                        <button class="export-btn" onclick="copyResults()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            Copy Results
+                        </button>
+                        <button class="export-btn" onclick="downloadCSV()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Download CSV
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="cta-banner">
+            <h3>Scoring is step one. Prioritization is the whole story.</h3>
+            <p>The Feature Prioritization skill takes your backlog, scores it with RICE, and produces a ranked scorecard with a narrative brief explaining the trade-offs and recommendations.</p>
+            <div class="cta-install" onclick="copyInstall()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                claude skill install feature-prio-skill
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="seo-content">
+            <h2>What Is <span>RICE</span> Scoring?</h2>
+            <p>RICE is a prioritization framework that helps product managers make data-driven decisions about what to build next. Developed at Intercom, it replaces gut-feel prioritization with a repeatable scoring system that balances user impact against engineering cost.</p>
+            <p>Every feature in your backlog gets scored on four dimensions, and the resulting number gives you a single comparable metric for ranking.</p>
+
+            <div class="formula-block">RICE Score = (Reach &times; Impact &times; Confidence) &divide; Effort</div>
+
+            <h2>The Four <span>Factors</span></h2>
+            <ul>
+                <li><strong>Reach</strong> &mdash; How many users or customers will this feature affect in a given time period? Measure in real numbers: users per quarter, customers per month. Avoid abstract scales.</li>
+                <li><strong>Impact</strong> &mdash; How much will each affected user benefit? Use a consistent scale: 3 (massive), 2 (high), 1 (medium), 0.5 (low), 0.25 (minimal). Resist the urge to rate everything as "high."</li>
+                <li><strong>Confidence</strong> &mdash; How sure are you about your Reach and Impact estimates? 100% means data-backed. 80% means informed guess. 50% means speculation. This penalizes wishful thinking.</li>
+                <li><strong>Effort</strong> &mdash; How much work is required? Measured in person-months, person-weeks, or story points. Include design, engineering, QA, and rollout. Underestimating effort is the most common RICE mistake.</li>
+            </ul>
+
+            <h2>RICE vs ICE vs <span>WSJF</span></h2>
+            <p>ICE scoring uses three factors (Impact, Confidence, Ease) and is simpler to calculate, but it ignores Reach entirely. A feature that delights 10 power users scores the same as one that helps 10,000. RICE fixes this by making audience size explicit.</p>
+            <p>WSJF (Weighted Shortest Job First) comes from SAFe and divides cost of delay by job size. It's useful for teams already using SAFe ceremonies but adds overhead for most product teams. RICE hits the sweet spot: rigorous enough to be defensible, simple enough to actually use.</p>
+
+            <h2>Common RICE <span>Mistakes</span></h2>
+            <ul>
+                <li><strong>Inflating Reach to get the score you want</strong> &mdash; If you're not sure, lower Confidence instead. That's what it's there for.</li>
+                <li><strong>Using Impact as a vote</strong> &mdash; Impact isn't "how much I like this idea." It's how much each affected user's experience will change.</li>
+                <li><strong>Forgetting to include all effort</strong> &mdash; Design, documentation, QA, migration, and support costs all count. A "quick" feature that needs a migration plan isn't quick.</li>
+                <li><strong>Scoring once and never updating</strong> &mdash; RICE scores reflect a point in time. Revisit quarterly as your data, customer mix, and strategic priorities change.</li>
+                <li><strong>Treating the score as an absolute</strong> &mdash; RICE is a ranking tool, not a decision engine. Use it to surface the conversation, not end it.</li>
+            </ul>
+
+            <h2>When to Use <span>RICE</span></h2>
+            <p>RICE works best when you have a backlog of 5+ features competing for the same engineering resources and you need a defensible way to rank them. It's particularly valuable for quarterly planning, roadmap reviews, and stakeholder negotiations where "gut feel" won't cut it.</p>
+            <p>It's less useful for comparing fundamentally different types of work (infrastructure vs. features), for very early-stage products with no usage data, or when strategic bets require ignoring short-term scores in favor of long-term positioning.</p>
+
+            <div class="faq-section">
+                <h2>Frequently Asked <span>Questions</span></h2>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>What is a good RICE score?</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">RICE scores are relative, not absolute. A score of 500 means nothing on its own &mdash; it only matters compared to other features in the same backlog. Focus on the ranking order, not the raw numbers. The spread between your highest and lowest scores tells you more than any individual score.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>How do I estimate Reach when I don't have data?</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">Use customer segment sizes, support ticket volumes, or feature request counts as proxies. If a feature targets "all users," use your total active user count. If you're genuinely guessing, set Confidence to 50% &mdash; that's what it's for. A rough estimate with honest confidence beats a precise estimate with false certainty.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>Should I use the same Impact scale across different types of features?</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">Yes. Consistency is more important than precision. A "high impact" (2) rating should mean the same thing whether you're scoring a new feature or a bug fix. Write down what each level means for your team and reference it during scoring. This prevents score inflation over time.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>How often should I re-score my backlog?</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">Re-score at natural planning cadences: quarterly for roadmap planning, monthly for sprint planning. Also re-score when you get significant new data &mdash; a spike in customer requests, a competitor launch, or a change in strategic direction. Stale scores lead to stale priorities.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>What's the difference between RICE and a priority matrix?</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">A priority matrix (also called an Eisenhower matrix or value-effort matrix) plots features on two axes. It's visual and intuitive but only considers two dimensions. RICE considers four dimensions and produces a single ranked score. They complement each other well &mdash; this calculator shows both: a ranked score list and a priority matrix visualization.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>Can I customize the RICE weights?</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">Yes. Switch to Advanced mode to enable weighted scoring. This lets you adjust the relative importance of each RICE factor. For example, if your team values confidence-backed decisions, increase the Confidence weight. If you're optimizing for broad adoption, increase the Reach weight. Default weights of 1.0 give you standard RICE.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>How many features should I score at once?</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">Score everything that's competing for the same resources in the same time period. For most teams, that's 5&ndash;20 features per quarter. Scoring fewer than 5 features doesn't give you meaningful ranking. Scoring more than 30 usually means your items aren't at the same level of granularity.</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 <a href="/">Cadboro Labs</a>. Built in Victoria, BC.</p></footer>
+    <div class="toast" id="toast"></div>
+
+    <script>
+        let mode = 'basic';
+        let activeChart = 'ranking';
+        let scored = [];
+        let features = [
+            { name: 'Dark mode', reach: 5000, impact: '2', confidence: '0.8', effort: 2 },
+            { name: 'SSO integration', reach: 500, impact: '3', confidence: '0.5', effort: 4 },
+            { name: 'Bulk export', reach: 2000, impact: '1', confidence: '1', effort: 1 }
+        ];
+
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); }
+        function copyInstall() { navigator.clipboard.writeText('claude skill install feature-prio-skill').then(() => showToast('Install command copied')); }
+
+        function setMode(m) {
+            mode = m;
+            document.querySelectorAll('.mode-btn').forEach((b, i) => b.classList.toggle('active', (i === 0 && m === 'basic') || (i === 1 && m === 'advanced')));
+            document.querySelectorAll('.adv-section').forEach(el => el.classList.toggle('visible', m === 'advanced'));
+            document.getElementById('advMetrics').classList.toggle('visible', m === 'advanced');
+            if (scored.length) calculate();
+        }
+
+        function toggleWeights() {
+            const show = document.getElementById('useWeights').checked;
+            document.getElementById('weightInputs').style.display = show ? 'block' : 'none';
+        }
+
+        function renderFeatures() {
+            const c = document.getElementById('featureRows');
+            c.innerHTML = '';
+            features.forEach((f, i) => {
+                const r = document.createElement('div');
+                r.className = 'feature-row';
+                r.innerHTML = `
+                    <input type="text" class="feat-name" value="${f.name}" placeholder="Feature name" onchange="features[${i}].name=this.value">
+                    <input type="number" value="${f.reach}" placeholder="Users" min="0" onchange="features[${i}].reach=+this.value">
+                    <select onchange="features[${i}].impact=this.value">
+                        <option value="3"${f.impact === '3' ? ' selected' : ''}>3 &middot; Massive</option>
+                        <option value="2"${f.impact === '2' ? ' selected' : ''}>2 &middot; High</option>
+                        <option value="1"${f.impact === '1' ? ' selected' : ''}>1 &middot; Medium</option>
+                        <option value="0.5"${f.impact === '0.5' ? ' selected' : ''}>0.5 &middot; Low</option>
+                        <option value="0.25"${f.impact === '0.25' ? ' selected' : ''}>0.25 &middot; Min</option>
+                    </select>
+                    <select onchange="features[${i}].confidence=this.value">
+                        <option value="1"${f.confidence === '1' ? ' selected' : ''}>100% High</option>
+                        <option value="0.8"${f.confidence === '0.8' ? ' selected' : ''}>80% Med</option>
+                        <option value="0.5"${f.confidence === '0.5' ? ' selected' : ''}>50% Low</option>
+                    </select>
+                    <input type="number" value="${f.effort}" placeholder="Effort" min="0.1" step="0.1" onchange="features[${i}].effort=+this.value">
+                    <button class="remove-feature" onclick="removeFeature(${i})">&times;</button>
+                `;
+                c.appendChild(r);
+            });
+        }
+
+        function addFeature() {
+            features.push({ name: '', reach: 0, impact: '1', confidence: '0.8', effort: 1 });
+            renderFeatures();
+        }
+
+        function removeFeature(i) {
+            if (features.length <= 1) return;
+            features.splice(i, 1);
+            renderFeatures();
+        }
+
+        function syncFeatures() {
+            const rows = document.querySelectorAll('.feature-row');
+            rows.forEach((r, i) => {
+                const inputs = r.querySelectorAll('input');
+                const selects = r.querySelectorAll('select');
+                features[i].name = inputs[0].value;
+                features[i].reach = +inputs[1].value;
+                features[i].impact = selects[0].value;
+                features[i].confidence = selects[1].value;
+                features[i].effort = +inputs[2].value || 0.1;
+            });
+        }
+
+        function calculate() {
+            syncFeatures();
+            const valid = features.filter(f => f.name.trim() && f.reach > 0 && f.effort > 0);
+            if (valid.length === 0) { showToast('Add at least one feature with values'); return; }
+
+            const useW = mode === 'advanced' && document.getElementById('useWeights').checked;
+            const wR = useW ? (+document.getElementById('wReach').value || 1) : 1;
+            const wI = useW ? (+document.getElementById('wImpact').value || 1) : 1;
+            const wC = useW ? (+document.getElementById('wConfidence').value || 1) : 1;
+            const wE = useW ? (+document.getElementById('wEffort').value || 1) : 1;
+
+            const showICE = mode === 'advanced' && document.getElementById('showICE').checked;
+
+            scored = valid.map(f => {
+                const reach = f.reach;
+                const impact = +f.impact;
+                const confidence = +f.confidence;
+                const effort = f.effort;
+
+                const riceRaw = (reach * impact * confidence) / effort;
+                const riceWeighted = useW ? (Math.pow(reach, wR) * Math.pow(impact, wI) * Math.pow(confidence, wC)) / Math.pow(effort, wE) : riceRaw;
+                const ice = showICE ? (impact * confidence * (1 / effort)) * 10 : null;
+
+                return {
+                    name: f.name,
+                    reach, impact, confidence, effort,
+                    rice: riceWeighted,
+                    riceRaw,
+                    ice,
+                    impactLabel: impact === 3 ? 'Massive' : impact === 2 ? 'High' : impact === 1 ? 'Medium' : impact === 0.5 ? 'Low' : 'Minimal',
+                    confLabel: confidence === 1 ? 'High' : confidence === 0.8 ? 'Medium' : 'Low',
+                    confClass: confidence === 1 ? 'conf-high' : confidence === 0.8 ? 'conf-med' : 'conf-low'
+                };
+            });
+
+            scored.sort((a, b) => b.rice - a.rice);
+
+            const avgScore = scored.reduce((s, f) => s + f.rice, 0) / scored.length;
+            const avgEffort = scored.reduce((s, f) => s + f.effort, 0) / scored.length;
+            const quickWins = scored.filter(f => f.rice >= avgScore && f.effort <= avgEffort).length;
+            const maxScore = scored[0].rice;
+            const minScore = scored[scored.length - 1].rice;
+
+            document.getElementById('topFeature').textContent = scored[0].name;
+            document.getElementById('topScore').textContent = 'RICE Score: ' + fmtScore(scored[0].rice);
+            document.getElementById('quickWins').textContent = quickWins;
+            document.getElementById('avgScore').textContent = fmtScore(avgScore);
+            document.getElementById('scoreSpread').textContent = fmtScore(maxScore - minScore);
+            document.getElementById('featureCount').textContent = scored.length;
+
+            if (mode === 'advanced') {
+                const effortUnit = document.getElementById('effortUnits').value.replace('-', ' ');
+                const highReachF = scored.reduce((a, b) => a.reach > b.reach ? a : b);
+                const avgConf = scored.reduce((s, f) => s + f.confidence, 0) / scored.length;
+                const totalEffort = scored.reduce((s, f) => s + f.effort, 0);
+                const bestVal = scored.reduce((a, b) => (a.rice / a.effort) > (b.rice / b.effort) ? a : b);
+
+                document.getElementById('highReach').textContent = fmtK(highReachF.reach);
+                document.getElementById('avgConf').textContent = Math.round(avgConf * 100) + '%';
+                document.getElementById('totalEffort').textContent = totalEffort.toFixed(1) + ' ' + effortUnit.split(' ').pop();
+                document.getElementById('bestValue').textContent = bestVal.name;
+
+                if (showICE) {
+                    const iceScored = [...scored].sort((a, b) => b.ice - a.ice);
+                    document.getElementById('iceTop').textContent = iceScored[0].name;
+                    document.getElementById('iceCard').style.display = 'block';
+                    document.getElementById('effortEffCard').style.display = 'none';
+                } else {
+                    document.getElementById('iceCard').style.display = 'none';
+                    document.getElementById('effortEffCard').style.display = 'block';
+                }
+            }
+
+            document.getElementById('placeholder').style.display = 'none';
+            document.getElementById('results').classList.add('visible');
+
+            fillTable(showICE);
+            drawChart();
+            saveToURL();
+        }
+
+        function fmtScore(v) {
+            if (v >= 10000) return (v / 1000).toFixed(0) + 'K';
+            if (v >= 1000) return (v / 1000).toFixed(1) + 'K';
+            if (v >= 100) return Math.round(v).toLocaleString();
+            if (v >= 10) return v.toFixed(1);
+            return v.toFixed(2);
+        }
+
+        function fmtK(v) {
+            if (v >= 1000000) return (v / 1000000).toFixed(1) + 'M';
+            if (v >= 1000) return (v / 1000).toFixed(v >= 10000 ? 0 : 1) + 'K';
+            return v.toLocaleString();
+        }
+
+        function fillTable(showICE) {
+            const thead = document.getElementById('tableHead');
+            const tbody = document.getElementById('tableBody');
+            let cols = '<tr><th>Rank</th><th>Feature</th><th>Reach</th><th>Impact</th><th>Confidence</th><th>Effort</th><th>RICE Score</th>';
+            if (showICE) cols += '<th>ICE Score</th>';
+            cols += '</tr>';
+            thead.innerHTML = cols;
+
+            const maxRice = scored[0].rice;
+            tbody.innerHTML = scored.map((f, i) => {
+                const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-default';
+                const pct = maxRice > 0 ? (f.rice / maxRice * 100) : 0;
+                let row = `<tr class="${i === 0 ? 'top-pick' : ''}">
+                    <td><span class="rank-badge ${rankClass}">${i + 1}</span></td>
+                    <td style="font-weight:500;color:var(--text)">${f.name}</td>
+                    <td>${fmtK(f.reach)}</td>
+                    <td>${f.impactLabel}</td>
+                    <td><span class="confidence-badge ${f.confClass}">${f.confLabel}</span></td>
+                    <td>${f.effort}</td>
+                    <td class="score-bar-cell"><span class="score-val">${fmtScore(f.rice)}</span></td>`;
+                if (showICE) row += `<td style="color:var(--text)">${f.ice.toFixed(1)}</td>`;
+                row += '</tr>';
+                return row;
+            }).join('');
+        }
+
+        function setChart(type) {
+            activeChart = type;
+            document.querySelectorAll('.chart-tab').forEach(t => t.classList.toggle('active', t.textContent.toLowerCase() === type));
+            drawChart();
+        }
+
+        function drawChart() {
+            if (!scored.length) return;
+            if (activeChart === 'ranking') drawRankingChart();
+            else drawMatrixChart();
+        }
+
+        function setupCanvas() {
+            const canvas = document.getElementById('chartCanvas');
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            ctx.clearRect(0, 0, rect.width, rect.height);
+            return { ctx, w: rect.width, h: rect.height };
+        }
+
+        function drawRankingChart() {
+            const { ctx, w, h } = setupCanvas();
+            const pad = { top: 16, right: 16, bottom: 8, left: 120 };
+            const plotW = w - pad.left - pad.right;
+            const plotH = h - pad.top - pad.bottom;
+            const barH = Math.min(32, (plotH / scored.length) - 8);
+            const gap = (plotH - barH * scored.length) / (scored.length + 1);
+            const maxScore = scored[0].rice;
+
+            scored.forEach((f, i) => {
+                const y = pad.top + gap * (i + 1) + barH * i;
+                const barW = maxScore > 0 ? (f.rice / maxScore) * plotW : 0;
+
+                // Bar
+                const barColor = f.confidence === 1 ? '#5dcc72' : f.confidence === 0.8 ? '#c9a84c' : '#e85d5d';
+                ctx.fillStyle = barColor;
+                ctx.beginPath();
+                const r = Math.min(4, barH / 2);
+                ctx.roundRect(pad.left, y, Math.max(barW, 2), barH, [0, r, r, 0]);
+                ctx.fill();
+
+                // Label
+                ctx.fillStyle = '#8b8b96';
+                ctx.font = '500 11px Outfit, sans-serif';
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'middle';
+                const label = f.name.length > 16 ? f.name.substring(0, 15) + '...' : f.name;
+                ctx.fillText(label, pad.left - 10, y + barH / 2);
+
+                // Score
+                ctx.fillStyle = '#eeeeed';
+                ctx.font = '600 11px Outfit, sans-serif';
+                ctx.textAlign = 'left';
+                ctx.fillText(fmtScore(f.rice), pad.left + barW + 8, y + barH / 2);
+            });
+
+            const legend = document.getElementById('chartLegend');
+            legend.innerHTML = `
+                <div class="legend-item"><div class="legend-dot" style="background:#5dcc72"></div>High confidence</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#c9a84c"></div>Medium confidence</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#e85d5d"></div>Low confidence</div>
+            `;
+        }
+
+        function drawMatrixChart() {
+            const { ctx, w, h } = setupCanvas();
+            const pad = { top: 28, right: 20, bottom: 40, left: 52 };
+            const plotW = w - pad.left - pad.right;
+            const plotH = h - pad.top - pad.bottom;
+
+            const maxEffort = Math.max(...scored.map(f => f.effort)) * 1.15;
+            const maxValue = Math.max(...scored.map(f => f.reach * f.impact * f.confidence)) * 1.15;
+            const maxRice = Math.max(...scored.map(f => f.rice));
+
+            // Grid lines
+            ctx.strokeStyle = 'rgba(34,34,40,0.8)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 4; i++) {
+                const x = pad.left + (plotW / 4) * i;
+                const y = pad.top + (plotH / 4) * i;
+                ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, pad.top + plotH); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + plotW, y); ctx.stroke();
+            }
+
+            // Quadrant labels
+            ctx.font = '500 9px Syne, sans-serif';
+            ctx.globalAlpha = 0.25;
+            ctx.fillStyle = '#5dcc72';
+            ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+            ctx.fillText('QUICK WINS', pad.left + 6, pad.top + 6);
+            ctx.fillStyle = '#c9a84c';
+            ctx.textAlign = 'right';
+            ctx.fillText('BIG BETS', pad.left + plotW - 6, pad.top + 6);
+            ctx.fillStyle = '#8b8b96';
+            ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+            ctx.fillText('FILL-INS', pad.left + 6, pad.top + plotH - 6);
+            ctx.fillStyle = '#e85d5d';
+            ctx.textAlign = 'right';
+            ctx.fillText('MONEY PITS', pad.left + plotW - 6, pad.top + plotH - 6);
+            ctx.globalAlpha = 1;
+
+            // Midline dashes
+            ctx.strokeStyle = 'rgba(201,168,76,0.15)';
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath();
+            ctx.moveTo(pad.left + plotW / 2, pad.top);
+            ctx.lineTo(pad.left + plotW / 2, pad.top + plotH);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(pad.left, pad.top + plotH / 2);
+            ctx.lineTo(pad.left + plotW, pad.top + plotH / 2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Axis labels
+            ctx.fillStyle = '#55555e';
+            ctx.font = '600 9px Syne, sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            ctx.fillText('EFFORT \u2192', pad.left + plotW / 2, pad.top + plotH + 16);
+            ctx.save();
+            ctx.translate(14, pad.top + plotH / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('VALUE \u2192', 0, 0);
+            ctx.restore();
+
+            // Bubbles
+            scored.forEach((f, i) => {
+                const x = pad.left + (f.effort / maxEffort) * plotW;
+                const value = f.reach * f.impact * f.confidence;
+                const y = pad.top + plotH - (value / maxValue) * plotH;
+                const radius = Math.max(8, Math.min(28, (f.rice / maxRice) * 24 + 6));
+                const color = f.confidence === 1 ? '#5dcc72' : f.confidence === 0.8 ? '#c9a84c' : '#e85d5d';
+
+                ctx.globalAlpha = 0.2;
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.globalAlpha = 1;
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Label
+                ctx.fillStyle = '#eeeeed';
+                ctx.font = '500 10px Outfit, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                const label = f.name.length > 12 ? f.name.substring(0, 11) + '..' : f.name;
+                ctx.fillText(label, x, y - radius - 4);
+            });
+
+            const legend = document.getElementById('chartLegend');
+            legend.innerHTML = `
+                <div class="legend-item"><div class="legend-dot" style="background:#5dcc72"></div>High confidence</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#c9a84c"></div>Medium confidence</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#e85d5d"></div>Low confidence</div>
+                <div class="legend-item" style="margin-left:auto;font-style:italic;opacity:0.6">Bubble size = RICE score</div>
+            `;
+        }
+
+        function copyResults() {
+            if (!scored.length) return;
+            const effortUnit = mode === 'advanced' ? document.getElementById('effortUnits').value.replace('-', ' ') : 'person-months';
+            let text = 'RICE Prioritization Results\n\n';
+            text += 'Rank\tFeature\tReach\tImpact\tConfidence\tEffort (' + effortUnit + ')\tRICE Score\n';
+            scored.forEach((f, i) => {
+                text += `${i + 1}\t${f.name}\t${f.reach}\t${f.impactLabel}\t${Math.round(f.confidence * 100)}%\t${f.effort}\t${fmtScore(f.rice)}\n`;
+            });
+            navigator.clipboard.writeText(text).then(() => showToast('Results copied'));
+        }
+
+        function downloadCSV() {
+            if (!scored.length) return;
+            const showICE = mode === 'advanced' && document.getElementById('showICE').checked;
+            let csv = 'Rank,Feature,Reach,Impact,Impact Score,Confidence,Confidence %,Effort,RICE Score';
+            if (showICE) csv += ',ICE Score';
+            csv += '\n';
+            scored.forEach((f, i) => {
+                csv += `${i + 1},"${f.name}",${f.reach},${f.impactLabel},${f.impact},${f.confLabel},${Math.round(f.confidence * 100)}%,${f.effort},${f.rice.toFixed(2)}`;
+                if (showICE) csv += `,${f.ice.toFixed(2)}`;
+                csv += '\n';
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'rice-scores.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('CSV downloaded');
+        }
+
+        function saveToURL() {
+            const p = new URLSearchParams();
+            p.set('fc', features.length);
+            features.forEach((f, i) => {
+                p.set(`f${i}n`, f.name);
+                p.set(`f${i}r`, f.reach);
+                p.set(`f${i}i`, f.impact);
+                p.set(`f${i}c`, f.confidence);
+                p.set(`f${i}e`, f.effort);
+            });
+            p.set('mode', mode);
+            if (mode === 'advanced') {
+                p.set('rt', document.getElementById('reachTimeframe').value);
+                p.set('eu', document.getElementById('effortUnits').value);
+                if (document.getElementById('useWeights').checked) {
+                    p.set('uw', '1');
+                    p.set('wr', document.getElementById('wReach').value);
+                    p.set('wi', document.getElementById('wImpact').value);
+                    p.set('wc', document.getElementById('wConfidence').value);
+                    p.set('we', document.getElementById('wEffort').value);
+                }
+                if (document.getElementById('showICE').checked) p.set('ice', '1');
+            }
+            history.replaceState(null, '', `${window.location.pathname}?${p.toString()}`);
+        }
+
+        function loadFromURL() {
+            const p = new URLSearchParams(window.location.search);
+            if (!p.has('fc')) return;
+            const fc = +p.get('fc');
+            features = [];
+            for (let i = 0; i < fc; i++) {
+                features.push({
+                    name: p.get(`f${i}n`) || '',
+                    reach: +(p.get(`f${i}r`) || 0),
+                    impact: p.get(`f${i}i`) || '1',
+                    confidence: p.get(`f${i}c`) || '0.8',
+                    effort: +(p.get(`f${i}e`) || 1)
+                });
+            }
+            const m = p.get('mode');
+            if (m === 'advanced') {
+                setMode('advanced');
+                if (p.has('rt')) document.getElementById('reachTimeframe').value = p.get('rt');
+                if (p.has('eu')) document.getElementById('effortUnits').value = p.get('eu');
+                if (p.get('uw') === '1') {
+                    document.getElementById('useWeights').checked = true;
+                    toggleWeights();
+                    if (p.has('wr')) document.getElementById('wReach').value = p.get('wr');
+                    if (p.has('wi')) document.getElementById('wImpact').value = p.get('wi');
+                    if (p.has('wc')) document.getElementById('wConfidence').value = p.get('wc');
+                    if (p.has('we')) document.getElementById('wEffort').value = p.get('we');
+                }
+                if (p.get('ice') === '1') document.getElementById('showICE').checked = true;
+            }
+        }
+
+        function toggleFaq(btn) {
+            const wasOpen = btn.classList.contains('open');
+            document.querySelectorAll('.faq-q').forEach(q => { q.classList.remove('open'); q.nextElementSibling.style.maxHeight = null; });
+            if (!wasOpen) { btn.classList.add('open'); const a = btn.nextElementSibling; a.style.maxHeight = a.scrollHeight + 'px'; }
+        }
+
+        window.addEventListener('resize', () => { if (scored.length) drawChart(); });
+
+        // Init
+        renderFeatures();
+        loadFromURL();
+        if (window.location.search) calculate();
+    </script>
+</body>
+</html>

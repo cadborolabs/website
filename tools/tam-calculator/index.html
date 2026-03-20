@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAM SAM SOM Calculator — Size Your Market | Cadboro Labs</title>
+    <meta name="description" content="Free TAM SAM SOM calculator with bottom-up and top-down methods. Funnel visualization, growth projections, and investor-readiness scoring. No signup required.">
+    <meta name="keywords" content="TAM SAM SOM calculator, total addressable market calculator, market sizing tool, TAM calculator, SAM calculator, SOM calculator, market sizing for investors, bottom up market sizing, top down market sizing">
+    <meta property="og:title" content="TAM SAM SOM Calculator — Cadboro Labs">
+    <meta property="og:description" content="Free market sizing calculator with funnel visualization, growth projections, and investor-readiness scoring.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cadborolabs.com/tools/tam-calculator/">
+    <link rel="canonical" href="https://cadborolabs.com/tools/tam-calculator/">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "TAM SAM SOM Calculator",
+        "description": "Free TAM SAM SOM calculator with bottom-up and top-down methods, funnel visualization, growth projections, and investor-readiness scoring.",
+        "url": "https://cadborolabs.com/tools/tam-calculator/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@type": "Organization", "name": "Cadboro Labs", "url": "https://cadborolabs.com" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "What is TAM SAM SOM?", "acceptedAnswer": { "@type": "Answer", "text": "TAM (Total Addressable Market) is the total revenue opportunity if you captured 100% of the market. SAM (Serviceable Addressable Market) is the portion of TAM your product can realistically serve given geographic, technical, or segment constraints. SOM (Serviceable Obtainable Market) is the share of SAM you can realistically capture in the near term based on your competitive position and go-to-market capacity." }},
+            { "@type": "Question", "name": "How do you calculate TAM?", "acceptedAnswer": { "@type": "Answer", "text": "There are two primary methods. Bottom-up: multiply the total number of potential customers by your average contract value (ACV). Top-down: start with total industry revenue from market research reports and narrow it down by relevant segments. Using both methods to triangulate gives investors more confidence in your estimate." }},
+            { "@type": "Question", "name": "What is the difference between TAM and SAM?", "acceptedAnswer": { "@type": "Answer", "text": "TAM represents the entire market opportunity without any constraints. SAM narrows this to the segment you can actually serve with your current product, geographic reach, and technical capabilities. For example, a project management SaaS might have a TAM of all businesses globally, but a SAM limited to English-speaking SMBs in North America." }},
+            { "@type": "Question", "name": "How do investors evaluate market size?", "acceptedAnswer": { "@type": "Answer", "text": "Investors look for a large TAM (typically $1B+), a credible SAM that shows you understand your addressable segment, and a realistic SOM that demonstrates go-to-market awareness. They value bottom-up analysis over top-down because it shows customer-level understanding. Using both methods and showing your assumptions earns the most credibility." }},
+            { "@type": "Question", "name": "What is a good SOM percentage?", "acceptedAnswer": { "@type": "Answer", "text": "For startups in years 1-3, a SOM of 1-5% of SAM is considered realistic. Early-stage companies claiming more than 10-20% of their SAM in the near term will face skepticism from investors. SOM should reflect your actual go-to-market capacity, competitive landscape, and sales cycle." }},
+            { "@type": "Question", "name": "Should I use bottom-up or top-down market sizing?", "acceptedAnswer": { "@type": "Answer", "text": "Use both. Bottom-up (customers x ACV) gives you a grounded, defensible estimate based on your specific customer and pricing. Top-down (industry revenue x relevant %) gives you context from market research. When both methods converge, it strengthens your market sizing. When they diverge significantly, it signals that assumptions need revisiting." }},
+            { "@type": "Question", "name": "What are common mistakes in market sizing?", "acceptedAnswer": { "@type": "Answer", "text": "The most common mistakes are: using TAM as your revenue projection (TAM is opportunity, not forecast), being too generous with SOM assumptions, using only one method (top-down or bottom-up but not both), not accounting for competitive dynamics, and citing industry reports without narrowing to your actual addressable segment." }}
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cadborolabs.com" },
+            { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://cadborolabs.com/tools/" },
+            { "@type": "ListItem", "position": 3, "name": "TAM Calculator", "item": "https://cadborolabs.com/tools/tam-calculator/" }
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #09090b; --bg-raised: #111113; --bg-card: #16161a;
+            --border: #222228; --border-hover: #38383f;
+            --gold: #c9a84c; --gold-light: #e6d59c; --gold-dim: #6b5a2a;
+            --text: #eeeeed; --text-2: #8b8b96; --text-3: #55555e;
+            --red: #e85d5d; --green: #5dcc72;
+            --green-dim: rgba(93,204,114,0.12); --red-dim: rgba(232,93,93,0.1);
+            --gold-glow: rgba(201,168,76,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        ::selection { background: var(--gold); color: var(--bg); }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+        .grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.03; z-index: 9999; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: rgba(9,9,11,0.85); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; }
+
+        .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 88px 40px 0; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+        .breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        .tool-header { text-align: center; padding: 24px 0 36px; }
+        .tool-header h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 8px; }
+        .tool-header h1 span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .tool-header p { font-size: 0.92rem; color: var(--text-2); max-width: 520px; margin: 0 auto; }
+
+        .calc-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 24px; margin-bottom: 48px; }
+
+        .input-panel { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+        .panel-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+        .panel-label { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); }
+
+        .mode-toggle { display: flex; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .mode-btn { background: transparent; border: none; color: var(--text-3); font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 14px; cursor: pointer; transition: all 0.2s; }
+        .mode-btn.active { background: var(--gold); color: var(--bg); }
+
+        .section-divider { margin: 20px 0 16px; }
+        .section-label-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+
+        .rate-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .rate-field { display: flex; flex-direction: column; gap: 6px; }
+        .rate-field label { font-size: 0.75rem; color: var(--text-2); font-weight: 500; }
+        .rate-input-wrap { position: relative; display: flex; align-items: center; }
+        .unit-left { position: absolute; left: 12px; color: var(--text-3); font-size: 0.82rem; pointer-events: none; z-index: 1; }
+        .unit { position: absolute; right: 12px; color: var(--text-3); font-size: 0.82rem; pointer-events: none; }
+        input[type="number"], input[type="text"] { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s; -moz-appearance: textfield; }
+        input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+        input[type="number"]:focus, input[type="text"]:focus { border-color: var(--gold-dim); }
+        input.has-prefix { padding-left: 28px; }
+        input.has-suffix { padding-right: 28px; }
+
+        /* Slider + numeric input combo */
+        .slider-group { margin-bottom: 16px; }
+        .slider-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .slider-label span { font-size: 0.75rem; color: var(--text-2); font-weight: 500; }
+        .slider-row { display: flex; align-items: center; gap: 12px; }
+        .slider-row input[type="range"] { flex: 1; -webkit-appearance: none; appearance: none; height: 6px; background: var(--border); border-radius: 3px; outline: none; cursor: pointer; }
+        .slider-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); cursor: pointer; border: 2px solid var(--bg-card); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
+        .slider-row input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--gold); cursor: pointer; border: 2px solid var(--bg-card); }
+        .slider-val-wrap { position: relative; display: flex; align-items: center; }
+        .slider-val-input { width: 64px; text-align: center; padding: 8px 22px 8px 8px; font-size: 0.82rem; }
+        .slider-val-wrap .unit { right: 8px; font-size: 0.75rem; }
+
+        .adv-section { display: none; }
+        .adv-section.visible { display: block; animation: fadeSlideIn 0.3s ease; }
+
+        .calc-btn { width: 100%; background: var(--gold); color: var(--bg); font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border: none; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
+        .calc-btn:hover { background: var(--gold-light); }
+
+        /* Segment rows */
+        .segment-row { display: grid; grid-template-columns: 2fr 1fr 36px; gap: 10px; margin-bottom: 8px; align-items: center; animation: fadeSlideIn 0.25s ease; }
+        .add-segment { display: flex; align-items: center; justify-content: center; gap: 8px; background: transparent; border: 1px dashed var(--border); border-radius: 8px; color: var(--text-3); padding: 8px; cursor: pointer; width: 100%; font-size: 0.82rem; font-family: 'Outfit', sans-serif; transition: all 0.2s; margin-top: 4px; }
+        .add-segment:hover { border-color: var(--gold-dim); color: var(--gold); }
+        .remove-seg { background: transparent; border: 1px solid var(--border); color: var(--text-3); border-radius: 6px; width: 36px; height: 36px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .remove-seg:hover { border-color: var(--red); color: var(--red); }
+
+        /* Results panel */
+        .results-panel { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+        .results-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; color: var(--text-3); text-align: center; gap: 12px; }
+        .results-placeholder svg { opacity: 0.3; }
+        .results-placeholder p { font-size: 0.85rem; }
+        .results-content { display: none; }
+        .results-content.visible { display: block; animation: fadeIn 0.4s ease; }
+
+        .hero-metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .hero-metric { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+        .hero-metric .label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .hero-metric .value { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--gold); line-height: 1.2; }
+        .hero-metric .sub { font-size: 0.7rem; color: var(--text-3); margin-top: 2px; }
+
+        .funnel-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        .funnel-header { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
+        #funnelChart { width: 100%; height: 280px; display: block; }
+
+        .mini-metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .mini-metric { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; text-align: center; }
+        .mini-metric .label { font-size: 0.65rem; color: var(--text-3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+        .mini-metric .value { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); }
+
+        /* Method comparison */
+        .chart-section { margin-bottom: 16px; }
+        .chart-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .chart-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
+        .chart-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+        #methodChart { width: 100%; height: 180px; display: block; }
+        #growthChart { width: 100%; height: 220px; display: block; }
+        .variance-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; }
+        .variance-badge.low { background: var(--green-dim); color: var(--green); }
+        .variance-badge.med { background: var(--gold-glow); color: var(--gold); }
+        .variance-badge.high { background: var(--red-dim); color: var(--red); }
+
+        .chart-legend { display: flex; gap: 16px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--text-2); }
+        .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        /* Investor score */
+        .score-section { margin-bottom: 16px; }
+        .score-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+        #scoreCanvas { width: 140px; height: 80px; display: block; margin: 0 auto 8px; }
+        .score-value { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; line-height: 1; }
+        .score-value.good { color: var(--green); }
+        .score-value.med { color: var(--gold); }
+        .score-value.low { color: var(--red); }
+        .score-label-text { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px; margin-bottom: 12px; }
+        .score-recs { list-style: none; text-align: left; }
+        .score-recs li { font-size: 0.78rem; color: var(--text-2); padding: 6px 0 6px 20px; position: relative; line-height: 1.5; }
+        .score-recs li::before { content: ''; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; border: 1.5px solid var(--gold-dim); border-radius: 50%; }
+
+        .export-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .export-btn { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text-2); font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; text-align: center; white-space: nowrap; }
+        .export-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+        /* SEO content */
+        .seo-content { max-width: 780px; margin: 0 auto 48px; }
+        .seo-content h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; margin-top: 36px; }
+        .seo-content h2 span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .seo-content p { color: var(--text-2); font-size: 0.9rem; line-height: 1.7; margin-bottom: 12px; }
+        .seo-content ul { list-style: none; margin: 12px 0 16px; }
+        .seo-content ul li { color: var(--text-2); font-size: 0.88rem; padding: 6px 0 6px 20px; position: relative; line-height: 1.6; }
+        .seo-content ul li::before { content: ''; position: absolute; left: 0; top: 13px; width: 6px; height: 6px; border: 1.5px solid var(--gold-dim); border-radius: 50%; }
+        .formula-block { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1rem; color: var(--gold); margin: 12px 0; text-align: center; }
+
+        .faq-section { margin-top: 36px; }
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-q { width: 100%; background: none; border: none; display: flex; align-items: center; justify-content: space-between; padding: 16px 0; cursor: pointer; text-align: left; }
+        .faq-q span { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--text); padding-right: 16px; }
+        .faq-q svg { flex-shrink: 0; transition: transform 0.3s; color: var(--text-3); }
+        .faq-q.open svg { transform: rotate(45deg); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+        .faq-a-inner { padding: 0 0 16px; font-size: 0.85rem; color: var(--text-2); line-height: 1.7; }
+
+        /* CTA */
+        .cta-banner { max-width: 780px; margin: 0 auto 80px; background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02)); border: 1px solid var(--gold-dim); border-radius: 16px; padding: 36px; text-align: center; }
+        .cta-banner h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+        .cta-banner p { font-size: 0.88rem; color: var(--text-2); margin-bottom: 20px; line-height: 1.6; max-width: 540px; margin-left: auto; margin-right: auto; margin-bottom: 20px; }
+        .cta-install { display: inline-flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 24px; font-family: 'Outfit', monospace; font-size: 0.85rem; color: var(--gold); cursor: pointer; transition: all 0.2s; }
+        .cta-install:hover { border-color: var(--gold-dim); box-shadow: 0 4px 16px rgba(201,168,76,0.1); }
+
+        footer { border-top: 1px solid var(--border); padding: 32px 40px; text-align: center; font-size: 0.78rem; color: var(--text-3); }
+        footer a { color: var(--text-3); text-decoration: none; }
+        footer a:hover { color: var(--gold); }
+
+        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--gold); color: var(--bg); padding: 12px 24px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; z-index: 10000; opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(9,9,11,0.96); backdrop-filter: blur(24px); padding: 20px; gap: 16px; border-bottom: 1px solid var(--border); }
+            .nav-toggle { display: block; }
+            .breadcrumb { padding: 76px 20px 0; }
+            .container { padding: 0 20px; }
+            .input-panel, .results-panel { padding: 20px; }
+            .tool-header h1 { font-size: 1.8rem; }
+            .hero-metrics { grid-template-columns: 1fr; }
+            .mini-metrics { grid-template-columns: 1fr; }
+            .rate-group { grid-template-columns: 1fr; }
+            .export-row { flex-direction: column; }
+            .cta-banner { padding: 28px 20px; margin-bottom: 48px; }
+            .segment-row { grid-template-columns: 1.5fr 1fr 32px; gap: 6px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain" aria-hidden="true"><svg width="100%" height="100%"><filter id="grainy"><feTurbulence type="turbulence" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#grainy)"/></svg></div>
+
+    <nav>
+        <a href="/" class="nav-logo">CADBORO LABS</a>
+        <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')"><span></span><span></span><span></span></button>
+        <ul class="nav-links">
+            <li><a href="/#tools">Tools</a></li>
+            <li><a href="/#skills">Skills</a></li>
+            <li><a href="/#about">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="/">Home</a><span class="sep">/</span>
+        <a href="/tools/">Tools</a><span class="sep">/</span>
+        <span style="color: var(--text-2)">TAM Calculator</span>
+    </div>
+
+    <div class="container">
+        <div class="tool-header">
+            <h1>TAM/SAM/SOM <span>Calculator</span></h1>
+            <p>Size your market with bottom-up and top-down methods. Funnel visualization, growth projections, and investor-readiness scoring.</p>
+        </div>
+
+        <div class="calc-grid">
+            <!-- INPUT PANEL -->
+            <div class="input-panel">
+                <div class="panel-top">
+                    <span class="panel-label">Market Inputs</span>
+                    <div class="mode-toggle">
+                        <button class="mode-btn active" onclick="setMode('basic')">Basic</button>
+                        <button class="mode-btn" onclick="setMode('advanced')">Advanced</button>
+                    </div>
+                </div>
+
+                <div class="rate-group">
+                    <div class="rate-field">
+                        <label for="totalCustomers">Total potential customers</label>
+                        <div class="rate-input-wrap">
+                            <input type="number" id="totalCustomers" value="50000" min="0" step="1" placeholder="e.g. 50000">
+                        </div>
+                    </div>
+                    <div class="rate-field">
+                        <label for="acv">Average contract value (ACV)</label>
+                        <div class="rate-input-wrap">
+                            <span class="unit-left">$</span>
+                            <input type="number" id="acv" value="1200" min="0" step="1" class="has-prefix" placeholder="e.g. 1200">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>SAM — % of TAM you can serve</span>
+                    </div>
+                    <div class="slider-row">
+                        <input type="range" id="samSlider" min="0" max="100" step="1" value="25" oninput="syncFromSlider('samSlider','samPct')">
+                        <div class="slider-val-wrap">
+                            <input type="number" id="samPct" class="slider-val-input has-suffix" value="25" min="0" max="100" step="1" oninput="syncFromInput('samPct','samSlider')">
+                            <span class="unit">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>SOM — % of SAM you can capture</span>
+                    </div>
+                    <div class="slider-row">
+                        <input type="range" id="somSlider" min="0" max="100" step="1" value="5" oninput="syncFromSlider('somSlider','somPct')">
+                        <div class="slider-val-wrap">
+                            <input type="number" id="somPct" class="slider-val-input has-suffix" value="5" min="0" max="100" step="1" oninput="syncFromInput('somPct','somSlider')">
+                            <span class="unit">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADVANCED: Top-Down Method -->
+                <div class="adv-section" id="advTopDown">
+                    <div class="section-divider">
+                        <div class="section-label-row"><span class="panel-label">Top-Down Method</span></div>
+                    </div>
+                    <div class="rate-field" style="margin-bottom: 12px">
+                        <label for="industryRevenue">Total industry / market revenue</label>
+                        <div class="rate-input-wrap">
+                            <span class="unit-left">$</span>
+                            <input type="number" id="industryRevenue" min="0" step="1" class="has-prefix" placeholder="e.g. 10000000000">
+                        </div>
+                    </div>
+                    <div class="rate-group">
+                        <div class="rate-field">
+                            <label for="tdSamPct">SAM — % of industry</label>
+                            <div class="rate-input-wrap">
+                                <input type="number" id="tdSamPct" value="20" min="0" max="100" step="1" class="has-suffix" placeholder="20">
+                                <span class="unit">%</span>
+                            </div>
+                        </div>
+                        <div class="rate-field">
+                            <label for="tdSomPct">SOM — % of SAM</label>
+                            <div class="rate-input-wrap">
+                                <input type="number" id="tdSomPct" value="5" min="0" max="100" step="1" class="has-suffix" placeholder="5">
+                                <span class="unit">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADVANCED: Growth Projections -->
+                <div class="adv-section" id="advGrowth">
+                    <div class="section-divider">
+                        <div class="section-label-row"><span class="panel-label">Growth Projections</span></div>
+                    </div>
+                    <div class="rate-group">
+                        <div class="rate-field">
+                            <label for="cagr">Market growth rate (CAGR)</label>
+                            <div class="rate-input-wrap">
+                                <input type="number" id="cagr" value="12" min="0" max="200" step="0.1" class="has-suffix" placeholder="12">
+                                <span class="unit">%</span>
+                            </div>
+                        </div>
+                        <div class="rate-field">
+                            <label for="timeHorizon">Time horizon</label>
+                            <div class="rate-input-wrap">
+                                <input type="number" id="timeHorizon" value="5" min="1" max="10" step="1" class="has-suffix" placeholder="5">
+                                <span class="unit">yr</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADVANCED: Market Segments -->
+                <div class="adv-section" id="advSegments">
+                    <div class="section-divider">
+                        <div class="section-label-row"><span class="panel-label">Market Segments</span></div>
+                    </div>
+                    <div id="segmentRows"></div>
+                    <button class="add-segment" onclick="addSegment()" id="addSegBtn">+ Add segment filter</button>
+                </div>
+
+                <!-- ADVANCED: Competitive Position -->
+                <div class="adv-section" id="advCompetitor">
+                    <div class="section-divider">
+                        <div class="section-label-row"><span class="panel-label">Competitive Position</span></div>
+                    </div>
+                    <div class="rate-field">
+                        <label for="competitorShare">Total competitor market share</label>
+                        <div class="rate-input-wrap">
+                            <input type="number" id="competitorShare" min="0" max="100" step="1" class="has-suffix" placeholder="e.g. 35">
+                            <span class="unit">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="calc-btn" onclick="calculate()">Calculate market size</button>
+            </div>
+
+            <!-- RESULTS PANEL -->
+            <div class="results-panel">
+                <div class="results-placeholder" id="placeholder">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
+                    <p>Enter your market data and click calculate<br>to see TAM, SAM, and SOM</p>
+                </div>
+
+                <div class="results-content" id="results">
+                    <div class="hero-metrics">
+                        <div class="hero-metric">
+                            <div class="label">TAM</div>
+                            <div class="value" id="heroTAM">$0</div>
+                            <div class="sub">total addressable</div>
+                        </div>
+                        <div class="hero-metric">
+                            <div class="label">SAM</div>
+                            <div class="value" id="heroSAM">$0</div>
+                            <div class="sub">serviceable addressable</div>
+                        </div>
+                        <div class="hero-metric">
+                            <div class="label">SOM</div>
+                            <div class="value" id="heroSOM">$0</div>
+                            <div class="sub">serviceable obtainable</div>
+                        </div>
+                    </div>
+
+                    <div class="funnel-wrap">
+                        <div class="funnel-header">Market Funnel</div>
+                        <canvas id="funnelChart"></canvas>
+                    </div>
+
+                    <div class="mini-metrics">
+                        <div class="mini-metric">
+                            <div class="label">SAM : TAM</div>
+                            <div class="value" id="metricSamTam">0%</div>
+                        </div>
+                        <div class="mini-metric">
+                            <div class="label">SOM : SAM</div>
+                            <div class="value" id="metricSomSam">0%</div>
+                        </div>
+                        <div class="mini-metric">
+                            <div class="label">SOM : TAM</div>
+                            <div class="value" id="metricSomTam">0%</div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced: Method comparison -->
+                    <div class="adv-section chart-section" id="advMethodChart">
+                        <div class="chart-header">
+                            <span class="chart-label">Methodology Comparison</span>
+                            <span class="variance-badge" id="varianceBadge"></span>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="methodChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Advanced: Growth projection -->
+                    <div class="adv-section chart-section" id="advGrowthChart">
+                        <div class="chart-header">
+                            <span class="chart-label">Growth Projection</span>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="growthChart"></canvas>
+                            <div class="chart-legend">
+                                <div class="legend-item"><div class="legend-dot" style="background:rgba(201,168,76,0.5)"></div>TAM</div>
+                                <div class="legend-item"><div class="legend-dot" style="background:rgba(93,204,114,0.7)"></div>SAM</div>
+                                <div class="legend-item"><div class="legend-dot" style="background:#c9a84c"></div>SOM</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced: Investor readiness -->
+                    <div class="adv-section score-section" id="advScore">
+                        <div class="chart-header">
+                            <span class="chart-label">Investor-Readiness Score</span>
+                        </div>
+                        <div class="score-wrap">
+                            <canvas id="scoreCanvas"></canvas>
+                            <div class="score-value" id="scoreValue">0</div>
+                            <div class="score-label-text">Investor Readiness</div>
+                            <ul class="score-recs" id="scoreRecs"></ul>
+                        </div>
+                    </div>
+
+                    <div class="export-row">
+                        <button class="export-btn" onclick="copyResults()">Copy results</button>
+                        <button class="export-btn" onclick="downloadCSV()">Download CSV</button>
+                        <button class="export-btn" onclick="copyShareURL()">Copy URL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT -->
+    <div class="container">
+        <div class="seo-content">
+            <h2>What Is <span>TAM SAM SOM</span>?</h2>
+            <p>TAM, SAM, and SOM are three concentric measures of market opportunity that help founders, product managers, and investors understand how big a business can realistically become.</p>
+            <ul>
+                <li><strong>TAM (Total Addressable Market)</strong> is the total revenue opportunity available if a product achieved 100% market share. It represents the entire demand for a product or service.</li>
+                <li><strong>SAM (Serviceable Addressable Market)</strong> is the portion of TAM that your product can realistically serve, given constraints like geography, customer segment, language, or technical reach.</li>
+                <li><strong>SOM (Serviceable Obtainable Market)</strong> is the share of SAM you can realistically capture in the near term, based on your competitive position, go-to-market capacity, and sales cycle.</li>
+            </ul>
+
+            <h2>How to <span>Calculate</span> TAM SAM SOM</h2>
+            <p>There are two primary approaches to market sizing, and the strongest analyses use both.</p>
+            <p><strong>Bottom-Up Method</strong> starts with your specific customer and pricing:</p>
+            <div class="formula-block">TAM = Total Potential Customers &times; Average Contract Value</div>
+            <div class="formula-block">SAM = TAM &times; Serviceable Market Percentage</div>
+            <div class="formula-block">SOM = SAM &times; Obtainable Market Percentage</div>
+            <p><strong>Top-Down Method</strong> starts with industry-level data:</p>
+            <div class="formula-block">TAM = Total Industry Revenue (from market research)</div>
+            <div class="formula-block">SAM = TAM &times; Relevant Segment Percentage</div>
+            <div class="formula-block">SOM = SAM &times; Expected Market Share Percentage</div>
+            <p>When both methods converge on similar numbers, it strengthens investor confidence. When they diverge significantly, it signals that assumptions need revisiting.</p>
+
+            <h2>Bottom-Up vs <span>Top-Down</span></h2>
+            <p>Bottom-up analysis is grounded in customer-level data: how many potential customers exist and what they would pay. It tends to produce more defensible estimates because every assumption can be traced. Top-down analysis starts from industry reports and narrows downward. It provides useful context but can overestimate if the narrowing filters are too generous.</p>
+            <p>Investors generally weight bottom-up analysis more heavily because it demonstrates that you understand your customer. The ideal approach uses both methods to triangulate, then explains any variance between them.</p>
+
+            <h2>Common <span>Mistakes</span></h2>
+            <ul>
+                <li><strong>Confusing TAM with revenue forecast.</strong> TAM is the theoretical ceiling, not what you will actually earn. Presenting TAM as a revenue projection is a red flag for investors.</li>
+                <li><strong>Skipping the SAM filter entirely.</strong> Going straight from TAM to SOM without defining your serviceable market makes the analysis look lazy or uninformed.</li>
+                <li><strong>Overly generous SOM assumptions.</strong> Claiming you will capture 20%+ of your SAM in year one is unrealistic for most startups. A defensible SOM is usually 1-5% of SAM in the early years.</li>
+                <li><strong>Using only one methodology.</strong> A single method is a single point of failure. Using both bottom-up and top-down shows rigor.</li>
+                <li><strong>Citing industry reports without narrowing.</strong> Saying your TAM is the entire global SaaS market ($300B) without narrowing to your specific segment undermines credibility.</li>
+            </ul>
+
+            <div class="faq-section">
+                <h2>Frequently Asked <span>Questions</span></h2>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>What is TAM SAM SOM?</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">TAM (Total Addressable Market) represents the total revenue opportunity if you achieved 100% market share. SAM (Serviceable Addressable Market) narrows TAM to the segment your product can realistically serve. SOM (Serviceable Obtainable Market) is the portion of SAM you can realistically capture in the near term. Together, they form a market sizing framework used in investor decks, strategic planning, and product roadmaps.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>How do you calculate TAM?</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">Bottom-up: multiply the total number of potential customers by your average contract value (ACV). For example, 50,000 potential customers at $1,200/year = $60M TAM. Top-down: start with total industry revenue from market research and narrow by your relevant segment. Using both methods and showing how they converge gives investors the most confidence.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>What is the difference between TAM and SAM?</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">TAM is the entire market without constraints. SAM applies realistic filters: geography, customer segment, language, technical requirements, and other factors that limit who you can actually reach. For example, a project management SaaS might have a TAM of all businesses globally, but a SAM limited to English-speaking small businesses in North America that use cloud tools.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>How do investors evaluate market size?</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">Investors look for a large TAM (typically $1B+ for venture-scale opportunities), a well-defined SAM that shows you understand your addressable segment, and a realistic SOM that demonstrates go-to-market awareness. They value bottom-up analysis over pure top-down because it shows customer-level understanding. Credibility comes from showing your work, not from big numbers.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>What is a good SOM percentage?</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">For startups in years 1-3, a SOM of 1-5% of SAM is considered realistic and credible. Established companies may capture 10-20%. Claiming more than 20% of SAM as a startup will face skepticism. SOM should reflect your actual go-to-market capacity, competitive landscape, and sales cycle rather than aspirational growth.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>Should I use bottom-up or top-down market sizing?</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">Use both. Bottom-up gives you a grounded estimate based on your specific customer count and pricing. Top-down provides context from industry-level data. When both methods produce similar numbers, your estimate is more defensible. When they diverge by more than 2x, it usually means your assumptions need work in one or both approaches.</div></div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        <span>What are common mistakes in market sizing?</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                    <div class="faq-a"><div class="faq-a-inner">The most common mistakes are: treating TAM as a revenue projection, being too generous with SOM (claiming 20%+ of SAM in year one), using only one methodology, citing total industry size without narrowing to your segment, and not accounting for competitive dynamics. A strong market sizing exercise uses both methods, applies realistic filters, and shows its assumptions transparently.</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="container">
+        <div class="cta-banner">
+            <h3>You sized the market. Now write the PRD.</h3>
+            <p>The PRD Generator skill takes your market sizing, user research, and competitive analysis and produces an investor-ready product requirements document.</p>
+            <div class="cta-install" onclick="copyInstall()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                claude skill install prd-skill
+            </div>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 <a href="/">Cadboro Labs</a>. Built in Victoria, BC.</p></footer>
+    <div class="toast" id="toast"></div>
+
+    <script>
+    // ── State ──
+    let mode = 'basic';
+    let segments = [];
+    let results = null;
+    let growthData = [];
+
+    // ── Helpers ──
+    function gv(id) { return document.getElementById(id).value; }
+    function sv(id, v) { document.getElementById(id).value = v; }
+
+    function fmtC(v) {
+        if (Math.abs(v) >= 1e12) return '$' + (v / 1e12).toFixed(1) + 'T';
+        if (Math.abs(v) >= 1e9) return '$' + (v / 1e9).toFixed(1) + 'B';
+        if (Math.abs(v) >= 1e6) return '$' + (v / 1e6).toFixed(1) + 'M';
+        if (Math.abs(v) >= 1e3) return '$' + (v / 1e3).toFixed(v >= 1e4 ? 0 : 1) + 'K';
+        return '$' + Math.round(v).toLocaleString();
+    }
+
+    function fmtK(v) {
+        if (v >= 1e12) return '$' + (v / 1e12).toFixed(1) + 'T';
+        if (v >= 1e9) return '$' + (v / 1e9).toFixed(1) + 'B';
+        if (v >= 1e6) return '$' + (v / 1e6).toFixed(1) + 'M';
+        if (v >= 1e3) return '$' + (v / 1e3).toFixed(0) + 'K';
+        return '$' + Math.round(v);
+    }
+
+    function fmtN(v) {
+        if (v >= 1e6) return (v / 1e6).toFixed(1) + 'M';
+        if (v >= 1e3) return (v / 1e3).toFixed(v >= 1e4 ? 0 : 1) + 'K';
+        return v.toLocaleString();
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    function toggleFaq(btn) {
+        const open = btn.classList.toggle('open');
+        const a = btn.nextElementSibling;
+        a.style.maxHeight = open ? a.scrollHeight + 'px' : '0';
+    }
+
+    function setupCanvas(id) {
+        const canvas = document.getElementById(id);
+        const ctx = canvas.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        return { ctx, w: rect.width, h: rect.height };
+    }
+
+    // ── Mode Toggle ──
+    function setMode(m) {
+        mode = m;
+        document.querySelectorAll('.mode-btn').forEach((b, i) =>
+            b.classList.toggle('active', (i === 0 && m === 'basic') || (i === 1 && m === 'advanced'))
+        );
+        document.querySelectorAll('.adv-section').forEach(el =>
+            el.classList.toggle('visible', m === 'advanced')
+        );
+        if (results) calculate();
+    }
+
+    // ── Slider Sync ──
+    function syncFromSlider(sliderId, inputId) {
+        sv(inputId, gv(sliderId));
+    }
+    function syncFromInput(inputId, sliderId) {
+        let v = parseFloat(gv(inputId)) || 0;
+        v = Math.max(0, Math.min(100, v));
+        sv(sliderId, v);
+    }
+
+    // ── Segment Management ──
+    function addSegment() {
+        if (segments.length >= 3) return;
+        segments.push({ name: '', pct: 0 });
+        renderSegments();
+    }
+    function removeSegment(i) {
+        segments.splice(i, 1);
+        renderSegments();
+    }
+    function renderSegments() {
+        const c = document.getElementById('segmentRows');
+        c.innerHTML = '';
+        segments.forEach((s, i) => {
+            const r = document.createElement('div');
+            r.className = 'segment-row';
+            r.innerHTML = `<input type="text" value="${s.name}" placeholder="Segment name" oninput="segments[${i}].name=this.value">
+                <div class="rate-input-wrap"><input type="number" value="${s.pct}" placeholder="%" min="0" max="100" step="1" class="has-suffix" oninput="segments[${i}].pct=parseFloat(this.value)||0"><span class="unit">%</span></div>
+                <button class="remove-seg" onclick="removeSegment(${i})">&times;</button>`;
+            c.appendChild(r);
+        });
+        document.getElementById('addSegBtn').style.display = segments.length >= 3 ? 'none' : '';
+    }
+
+    // ── Core Calculation ──
+    function calculate() {
+        const totalCustomers = parseInt(gv('totalCustomers')) || 0;
+        const acv = parseFloat(gv('acv')) || 0;
+        const samPct = parseFloat(gv('samPct')) || 0;
+        const somPct = parseFloat(gv('somPct')) || 0;
+
+        // Bottom-up
+        const buTam = totalCustomers * acv;
+        let buSam = buTam * (samPct / 100);
+        let buSom = buSam * (somPct / 100);
+
+        // Apply segment filters to SAM (if any)
+        if (mode === 'advanced' && segments.length > 0) {
+            let segmentMultiplier = 1;
+            segments.forEach(s => {
+                if (s.pct > 0) segmentMultiplier *= (s.pct / 100);
+            });
+            buSam = buTam * segmentMultiplier;
+            buSom = buSam * (somPct / 100);
+        }
+
+        // Apply competitor adjustment to SOM
+        if (mode === 'advanced') {
+            const cs = parseFloat(gv('competitorShare')) || 0;
+            if (cs > 0) buSom = buSom * (1 - cs / 100);
+        }
+
+        results = {
+            bottomUp: { tam: buTam, sam: buSam, som: buSom },
+            topDown: null,
+            score: null
+        };
+
+        // Top-down (advanced only)
+        if (mode === 'advanced') {
+            const ir = parseFloat(gv('industryRevenue')) || 0;
+            if (ir > 0) {
+                const tdSamPct = parseFloat(gv('tdSamPct')) || 0;
+                const tdSomPct = parseFloat(gv('tdSomPct')) || 0;
+                results.topDown = {
+                    tam: ir,
+                    sam: ir * (tdSamPct / 100),
+                    som: ir * (tdSamPct / 100) * (tdSomPct / 100)
+                };
+            }
+
+            // Growth projections
+            const cagr = (parseFloat(gv('cagr')) || 0) / 100;
+            const horizon = parseInt(gv('timeHorizon')) || 5;
+            growthData = [];
+            for (let y = 0; y <= horizon; y++) {
+                const factor = Math.pow(1 + cagr, y);
+                growthData.push({
+                    year: y,
+                    tam: buTam * factor,
+                    sam: buSam * factor,
+                    som: buSom * factor
+                });
+            }
+
+            // Investor score
+            results.score = calculateInvestorScore();
+        }
+
+        // Show results
+        document.getElementById('placeholder').style.display = 'none';
+        document.getElementById('results').classList.add('visible');
+
+        // Update hero metrics
+        document.getElementById('heroTAM').textContent = fmtC(buTam);
+        document.getElementById('heroSAM').textContent = fmtC(buSam);
+        document.getElementById('heroSOM').textContent = fmtC(buSom);
+
+        // Update mini metrics
+        document.getElementById('metricSamTam').textContent = buTam > 0 ? ((buSam / buTam) * 100).toFixed(1) + '%' : '0%';
+        document.getElementById('metricSomSam').textContent = buSam > 0 ? ((buSom / buSam) * 100).toFixed(1) + '%' : '0%';
+        document.getElementById('metricSomTam').textContent = buTam > 0 ? ((buSom / buTam) * 100).toFixed(2) + '%' : '0%';
+
+        // Draw charts
+        drawFunnelChart();
+
+        if (mode === 'advanced') {
+            if (results.topDown) drawMethodChart();
+            if (growthData.length) drawGrowthChart();
+            if (results.score) renderScore(results.score);
+        }
+
+        saveToURL();
+    }
+
+    // ── Investor-Readiness Score ──
+    function calculateInvestorScore() {
+        let score = 0;
+        let recs = [];
+
+        const acv = parseFloat(gv('acv')) || 0;
+        const totalCustomers = parseInt(gv('totalCustomers')) || 0;
+        const samPct = parseFloat(gv('samPct')) || 0;
+        const somPct = parseFloat(gv('somPct')) || 0;
+        const hasBothMethods = results.topDown && results.topDown.tam > 0;
+
+        // 1. Methodology (0-25)
+        if (hasBothMethods) { score += 25; }
+        else { score += 12; recs.push('Use both bottom-up and top-down methods to triangulate your estimate'); }
+
+        // 2. Specificity (0-25)
+        let spec = 0;
+        if (acv > 0 && acv % 1000 !== 0) spec += 8;
+        else if (acv > 0) spec += 4;
+        if (totalCustomers > 0 && totalCustomers % 1000 !== 0) spec += 8;
+        else if (totalCustomers > 0) spec += 4;
+        if (segments.length > 0) spec += 9;
+        else recs.push('Add geographic or segment filters to show you understand market composition');
+        score += spec;
+
+        // 3. Completeness (0-25)
+        let comp = 0;
+        if (acv > 0) comp += 5;
+        if (totalCustomers > 0) comp += 5;
+        if (samPct > 0 && samPct < 100) comp += 5;
+        if (somPct > 0 && somPct < 100) comp += 5;
+        const cagr = parseFloat(gv('cagr')) || 0;
+        const cs = parseFloat(gv('competitorShare')) || 0;
+        if (cagr > 0) comp += 2.5;
+        if (cs > 0) comp += 2.5;
+        else recs.push('Add competitor market share data to strengthen your competitive positioning');
+        score += comp;
+
+        // 4. Reasonableness (0-25)
+        let reas = 0;
+        if (samPct >= 5 && samPct <= 50) reas += 10;
+        else if (samPct > 0) { reas += 3; recs.push('SAM between 10-40% of TAM is typical for most segments'); }
+        if (somPct >= 0.5 && somPct <= 20) reas += 10;
+        else if (somPct > 20) { reas += 2; recs.push('SOM above 20% of SAM is ambitious — investors may question this assumption'); }
+        if (hasBothMethods) {
+            const buTam = results.bottomUp.tam;
+            const tdTam = results.topDown.tam;
+            const variance = Math.abs(buTam - tdTam) / Math.max(buTam, tdTam, 1) * 100;
+            if (variance < 30) reas += 5;
+            else recs.push('Large variance between methods — reconcile your bottom-up and top-down estimates');
+        }
+        score += reas;
+
+        score = Math.round(Math.min(100, Math.max(0, score)));
+        recs = recs.slice(0, 3);
+
+        return { score, recs };
+    }
+
+    function renderScore(data) {
+        drawScoreGauge(data.score);
+        const el = document.getElementById('scoreValue');
+        el.textContent = data.score;
+        el.className = 'score-value ' + (data.score >= 80 ? 'good' : data.score >= 50 ? 'med' : 'low');
+
+        const list = document.getElementById('scoreRecs');
+        list.innerHTML = data.recs.map(r => `<li>${r}</li>`).join('');
+    }
+
+    // ── Charts ──
+
+    // Funnel chart
+    function drawFunnelChart() {
+        const { ctx, w, h } = setupCanvas('funnelChart');
+        const bu = results.bottomUp;
+
+        const pad = { top: 16, bottom: 16, left: 16, right: 16 };
+        const funnelH = h - pad.top - pad.bottom;
+        const maxW = w - pad.left - pad.right - 120; // leave room for labels
+        const gap = 6;
+        const sectionH = (funnelH - gap * 2) / 3;
+        const cx = pad.left + maxW / 2;
+
+        // Widths proportional to values
+        const tamW = maxW;
+        const samW = bu.tam > 0 ? Math.max(maxW * 0.25, maxW * (bu.sam / bu.tam)) : maxW * 0.6;
+        const somW = bu.tam > 0 ? Math.max(maxW * 0.12, maxW * (bu.som / bu.tam)) : maxW * 0.25;
+
+        const colors = [
+            { fill: 'rgba(201,168,76,0.18)', border: 'rgba(201,168,76,0.3)' },
+            { fill: 'rgba(201,168,76,0.35)', border: 'rgba(201,168,76,0.5)' },
+            { fill: 'rgba(201,168,76,0.6)', border: 'rgba(201,168,76,0.8)' },
+        ];
+        const widths = [
+            [tamW, samW],
+            [samW, somW],
+            [somW, somW * 0.65]
+        ];
+        const labels = ['TAM', 'SAM', 'SOM'];
+        const values = [bu.tam, bu.sam, bu.som];
+        const pctLabels = [
+            '',
+            bu.tam > 0 ? ((bu.sam / bu.tam) * 100).toFixed(1) + '% of TAM' : '',
+            bu.sam > 0 ? ((bu.som / bu.sam) * 100).toFixed(1) + '% of SAM' : ''
+        ];
+
+        for (let i = 0; i < 3; i++) {
+            const y = pad.top + i * (sectionH + gap);
+            const [topW, botW] = widths[i];
+
+            // Draw trapezoid
+            ctx.beginPath();
+            ctx.moveTo(cx - topW / 2, y);
+            ctx.lineTo(cx + topW / 2, y);
+            ctx.lineTo(cx + botW / 2, y + sectionH);
+            ctx.lineTo(cx - botW / 2, y + sectionH);
+            ctx.closePath();
+            ctx.fillStyle = colors[i].fill;
+            ctx.fill();
+            ctx.strokeStyle = colors[i].border;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Label name
+            ctx.fillStyle = '#eeeeed';
+            ctx.font = '600 12px Syne, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(labels[i], cx, y + sectionH / 2 - 10);
+
+            // Dollar value
+            ctx.font = '700 15px Syne, sans-serif';
+            ctx.fillStyle = '#c9a84c';
+            ctx.fillText(fmtC(values[i]), cx, y + sectionH / 2 + 10);
+
+            // Percentage label on right
+            if (pctLabels[i]) {
+                ctx.fillStyle = '#8b8b96';
+                ctx.font = '11px Outfit, sans-serif';
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'middle';
+                const labelX = cx + Math.max(topW, botW) / 2 + 14;
+                ctx.fillText(pctLabels[i], labelX, y + sectionH / 2);
+            }
+        }
+    }
+
+    // Method comparison chart
+    function drawMethodChart() {
+        const { ctx, w, h } = setupCanvas('methodChart');
+        const bu = results.bottomUp;
+        const td = results.topDown;
+        if (!td) return;
+
+        const pad = { top: 24, right: 16, bottom: 32, left: 64 };
+        const cW = w - pad.left - pad.right;
+        const cH = h - pad.top - pad.bottom;
+
+        const metrics = [
+            { label: 'TAM', bu: bu.tam, td: td.tam },
+            { label: 'SAM', bu: bu.sam, td: td.sam },
+            { label: 'SOM', bu: bu.som, td: td.som },
+        ];
+        const maxV = Math.max(...metrics.map(m => Math.max(m.bu, m.td))) * 1.15 || 1;
+
+        const groupW = cW / 3;
+        const barW = Math.min(groupW * 0.3, 32);
+        const gapBetween = 6;
+
+        // Grid lines
+        ctx.strokeStyle = 'rgba(85,85,94,0.15)';
+        ctx.setLineDash([3, 4]);
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= 4; i++) {
+            const v = maxV * (i / 4);
+            const y = pad.top + cH - (v / maxV) * cH;
+            ctx.beginPath();
+            ctx.moveTo(pad.left, y);
+            ctx.lineTo(w - pad.right, y);
+            ctx.stroke();
+            ctx.fillStyle = '#55555e';
+            ctx.font = '10px Outfit, sans-serif';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(fmtK(v), pad.left - 8, y);
+        }
+        ctx.setLineDash([]);
+
+        metrics.forEach((m, i) => {
+            const groupX = pad.left + i * groupW + groupW / 2;
+
+            // Bottom-up bar (gold)
+            const buH = (m.bu / maxV) * cH;
+            const buX = groupX - barW - gapBetween / 2;
+            ctx.fillStyle = 'rgba(201,168,76,0.6)';
+            ctx.beginPath();
+            ctx.roundRect(buX, pad.top + cH - buH, barW, buH, [3, 3, 0, 0]);
+            ctx.fill();
+
+            // Top-down bar (green)
+            const tdH = (m.td / maxV) * cH;
+            const tdX = groupX + gapBetween / 2;
+            ctx.fillStyle = 'rgba(93,204,114,0.6)';
+            ctx.beginPath();
+            ctx.roundRect(tdX, pad.top + cH - tdH, barW, tdH, [3, 3, 0, 0]);
+            ctx.fill();
+
+            // X-axis label
+            ctx.fillStyle = '#8b8b96';
+            ctx.font = '600 11px Syne, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText(m.label, groupX, pad.top + cH + 8);
+        });
+
+        // Variance badge
+        const tamVariance = Math.abs(bu.tam - td.tam) / Math.max(bu.tam, td.tam, 1) * 100;
+        const badge = document.getElementById('varianceBadge');
+        badge.textContent = tamVariance.toFixed(0) + '% variance';
+        badge.className = 'variance-badge ' + (tamVariance < 20 ? 'low' : tamVariance < 50 ? 'med' : 'high');
+
+        // Legend
+        const legendY = pad.top + cH + 22;
+        const items = [
+            { label: 'Bottom-Up', color: 'rgba(201,168,76,0.6)' },
+            { label: 'Top-Down', color: 'rgba(93,204,114,0.6)' }
+        ];
+        const totalLegendW = items.reduce((acc, item) => acc + ctx.measureText(item.label).width + 24, 0);
+        let lx = (w - totalLegendW) / 2;
+        items.forEach(item => {
+            ctx.fillStyle = item.color;
+            ctx.beginPath();
+            ctx.arc(lx + 4, legendY, 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#8b8b96';
+            ctx.font = '10px Outfit, sans-serif';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(item.label, lx + 12, legendY);
+            lx += ctx.measureText(item.label).width + 28;
+        });
+    }
+
+    // Growth projection chart
+    function drawGrowthChart() {
+        const { ctx, w, h } = setupCanvas('growthChart');
+        if (!growthData.length) return;
+
+        const pad = { top: 20, right: 16, bottom: 36, left: 64 };
+        const cW = w - pad.left - pad.right;
+        const cH = h - pad.top - pad.bottom;
+
+        const maxV = Math.max(...growthData.map(d => d.tam)) * 1.1 || 1;
+        const xP = i => pad.left + (i / (growthData.length - 1)) * cW;
+        const yP = v => pad.top + cH - (v / maxV) * cH;
+
+        // Grid
+        ctx.strokeStyle = 'rgba(85,85,94,0.15)';
+        ctx.setLineDash([3, 4]);
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= 4; i++) {
+            const v = maxV * (i / 4);
+            const y = yP(v);
+            ctx.beginPath();
+            ctx.moveTo(pad.left, y);
+            ctx.lineTo(w - pad.right, y);
+            ctx.stroke();
+            ctx.fillStyle = '#55555e';
+            ctx.font = '10px Outfit, sans-serif';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(fmtK(v), pad.left - 8, y);
+        }
+        ctx.setLineDash([]);
+
+        // X-axis labels
+        growthData.forEach((d, i) => {
+            ctx.fillStyle = '#55555e';
+            ctx.font = '10px Outfit, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText('Y' + d.year, xP(i), pad.top + cH + 8);
+        });
+
+        // Draw areas (TAM, SAM, SOM — from back to front)
+        const series = [
+            { key: 'tam', fill: 'rgba(201,168,76,0.08)', stroke: 'rgba(201,168,76,0.4)', lineW: 1.5 },
+            { key: 'sam', fill: 'rgba(93,204,114,0.1)', stroke: 'rgba(93,204,114,0.6)', lineW: 1.5 },
+            { key: 'som', fill: 'rgba(201,168,76,0.15)', stroke: '#c9a84c', lineW: 2.5 },
+        ];
+
+        series.forEach(s => {
+            const vals = growthData.map(d => d[s.key]);
+
+            // Area fill
+            ctx.beginPath();
+            ctx.moveTo(xP(0), yP(vals[0]));
+            for (let i = 1; i < vals.length; i++) ctx.lineTo(xP(i), yP(vals[i]));
+            ctx.lineTo(xP(vals.length - 1), pad.top + cH);
+            ctx.lineTo(xP(0), pad.top + cH);
+            ctx.closePath();
+            ctx.fillStyle = s.fill;
+            ctx.fill();
+
+            // Line
+            ctx.beginPath();
+            ctx.moveTo(xP(0), yP(vals[0]));
+            for (let i = 1; i < vals.length; i++) ctx.lineTo(xP(i), yP(vals[i]));
+            ctx.strokeStyle = s.stroke;
+            ctx.lineWidth = s.lineW;
+            ctx.stroke();
+
+            // End dot
+            ctx.beginPath();
+            ctx.arc(xP(vals.length - 1), yP(vals[vals.length - 1]), 3, 0, Math.PI * 2);
+            ctx.fillStyle = s.stroke;
+            ctx.fill();
+        });
+    }
+
+    // Score gauge
+    function drawScoreGauge(score) {
+        const { ctx, w, h } = setupCanvas('scoreCanvas');
+        const cx = w / 2;
+        const cy = h - 6;
+        const r = Math.min(w / 2 - 8, h - 14);
+
+        // Background arc
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, Math.PI, 0);
+        ctx.strokeStyle = 'rgba(34,34,40,0.8)';
+        ctx.lineWidth = 10;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+
+        // Score arc
+        const angle = Math.PI + (score / 100) * Math.PI;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, Math.PI, angle);
+        ctx.strokeStyle = score >= 80 ? '#5dcc72' : score >= 50 ? '#c9a84c' : '#e85d5d';
+        ctx.lineWidth = 10;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+    }
+
+    // ── Export ──
+    function copyResults() {
+        if (!results) return;
+        const bu = results.bottomUp;
+        let text = 'TAM/SAM/SOM Analysis\n\n';
+        text += 'Bottom-Up Method\n';
+        text += `TAM: ${fmtC(bu.tam)}\n`;
+        text += `SAM: ${fmtC(bu.sam)} (${bu.tam > 0 ? ((bu.sam / bu.tam) * 100).toFixed(1) : 0}% of TAM)\n`;
+        text += `SOM: ${fmtC(bu.som)} (${bu.sam > 0 ? ((bu.som / bu.sam) * 100).toFixed(1) : 0}% of SAM)\n`;
+        if (results.topDown) {
+            const td = results.topDown;
+            text += '\nTop-Down Method\n';
+            text += `TAM: ${fmtC(td.tam)}\n`;
+            text += `SAM: ${fmtC(td.sam)}\n`;
+            text += `SOM: ${fmtC(td.som)}\n`;
+        }
+        if (results.score) {
+            text += `\nInvestor-Readiness Score: ${results.score.score}/100\n`;
+        }
+        navigator.clipboard.writeText(text).then(() => showToast('Results copied'));
+    }
+
+    function downloadCSV() {
+        if (!results) return;
+        const bu = results.bottomUp;
+        let csv = 'Metric,Bottom-Up';
+        if (results.topDown) csv += ',Top-Down';
+        csv += '\n';
+        csv += `TAM,${bu.tam}`;
+        if (results.topDown) csv += `,${results.topDown.tam}`;
+        csv += '\n';
+        csv += `SAM,${bu.sam}`;
+        if (results.topDown) csv += `,${results.topDown.sam}`;
+        csv += '\n';
+        csv += `SOM,${bu.som}`;
+        if (results.topDown) csv += `,${results.topDown.som}`;
+        csv += '\n';
+
+        if (growthData.length > 1) {
+            csv += '\nGrowth Projections\nYear,TAM,SAM,SOM\n';
+            growthData.forEach(d => {
+                csv += `${d.year},${Math.round(d.tam)},${Math.round(d.sam)},${Math.round(d.som)}\n`;
+            });
+        }
+
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'tam-sam-som.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('CSV downloaded');
+    }
+
+    function copyShareURL() {
+        navigator.clipboard.writeText(window.location.href).then(() => showToast('URL copied'));
+    }
+
+    function copyInstall() {
+        navigator.clipboard.writeText('claude skill install prd-skill').then(() => showToast('Install command copied'));
+    }
+
+    // ── URL State ──
+    function saveToURL() {
+        const p = new URLSearchParams();
+        p.set('m', mode);
+        p.set('tc', gv('totalCustomers'));
+        p.set('acv', gv('acv'));
+        p.set('sp', gv('samPct'));
+        p.set('sop', gv('somPct'));
+        if (mode === 'advanced') {
+            const ir = gv('industryRevenue'); if (ir) p.set('ir', ir);
+            const tsp = gv('tdSamPct'); if (tsp) p.set('tsp', tsp);
+            const tsop = gv('tdSomPct'); if (tsop) p.set('tsop', tsop);
+            p.set('cagr', gv('cagr'));
+            p.set('th', gv('timeHorizon'));
+            const cs = gv('competitorShare'); if (cs) p.set('cs', cs);
+            if (segments.length) {
+                p.set('sc', segments.length);
+                segments.forEach((s, i) => {
+                    p.set('s' + i + 'n', s.name);
+                    p.set('s' + i + 'p', s.pct);
+                });
+            }
+        }
+        history.replaceState(null, '', window.location.pathname + '?' + p.toString());
+    }
+
+    function loadFromURL() {
+        const p = new URLSearchParams(window.location.search);
+        if (!p.has('tc') && !p.has('acv')) return false;
+        if (p.has('tc')) sv('totalCustomers', p.get('tc'));
+        if (p.has('acv')) sv('acv', p.get('acv'));
+        if (p.has('sp')) { sv('samPct', p.get('sp')); sv('samSlider', p.get('sp')); }
+        if (p.has('sop')) { sv('somPct', p.get('sop')); sv('somSlider', p.get('sop')); }
+        if (p.get('m') === 'advanced') {
+            setMode('advanced');
+            if (p.has('ir')) sv('industryRevenue', p.get('ir'));
+            if (p.has('tsp')) sv('tdSamPct', p.get('tsp'));
+            if (p.has('tsop')) sv('tdSomPct', p.get('tsop'));
+            if (p.has('cagr')) sv('cagr', p.get('cagr'));
+            if (p.has('th')) sv('timeHorizon', p.get('th'));
+            if (p.has('cs')) sv('competitorShare', p.get('cs'));
+            const sc = parseInt(p.get('sc'));
+            if (sc) {
+                segments = [];
+                for (let i = 0; i < sc; i++) {
+                    segments.push({
+                        name: p.get('s' + i + 'n') || '',
+                        pct: parseFloat(p.get('s' + i + 'p')) || 0
+                    });
+                }
+                renderSegments();
+            }
+        }
+        return true;
+    }
+
+    // ── Init ──
+    function init() {
+        if (loadFromURL()) {
+            calculate();
+        }
+    }
+
+    window.addEventListener('resize', () => {
+        if (results) {
+            drawFunnelChart();
+            if (mode === 'advanced') {
+                if (results.topDown) drawMethodChart();
+                if (growthData.length) drawGrowthChart();
+                if (results.score) drawScoreGauge(results.score.score);
+            }
+        }
+    });
+
+    init();
+    </script>
+</body>
+</html>

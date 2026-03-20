@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRR Calculator — Calculate Monthly Recurring Revenue | Cadboro Labs</title>
+    <meta name="description" content="Free MRR & ARR calculator for SaaS with LTV, NRR, Quick Ratio, trial conversion modeling, and 24-month projections. No signup required.">
+    <meta name="keywords" content="MRR calculator, monthly recurring revenue calculator, ARR calculator, SaaS revenue calculator, SaaS metrics, recurring revenue projection, LTV calculator, NRR calculator">
+
+    <meta property="og:title" content="MRR Calculator — Free SaaS Revenue Projections">
+    <meta property="og:description" content="Calculate MRR, ARR, LTV, NRR, and project recurring revenue growth over 24 months. Free, no signup.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cadborolabs.com/tools/mrr-calculator/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MRR Calculator — Cadboro Labs">
+    <meta name="twitter:description" content="Free MRR & ARR calculator with LTV, NRR, Quick Ratio, and 24-month projections.">
+    <link rel="canonical" href="https://cadborolabs.com/tools/mrr-calculator/">
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"MRR Calculator","description":"Free MRR, ARR, LTV, NRR, and SaaS Quick Ratio calculator with 24-month revenue projections and trial conversion modeling.","url":"https://cadborolabs.com/tools/mrr-calculator/","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Cadboro Labs","url":"https://cadborolabs.com"}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+        {"@type":"Question","name":"What is MRR (Monthly Recurring Revenue)?","acceptedAnswer":{"@type":"Answer","text":"MRR is the predictable revenue a SaaS business earns every month from active subscriptions. It is calculated by summing the monthly subscription fees from all paying customers."}},
+        {"@type":"Question","name":"How do you calculate MRR?","acceptedAnswer":{"@type":"Answer","text":"MRR = Sum of (Monthly Price per Plan x Number of Subscribers on that Plan) for all pricing tiers. For annual plans, divide the annual price by 12."}},
+        {"@type":"Question","name":"What is the difference between MRR and ARR?","acceptedAnswer":{"@type":"Answer","text":"ARR (Annual Recurring Revenue) is MRR multiplied by 12. MRR gives a monthly view while ARR provides the annualized projection, commonly used for businesses above $10M in revenue."}},
+        {"@type":"Question","name":"What is a good MRR growth rate for SaaS?","acceptedAnswer":{"@type":"Answer","text":"For early-stage SaaS, 15-20% month-over-month MRR growth is considered strong. Growth-stage companies typically see 5-10% monthly growth. Mature SaaS businesses often grow at 2-5% monthly."}},
+        {"@type":"Question","name":"What is Net Revenue Retention (NRR)?","acceptedAnswer":{"@type":"Answer","text":"NRR measures how much revenue you retain and expand from existing customers over time. NRR = (Starting MRR + Expansion - Contraction - Churn) / Starting MRR. Above 100% means you grow even without new customers."}},
+        {"@type":"Question","name":"What is a good SaaS Quick Ratio?","acceptedAnswer":{"@type":"Answer","text":"The SaaS Quick Ratio measures growth efficiency: (New MRR + Expansion MRR) / (Churned MRR + Contraction MRR). A ratio above 4 is considered world-class, 2-4 is healthy, and below 2 signals a leaky bucket."}},
+        {"@type":"Question","name":"How do you calculate LTV:CAC ratio?","acceptedAnswer":{"@type":"Answer","text":"LTV (Lifetime Value) = ARPU / Monthly Churn Rate. LTV:CAC = LTV / Customer Acquisition Cost. A ratio of 3:1 or higher is considered healthy for SaaS businesses."}}
+    ]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://cadborolabs.com"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://cadborolabs.com/tools/"},
+        {"@type":"ListItem","position":3,"name":"MRR Calculator","item":"https://cadborolabs.com/tools/mrr-calculator/"}
+    ]}
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #09090b; --bg-raised: #111113; --bg-card: #16161a;
+            --border: #222228; --border-hover: #38383f;
+            --gold: #c9a84c; --gold-light: #e6d59c; --gold-dim: #6b5a2a;
+            --text: #eeeeed; --text-2: #8b8b96; --text-3: #55555e;
+            --red: #e85d5d; --green: #5dcc72; --green-dim: rgba(93,204,114,0.12);
+            --red-dim: rgba(232,93,93,0.1); --gold-glow: rgba(201,168,76,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        ::selection { background: var(--gold); color: var(--bg); }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+        .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+        .grain svg { width: 100%; height: 100%; opacity: 0.028; mix-blend-mode: overlay; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 22px 40px; background: rgba(9,9,11,0.88); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 36px; list-style: none; }
+        .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; color: var(--text-2); text-decoration: none; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; transition: all 0.3s; }
+
+        .breadcrumb { padding: 88px 40px 0; max-width: 1200px; margin: 0 auto; font-size: 0.8rem; color: var(--text-3); }
+        .breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        .tool-header { padding: 32px 0 40px; text-align: center; }
+        .tool-header h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 12px; }
+        .tool-header h1 span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .tool-header p { font-size: 1.05rem; color: var(--text-2); max-width: 600px; margin: 0 auto; }
+
+        .calc-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 24px; margin-bottom: 48px; }
+
+        /* Input Panel */
+        .input-panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; min-width: 0; }
+        .panel-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .panel-label { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+        .section-divider { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+        .section-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .section-label-row .panel-label { margin-bottom: 0; }
+        .optional-tag { font-family: 'Outfit', sans-serif; font-size: 0.65rem; color: var(--text-3); font-weight: 400; letter-spacing: 0; text-transform: none; }
+
+        /* Mode Toggle */
+        .mode-toggle { display: flex; background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .mode-btn { padding: 6px 16px; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; background: none; border: none; color: var(--text-3); cursor: pointer; transition: all 0.25s; }
+        .mode-btn.active { background: var(--gold); color: var(--bg); }
+
+        /* Tier Rows */
+        .tier-row { display: grid; grid-template-columns: 2fr 1fr 1fr 36px; gap: 10px; margin-bottom: 10px; align-items: center; animation: fadeSlideIn 0.25s ease; }
+        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        .tier-row-header { display: grid; grid-template-columns: 2fr 1fr 1fr 36px; gap: 10px; margin-bottom: 8px; }
+        .tier-row-header span { font-size: 0.72rem; color: var(--text-3); font-weight: 500; }
+
+        input[type="text"], input[type="number"] { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.9rem; transition: border-color 0.2s, box-shadow 0.2s; width: 100%; -moz-appearance: textfield; }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        input:focus { outline: none; border-color: var(--gold-dim); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
+        input::placeholder { color: var(--text-3); }
+
+        .remove-tier { width: 36px; height: 36px; background: transparent; border: 1px solid var(--border); border-radius: 8px; color: var(--text-3); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 1.1rem; }
+        .remove-tier:hover { border-color: var(--red); color: var(--red); background: var(--red-dim); }
+        .add-tier { display: flex; align-items: center; gap: 8px; background: transparent; border: 1px dashed var(--border); border-radius: 8px; color: var(--text-3); padding: 10px; cursor: pointer; width: 100%; font-family: 'Outfit', sans-serif; font-size: 0.85rem; transition: all 0.2s; margin-top: 4px; }
+        .add-tier:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+        .rate-group { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+        .rate-group-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 12px; }
+        .rate-group-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-top: 12px; }
+        .rate-field label { display: block; font-size: 0.75rem; color: var(--text-2); margin-bottom: 6px; font-weight: 500; }
+        .rate-input-wrap { position: relative; }
+        .rate-input-wrap input { padding-right: 32px; }
+        .rate-input-wrap .unit { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: var(--text-3); pointer-events: none; }
+        .rate-input-wrap .unit-left { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: var(--text-3); pointer-events: none; }
+        .rate-input-wrap input.has-prefix { padding-left: 24px; padding-right: 12px; }
+
+        /* Advanced sections - hidden by default */
+        .adv-section { display: none; }
+        .adv-section.visible { display: block; animation: fadeSlideIn 0.3s ease; }
+
+        .calc-btn { width: 100%; padding: 14px; margin-top: 20px; background: var(--gold); color: var(--bg); border: none; border-radius: 10px; font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.3s cubic-bezier(0.16,1,0.3,1); }
+        .calc-btn:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(201,168,76,0.25); }
+        .calc-btn:active { transform: translateY(0); }
+
+        /* Results Panel */
+        .results-panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+        .results-placeholder { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: var(--text-3); gap: 12px; min-height: 300px; }
+        .results-placeholder svg { opacity: 0.3; }
+        .results-placeholder p { font-size: 0.9rem; max-width: 260px; }
+        .results-content { display: none; }
+        .results-content.visible { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .hero-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .hero-metric { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+        .hero-metric .label { font-family: 'Syne', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+        .hero-metric .value { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--gold); }
+        .hero-metric .sub { font-size: 0.75rem; color: var(--text-3); margin-top: 4px; }
+
+        .mini-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+        .mini-metric { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+        .mini-metric .label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .mini-metric .value { font-size: 1rem; font-weight: 600; color: var(--text); }
+        .mini-metric .value.positive { color: var(--green); }
+        .mini-metric .value.negative { color: var(--red); }
+
+        /* Advanced Metrics */
+        .adv-metrics { display: none; }
+        .adv-metrics.visible { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; animation: fadeIn 0.4s ease; }
+        .adv-metric { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; }
+        .adv-metric .label { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .adv-metric .value { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+
+        /* Milestone Badges */
+        .milestones { display: none; }
+        .milestones.visible { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; animation: fadeIn 0.4s ease; }
+        .milestone-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 100px; font-size: 0.72rem; font-weight: 500; border: 1px solid var(--border); color: var(--text-3); }
+        .milestone-badge.hit { border-color: var(--gold-dim); color: var(--gold); background: var(--gold-glow); }
+        .milestone-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); }
+        .milestone-badge.hit .dot { background: var(--gold); }
+
+        /* Benchmark Cards */
+        .benchmarks { display: none; }
+        .benchmarks.visible { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; animation: fadeIn 0.4s ease; }
+        .bench-card { padding: 10px 12px; border-radius: 8px; background: var(--bg-raised); border-left: 3px solid var(--border); }
+        .bench-card.good { border-left-color: var(--green); }
+        .bench-card.ok { border-left-color: var(--gold); }
+        .bench-card.warn { border-left-color: var(--red); }
+        .bench-card .bench-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); }
+        .bench-card .bench-text { font-size: 0.72rem; color: var(--text-2); margin-top: 2px; line-height: 1.4; }
+
+        /* Chart */
+        .chart-section { margin-bottom: 16px; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .chart-header .section-label { font-family: 'Syne', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin: 0; }
+        .chart-tabs { display: flex; gap: 2px; background: var(--bg-raised); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+        .chart-tab { padding: 5px 12px; font-family: 'Outfit', sans-serif; font-size: 0.68rem; font-weight: 500; background: none; border: none; color: var(--text-3); cursor: pointer; transition: all 0.2s; }
+        .chart-tab.active { background: var(--gold-dim); color: var(--gold); }
+        .chart-wrap { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 20px; overflow: hidden; }
+        #mrrChart { width: 100%; height: 220px; display: block; }
+
+        /* Chart Legend */
+        .chart-legend { display: none; }
+        .chart-legend.visible { display: flex; gap: 16px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.68rem; color: var(--text-3); }
+        .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+        /* Table */
+        .table-section { margin-bottom: 16px; }
+        .table-section .section-label { font-family: 'Syne', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .table-toggle { font-family: 'Outfit', sans-serif; font-size: 0.72rem; color: var(--gold); background: none; border: none; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+        .proj-table-wrap { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; max-height: 260px; overflow-y: auto; overflow-x: auto; }
+        .proj-table-wrap::-webkit-scrollbar { width: 4px; height: 4px; }
+        .proj-table-wrap::-webkit-scrollbar-track { background: var(--bg-raised); }
+        .proj-table-wrap::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 2px; }
+        .proj-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; white-space: nowrap; }
+        .proj-table thead { position: sticky; top: 0; z-index: 2; }
+        .proj-table th { background: var(--bg-card); color: var(--text-3); font-weight: 600; font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 10px; text-align: right; border-bottom: 1px solid var(--border); }
+        .proj-table th:first-child { text-align: left; }
+        .proj-table td { padding: 8px 10px; text-align: right; color: var(--text-2); border-bottom: 1px solid rgba(34,34,40,0.5); }
+        .proj-table td:first-child { text-align: left; color: var(--text-3); }
+        .proj-table tr:hover td { background: rgba(201,168,76,0.03); }
+        .proj-table tr.highlight td { color: var(--gold); font-weight: 600; }
+        .proj-table .col-green { color: var(--green); }
+        .proj-table .col-red { color: var(--red); }
+
+        /* Export */
+        .export-row { display: flex; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border); }
+        .export-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; color: var(--text-2); font-family: 'Outfit', sans-serif; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; }
+        .export-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+        .export-btn svg { width: 14px; height: 14px; }
+
+        /* SEO Content */
+        .seo-content { max-width: 780px; margin: 0 auto; padding: 64px 0 48px; border-top: 1px solid var(--border); }
+        .seo-content h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 16px; margin-top: 48px; }
+        .seo-content h2:first-of-type { margin-top: 0; }
+        .seo-content h2 span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .seo-content p { font-size: 0.95rem; color: var(--text-2); margin-bottom: 16px; line-height: 1.75; }
+        .seo-content ul { list-style: none; margin-bottom: 16px; }
+        .seo-content ul li { font-size: 0.95rem; color: var(--text-2); padding: 6px 0 6px 24px; position: relative; line-height: 1.65; }
+        .seo-content ul li::before { content: ''; position: absolute; left: 0; top: 14px; width: 8px; height: 8px; border: 1.5px solid var(--gold-dim); border-radius: 50%; }
+        .formula-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 20px 0; font-family: 'Instrument Serif', serif; font-size: 1.15rem; color: var(--gold-light); text-align: center; font-style: italic; }
+
+        .faq-section { margin-top: 48px; }
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-q { width: 100%; background: none; border: none; padding: 18px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left; }
+        .faq-q span { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 500; color: var(--text); }
+        .faq-q svg { flex-shrink: 0; color: var(--text-3); transition: transform 0.3s; }
+        .faq-q.open svg { transform: rotate(180deg); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+        .faq-a-inner { padding: 0 0 18px; font-size: 0.9rem; color: var(--text-2); line-height: 1.7; }
+
+        .cta-banner { max-width: 780px; margin: 0 auto 80px; background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02)); border: 1px solid var(--gold-dim); border-radius: 16px; padding: 36px; text-align: center; }
+        .cta-banner h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+        .cta-banner p { font-size: 0.9rem; color: var(--text-2); margin-bottom: 20px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .cta-install { display: inline-flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 24px; font-family: 'Outfit', monospace; font-size: 0.85rem; color: var(--gold); cursor: pointer; transition: all 0.2s; }
+        .cta-install:hover { border-color: var(--gold-dim); box-shadow: 0 4px 16px rgba(201,168,76,0.1); }
+
+        footer { border-top: 1px solid var(--border); padding: 32px 40px; text-align: center; font-size: 0.78rem; color: var(--text-3); }
+        footer a { color: var(--text-3); text-decoration: none; }
+        footer a:hover { color: var(--gold); }
+
+        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--gold); color: var(--bg); padding: 12px 24px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; z-index: 10000; opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        @media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(9,9,11,0.96); backdrop-filter: blur(24px); padding: 20px; gap: 16px; border-bottom: 1px solid var(--border); }
+            .nav-toggle { display: block; }
+            .breadcrumb { padding: 76px 20px 0; }
+            .container { padding: 0 20px; }
+            .input-panel, .results-panel { padding: 20px; }
+            .tier-row, .tier-row-header { grid-template-columns: 2fr 1fr 1fr 32px; gap: 6px; }
+            .hero-metrics { grid-template-columns: 1fr; }
+            .mini-metrics { grid-template-columns: 1fr; }
+            .adv-metrics.visible { grid-template-columns: 1fr 1fr; }
+            .benchmarks.visible { grid-template-columns: 1fr; }
+            .rate-group, .rate-group-3, .rate-group-4 { grid-template-columns: 1fr; }
+            .tool-header { padding: 24px 0 28px; }
+            .seo-content { padding: 48px 0 40px; }
+            .cta-banner { padding: 28px 20px; margin-bottom: 48px; }
+            .export-row { flex-direction: column; }
+            .milestones.visible { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"><svg><filter id="grainy"><feTurbulence type="turbulence" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#grainy)"/></svg></div>
+
+<nav>
+    <a href="/" class="nav-logo">CADBORO LABS</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')"><span></span><span></span><span></span></button>
+    <ul class="nav-links">
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/#skills">Skills</a></li>
+        <li><a href="/#about">About</a></li>
+    </ul>
+</nav>
+
+<div class="breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <a href="/tools/">Tools</a><span class="sep">/</span>
+    <span style="color: var(--text-2)">MRR Calculator</span>
+</div>
+
+<div class="container">
+    <div class="tool-header">
+        <h1>MRR <span>&</span> ARR Calculator</h1>
+        <p>Add your pricing tiers and growth assumptions to project your monthly recurring revenue over 24 months.</p>
+    </div>
+
+    <div class="calc-grid">
+        <!-- INPUT PANEL -->
+        <div class="input-panel">
+            <div class="panel-top">
+                <div class="panel-label">Pricing Tiers</div>
+                <div class="mode-toggle">
+                    <button class="mode-btn active" onclick="setMode('basic')">Basic</button>
+                    <button class="mode-btn" onclick="setMode('advanced')">Advanced</button>
+                </div>
+            </div>
+
+            <div class="tier-row-header">
+                <span>Plan name</span><span>Price / mo</span><span>Subscribers</span><span></span>
+            </div>
+            <div id="tierRows"></div>
+            <button class="add-tier" onclick="addTier()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg>
+                Add pricing tier
+            </button>
+
+            <!-- Basic rates -->
+            <div class="section-divider">
+                <div class="rate-group">
+                    <div class="rate-field">
+                        <label for="churnRate">Monthly churn rate</label>
+                        <div class="rate-input-wrap"><input type="number" id="churnRate" value="5" min="0" max="100" step="0.1"><span class="unit">%</span></div>
+                    </div>
+                    <div class="rate-field">
+                        <label for="growthRate">Monthly growth rate</label>
+                        <div class="rate-input-wrap"><input type="number" id="growthRate" value="10" min="0" max="200" step="0.1"><span class="unit">%</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced: Growth Assumptions -->
+            <div class="adv-section" id="advGrowth">
+                <div class="section-divider">
+                    <div class="section-label-row"><div class="panel-label">Acquisition Pipeline</div></div>
+                    <div class="rate-group-3">
+                        <div class="rate-field">
+                            <label for="monthlySignups">Monthly signups</label>
+                            <div class="rate-input-wrap"><input type="number" id="monthlySignups" value="50" min="0" step="1" placeholder="50"></div>
+                        </div>
+                        <div class="rate-field">
+                            <label for="trialConversion">Trial conversion rate</label>
+                            <div class="rate-input-wrap"><input type="number" id="trialConversion" value="25" min="0" max="100" step="0.5"><span class="unit">%</span></div>
+                        </div>
+                        <div class="rate-field">
+                            <label for="trialLength">Trial length</label>
+                            <div class="rate-input-wrap"><input type="number" id="trialLength" value="14" min="1" max="90" step="1"><span class="unit">days</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced: Revenue Dynamics -->
+            <div class="adv-section" id="advRevenue">
+                <div class="section-divider">
+                    <div class="section-label-row"><div class="panel-label">Revenue Dynamics</div></div>
+                    <div class="rate-group-4">
+                        <div class="rate-field">
+                            <label for="expansionRate">Expansion rate</label>
+                            <div class="rate-input-wrap"><input type="number" id="expansionRate" value="2" min="0" max="100" step="0.1"><span class="unit">%</span></div>
+                        </div>
+                        <div class="rate-field">
+                            <label for="expansionAmt">Avg expansion</label>
+                            <div class="rate-input-wrap"><input type="number" id="expansionAmt" value="15" min="0" step="1" class="has-prefix"><span class="unit-left">$</span></div>
+                        </div>
+                        <div class="rate-field">
+                            <label for="contractionRate">Contraction rate</label>
+                            <div class="rate-input-wrap"><input type="number" id="contractionRate" value="1" min="0" max="100" step="0.1"><span class="unit">%</span></div>
+                        </div>
+                        <div class="rate-field">
+                            <label for="contractionAmt">Avg contraction</label>
+                            <div class="rate-input-wrap"><input type="number" id="contractionAmt" value="10" min="0" step="1" class="has-prefix"><span class="unit-left">$</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced: Unit Economics -->
+            <div class="adv-section" id="advUnit">
+                <div class="section-divider">
+                    <div class="section-label-row">
+                        <div class="panel-label">Unit Economics</div>
+                        <span class="optional-tag">optional</span>
+                    </div>
+                    <div class="rate-group">
+                        <div class="rate-field">
+                            <label for="cacInput">Customer acquisition cost</label>
+                            <div class="rate-input-wrap"><input type="number" id="cacInput" value="" min="0" step="1" placeholder="e.g. 200" class="has-prefix"><span class="unit-left">$</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="calc-btn" onclick="calculate()">Calculate MRR</button>
+        </div>
+
+        <!-- RESULTS PANEL -->
+        <div class="results-panel">
+            <div class="results-placeholder" id="placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 16l4-6 4 3 5-7"/></svg>
+                <p>Add your pricing tiers and click calculate to see your MRR projections</p>
+            </div>
+
+            <div class="results-content" id="results">
+                <div class="hero-metrics">
+                    <div class="hero-metric"><div class="label">Current MRR</div><div class="value" id="heroMRR">$0</div><div class="sub">per month</div></div>
+                    <div class="hero-metric"><div class="label">Current ARR</div><div class="value" id="heroARR">$0</div><div class="sub">per year</div></div>
+                </div>
+                <div class="mini-metrics">
+                    <div class="mini-metric"><div class="label">ARPU</div><div class="value" id="metricARPU">$0</div></div>
+                    <div class="mini-metric"><div class="label">Net Growth</div><div class="value" id="metricNet">0%</div></div>
+                    <div class="mini-metric"><div class="label">12-Mo ARR</div><div class="value" id="metric12">$0</div></div>
+                </div>
+
+                <!-- Advanced Metrics -->
+                <div class="adv-metrics" id="advMetrics">
+                    <div class="adv-metric"><div class="label">LTV</div><div class="value" id="metricLTV">$0</div></div>
+                    <div class="adv-metric"><div class="label">NRR</div><div class="value" id="metricNRR">0%</div></div>
+                    <div class="adv-metric"><div class="label">Quick Ratio</div><div class="value" id="metricQR">0</div></div>
+                    <div class="adv-metric" id="metricCACWrap"><div class="label" id="metricCACLabel">LTV:CAC</div><div class="value" id="metricCAC">&mdash;</div></div>
+                </div>
+
+                <!-- Milestones -->
+                <div class="milestones" id="milestones"></div>
+
+                <!-- Benchmarks -->
+                <div class="benchmarks" id="benchmarks"></div>
+
+                <!-- Chart -->
+                <div class="chart-section">
+                    <div class="chart-header">
+                        <div class="section-label">24-Month Projection</div>
+                        <div class="chart-tabs" id="chartTabs">
+                            <button class="chart-tab active" onclick="switchChart('projection')">MRR</button>
+                            <button class="chart-tab" onclick="switchChart('waterfall')">Waterfall</button>
+                        </div>
+                    </div>
+                    <div class="chart-wrap"><canvas id="mrrChart"></canvas></div>
+                    <div class="chart-legend" id="chartLegend"></div>
+                </div>
+
+                <!-- Table -->
+                <div class="table-section">
+                    <div class="section-label">
+                        Monthly Breakdown
+                        <button class="table-toggle" id="tableToggle" onclick="toggleTable()">Show all 24 months</button>
+                    </div>
+                    <div class="proj-table-wrap" id="tableWrap">
+                        <table class="proj-table">
+                            <thead id="projHead"></thead>
+                            <tbody id="projBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="export-row">
+                    <button class="export-btn" onclick="copyResults()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        Copy results
+                    </button>
+                    <button class="export-btn" onclick="downloadCSV()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SEO Content -->
+<div class="container">
+    <div class="seo-content">
+        <h2>What is <span>MRR</span>?</h2>
+        <p>Monthly Recurring Revenue (MRR) is the lifeblood metric of every subscription business. It represents the total predictable revenue your SaaS company earns each month from active subscriptions, normalized to a monthly amount. Unlike one-time sales, MRR gives you a reliable pulse on business health because it measures the revenue you can count on every 30 days.</p>
+        <p>For SaaS founders and product managers, MRR serves as the foundation for forecasting, fundraising, and strategic planning. Investors, boards, and stakeholders use MRR (and its annualized cousin, ARR) to evaluate business performance, growth trajectory, and unit economics.</p>
+
+        <h2>How to <span>Calculate</span> MRR</h2>
+        <p>The basic MRR formula is straightforward:</p>
+        <div class="formula-block">MRR = Sum of (Monthly Price &times; Number of Active Subscribers) for each plan</div>
+        <p>For businesses with multiple pricing tiers, you calculate the MRR contribution from each plan and sum them together. If you offer annual plans, divide the annual price by 12 to normalize it to a monthly figure.</p>
+        <p>To get a more complete picture, you should also track these MRR components:</p>
+        <ul>
+            <li><strong>New MRR</strong> &mdash; revenue from brand-new customers acquired this month</li>
+            <li><strong>Expansion MRR</strong> &mdash; additional revenue from existing customers who upgraded or added seats</li>
+            <li><strong>Churned MRR</strong> &mdash; revenue lost from customers who cancelled their subscriptions</li>
+            <li><strong>Contraction MRR</strong> &mdash; revenue lost from existing customers who downgraded</li>
+            <li><strong>Net New MRR</strong> &mdash; (New + Expansion) minus (Churned + Contraction)</li>
+        </ul>
+
+        <h2>MRR vs <span>ARR</span></h2>
+        <p>ARR (Annual Recurring Revenue) is simply MRR multiplied by 12. While mathematically simple, the choice of which metric to emphasize matters:</p>
+        <ul>
+            <li><strong>MRR</strong> is preferred for early-stage startups (under $10M ARR) because it shows month-to-month momentum and makes trends visible faster.</li>
+            <li><strong>ARR</strong> is the standard for growth-stage and enterprise SaaS companies, especially when communicating with investors and boards who think in annual terms.</li>
+            <li>Both metrics should be tracked, but <strong>MRR is the operating metric</strong> (what you use for decisions) while <strong>ARR is the reporting metric</strong> (what you use in board decks and fundraising).</li>
+        </ul>
+
+        <h2>Understanding SaaS <span>Unit Economics</span></h2>
+        <p>Beyond MRR, the most critical metrics for evaluating SaaS health are LTV, CAC, and NRR:</p>
+        <ul>
+            <li><strong>LTV (Lifetime Value)</strong> &mdash; the total revenue you expect from a customer over their entire relationship: ARPU divided by monthly churn rate</li>
+            <li><strong>CAC (Customer Acquisition Cost)</strong> &mdash; total sales and marketing spend divided by new customers acquired in the same period</li>
+            <li><strong>LTV:CAC Ratio</strong> &mdash; a ratio of 3:1 or higher is considered healthy; below 1:1 means you spend more to acquire a customer than they are worth</li>
+            <li><strong>NRR (Net Revenue Retention)</strong> &mdash; measures revenue retained from existing customers after accounting for expansion, contraction, and churn. Above 100% means you grow even without new customers.</li>
+        </ul>
+
+        <h2>MRR <span>Components</span> Explained</h2>
+        <p>In advanced mode, this calculator breaks down your MRR into its four constituent components, which is how best-in-class SaaS teams track revenue:</p>
+        <ul>
+            <li><strong>New MRR</strong> &mdash; revenue from new paying customers. In our model, this comes from monthly signups multiplied by your trial conversion rate, with a delay based on trial length.</li>
+            <li><strong>Expansion MRR</strong> &mdash; additional revenue from upgrades, add-ons, or seat expansions. Modeled as a percentage of existing customers who expand each month.</li>
+            <li><strong>Churned MRR</strong> &mdash; revenue lost from cancellations. Modeled using your monthly churn rate applied to the existing customer base.</li>
+            <li><strong>Contraction MRR</strong> &mdash; revenue lost from downgrades. Distinct from churn because the customer stays but pays less.</li>
+        </ul>
+
+        <h2>Key SaaS <span>Benchmarks</span></h2>
+        <p>Understanding where your metrics fall relative to industry benchmarks helps you identify strengths and areas for improvement:</p>
+        <ul>
+            <li><strong>Net Revenue Retention</strong> &mdash; median SaaS is 100&ndash;105%; best-in-class exceeds 120% (Snowflake, Twilio). Below 100% means your existing customer base is shrinking.</li>
+            <li><strong>SaaS Quick Ratio</strong> &mdash; measures growth efficiency: (New + Expansion MRR) / (Churned + Contraction MRR). Above 4 is world-class, 2&ndash;4 is healthy, below 2 is a leaky bucket.</li>
+            <li><strong>Monthly Churn</strong> &mdash; 3&ndash;5% is typical for SMB SaaS, 1&ndash;2% for enterprise. Above 5% is a red flag for product-market fit issues.</li>
+            <li><strong>LTV:CAC Ratio</strong> &mdash; 3:1 or higher is the standard benchmark. Below 1:1 means you lose money on every customer acquired.</li>
+        </ul>
+
+        <div class="faq-section">
+            <h2>Frequently Asked <span>Questions</span></h2>
+            <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>What is a good MRR growth rate for SaaS?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><div class="faq-a-inner">For early-stage SaaS companies, 15&ndash;20% month-over-month MRR growth is considered strong. Growth-stage companies typically see 5&ndash;10% monthly growth, while mature SaaS businesses often grow at 2&ndash;5% monthly. The "triple triple double double double" framework suggests tripling ARR twice before doubling year-over-year toward $100M.</div></div></div>
+            <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>What churn rate should I use?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><div class="faq-a-inner">The median monthly churn rate for SaaS businesses is around 3&ndash;5% for SMB-focused products and 1&ndash;2% for enterprise. A monthly churn rate above 5% is a red flag. Best-in-class SaaS companies achieve "net negative churn" where expansion revenue from existing customers exceeds lost revenue from churned customers.</div></div></div>
+            <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>How do annual subscriptions affect MRR?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><div class="faq-a-inner">Annual subscriptions should be divided by 12 and spread evenly across months for MRR calculations. If a customer pays $1,200 annually, that contributes $100/month to MRR. In this calculator, enter the monthly equivalent price for any annual plans.</div></div></div>
+            <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>What is Net Revenue Retention and why does it matter?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><div class="faq-a-inner">NRR measures how much revenue you retain and grow from existing customers. An NRR of 110% means your existing customer base grows by 10% even without any new customers. It is the single most important metric for SaaS investors because it indicates product stickiness and expansion potential. Use the Advanced mode to calculate your NRR.</div></div></div>
+            <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>What is the SaaS Quick Ratio?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><div class="faq-a-inner">The SaaS Quick Ratio measures growth efficiency by comparing how much revenue you add versus how much you lose: (New MRR + Expansion MRR) / (Churned MRR + Contraction MRR). A ratio above 4 is world-class (you add $4 for every $1 lost), 2&ndash;4 is healthy, and below 2 means you have a leaky bucket problem.</div></div></div>
+            <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>How do you calculate LTV:CAC ratio?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><div class="faq-a-inner">First, calculate LTV (Lifetime Value) by dividing your ARPU by your monthly churn rate. Then divide LTV by your CAC (Customer Acquisition Cost). A ratio of 3:1 means each customer generates 3x what it costs to acquire them. Below 1:1 means you lose money on every customer. Use Advanced mode and enter your CAC to see this metric.</div></div></div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="cta-banner">
+        <h3>Go deeper than a calculator.</h3>
+        <p>The SaaS Metrics Analyzer takes your MRR, churn, and growth data and produces a full financial analysis with scenario modeling, industry benchmarks, and actionable recommendations.</p>
+        <div class="cta-install" onclick="copyInstall()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            claude skill install saas-metrics-skill
+        </div>
+    </div>
+</div>
+
+<footer><p>&copy; 2026 <a href="/">Cadboro Labs</a>. Built in Victoria, BC.</p></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== State =====
+let mode = 'basic';
+let tiers = [
+    { name: 'Starter', price: 29, subs: 120 },
+    { name: 'Pro', price: 79, subs: 45 },
+    { name: 'Enterprise', price: 199, subs: 12 }
+];
+let projectionData = [];
+let advancedMetrics = {};
+let tableExpanded = false;
+let activeChart = 'projection';
+
+// ===== Init =====
+function init() {
+    loadFromURL();
+    renderTiers();
+    if (window.location.search) calculate();
+}
+
+// ===== Mode Toggle =====
+function setMode(m) {
+    mode = m;
+    document.querySelectorAll('.mode-btn').forEach((b, i) => {
+        b.classList.toggle('active', (i === 0 && m === 'basic') || (i === 1 && m === 'advanced'));
+    });
+    document.querySelectorAll('.adv-section').forEach(el => el.classList.toggle('visible', m === 'advanced'));
+    // If results visible, recalculate
+    if (document.getElementById('results').classList.contains('visible')) calculate();
+}
+
+// ===== URL State =====
+function saveToURL() {
+    const p = new URLSearchParams();
+    p.set('tc', tiers.length);
+    tiers.forEach((t, i) => { p.set(`t${i}n`, t.name); p.set(`t${i}p`, t.price); p.set(`t${i}s`, t.subs); });
+    p.set('churn', gv('churnRate')); p.set('growth', gv('growthRate'));
+    p.set('mode', mode);
+    if (mode === 'advanced') {
+        p.set('signups', gv('monthlySignups')); p.set('tconv', gv('trialConversion'));
+        p.set('tlen', gv('trialLength')); p.set('expr', gv('expansionRate'));
+        p.set('expa', gv('expansionAmt')); p.set('conr', gv('contractionRate'));
+        p.set('cona', gv('contractionAmt'));
+        const cac = gv('cacInput'); if (cac) p.set('cac', cac);
+    }
+    history.replaceState(null, '', `${window.location.pathname}?${p.toString()}`);
+}
+
+function loadFromURL() {
+    const p = new URLSearchParams(window.location.search);
+    const count = parseInt(p.get('tc'));
+    if (!count) return;
+    tiers = [];
+    for (let i = 0; i < count; i++) tiers.push({ name: p.get(`t${i}n`) || `Plan ${i+1}`, price: parseFloat(p.get(`t${i}p`)) || 0, subs: parseInt(p.get(`t${i}s`)) || 0 });
+    if (p.get('churn')) sv('churnRate', p.get('churn'));
+    if (p.get('growth')) sv('growthRate', p.get('growth'));
+    if (p.get('mode') === 'advanced') {
+        if (p.get('signups')) sv('monthlySignups', p.get('signups'));
+        if (p.get('tconv')) sv('trialConversion', p.get('tconv'));
+        if (p.get('tlen')) sv('trialLength', p.get('tlen'));
+        if (p.get('expr')) sv('expansionRate', p.get('expr'));
+        if (p.get('expa')) sv('expansionAmt', p.get('expa'));
+        if (p.get('conr')) sv('contractionRate', p.get('conr'));
+        if (p.get('cona')) sv('contractionAmt', p.get('cona'));
+        if (p.get('cac')) sv('cacInput', p.get('cac'));
+        setMode('advanced');
+    }
+}
+
+function gv(id) { return document.getElementById(id).value; }
+function sv(id, v) { document.getElementById(id).value = v; }
+
+// ===== Tier Management =====
+function renderTiers() {
+    const c = document.getElementById('tierRows'); c.innerHTML = '';
+    tiers.forEach((t, i) => {
+        const r = document.createElement('div'); r.className = 'tier-row';
+        r.innerHTML = `<input type="text" value="${t.name}" placeholder="Plan name" onchange="tiers[${i}].name=this.value">
+            <input type="number" value="${t.price}" placeholder="0" min="0" step="1" onchange="tiers[${i}].price=parseFloat(this.value)||0">
+            <input type="number" value="${t.subs}" placeholder="0" min="0" step="1" onchange="tiers[${i}].subs=parseInt(this.value)||0">
+            <button class="remove-tier" onclick="removeTier(${i})" title="Remove">&times;</button>`;
+        c.appendChild(r);
+    });
+}
+function addTier() { tiers.push({ name: '', price: 0, subs: 0 }); renderTiers(); const rows = document.querySelectorAll('.tier-row'); rows[rows.length-1]?.querySelector('input').focus(); }
+function removeTier(i) { if (tiers.length <= 1) return; tiers.splice(i, 1); renderTiers(); }
+
+// ===== Core Calculation =====
+function calculate() {
+    // Sync tier inputs
+    tiers.forEach((t, i) => {
+        const row = document.querySelectorAll('.tier-row')[i];
+        if (row) { const inp = row.querySelectorAll('input'); t.name = inp[0].value || `Plan ${i+1}`; t.price = parseFloat(inp[1].value) || 0; t.subs = parseInt(inp[2].value) || 0; }
+    });
+
+    const churnRate = (parseFloat(gv('churnRate')) || 0) / 100;
+    const growthRate = (parseFloat(gv('growthRate')) || 0) / 100;
+
+    let baseMRR = 0, totalSubs = 0;
+    tiers.forEach(t => { baseMRR += t.price * t.subs; totalSubs += t.subs; });
+    const arpu = totalSubs > 0 ? baseMRR / totalSubs : 0;
+    const netRate = growthRate - churnRate;
+
+    if (mode === 'basic') {
+        calculateBasic(baseMRR, totalSubs, arpu, churnRate, growthRate, netRate);
+    } else {
+        calculateAdvanced(baseMRR, totalSubs, arpu, churnRate, growthRate);
+    }
+
+    saveToURL();
+    document.getElementById('placeholder').style.display = 'none';
+    document.getElementById('results').classList.add('visible');
+
+    // Hero numbers
+    animateValue('heroMRR', baseMRR);
+    animateValue('heroARR', baseMRR * 12);
+
+    // Core metrics
+    document.getElementById('metricARPU').textContent = fmtC(arpu);
+    const netEl = document.getElementById('metricNet');
+    netEl.textContent = (netRate >= 0 ? '+' : '') + (netRate * 100).toFixed(1) + '%';
+    netEl.className = 'value ' + (netRate >= 0 ? 'positive' : 'negative');
+    document.getElementById('metric12').textContent = fmtK(projectionData[12]?.arr || 0);
+
+    // Advanced metrics display
+    const isAdv = mode === 'advanced';
+    document.getElementById('advMetrics').classList.toggle('visible', isAdv);
+    document.getElementById('milestones').classList.toggle('visible', isAdv);
+    document.getElementById('benchmarks').classList.toggle('visible', isAdv);
+    document.getElementById('chartLegend').classList.toggle('visible', isAdv && activeChart === 'projection');
+
+    if (isAdv) {
+        const am = advancedMetrics;
+        document.getElementById('metricLTV').textContent = fmtC(am.ltv);
+        document.getElementById('metricNRR').textContent = am.nrr.toFixed(1) + '%';
+        document.getElementById('metricQR').textContent = am.quickRatio === Infinity ? '∞' : am.quickRatio.toFixed(1);
+        if (am.ltvCac !== null) {
+            document.getElementById('metricCACLabel').textContent = 'LTV:CAC';
+            document.getElementById('metricCAC').textContent = am.ltvCac.toFixed(1) + ':1';
+        } else if (am.cacPayback !== null) {
+            document.getElementById('metricCACLabel').textContent = 'CAC Payback';
+            document.getElementById('metricCAC').textContent = am.cacPayback + ' mo';
+        } else {
+            document.getElementById('metricCACLabel').textContent = 'LTV:CAC';
+            document.getElementById('metricCAC').innerHTML = '&mdash;';
+        }
+        renderMilestones(am.milestoneMonths);
+        renderBenchmarks(am, churnRate);
+        renderLegend();
+    }
+
+    drawChart();
+    fillTable();
+}
+
+function calculateBasic(baseMRR, totalSubs, arpu, churnRate, growthRate, netRate) {
+    projectionData = [];
+    let curMRR = baseMRR, curSubs = totalSubs;
+    for (let m = 0; m <= 24; m++) {
+        projectionData.push({ month: m, mrr: curMRR, arr: curMRR * 12, totalCustomers: Math.round(curSubs), newMRR: 0, expansionMRR: 0, churnedMRR: 0, contractionMRR: 0, netNewMRR: 0 });
+        if (m < 24) {
+            const newS = Math.round(curSubs * growthRate);
+            const churnS = Math.round(curSubs * churnRate);
+            curSubs = Math.max(0, curSubs + newS - churnS);
+            curMRR = curSubs > 0 ? curSubs * arpu : 0;
+        }
+    }
+}
+
+function calculateAdvanced(baseMRR, totalSubs, arpu, churnRate, growthRate) {
+    const monthlySignups = parseInt(gv('monthlySignups')) || 0;
+    const trialConv = (parseFloat(gv('trialConversion')) || 0) / 100;
+    const trialDays = parseInt(gv('trialLength')) || 14;
+    const expRate = (parseFloat(gv('expansionRate')) || 0) / 100;
+    const expAmt = parseFloat(gv('expansionAmt')) || 0;
+    const conRate = (parseFloat(gv('contractionRate')) || 0) / 100;
+    const conAmt = parseFloat(gv('contractionAmt')) || 0;
+    const cac = parseFloat(gv('cacInput')) || 0;
+
+    const trialDelay = Math.max(1, Math.round(trialDays / 30));
+    let pipeline = new Array(trialDelay).fill(monthlySignups);
+
+    projectionData = [];
+    let curMRR = baseMRR, curCust = totalSubs;
+
+    for (let m = 0; m <= 24; m++) {
+        let newPaid = 0, churnedCust = 0, newMRR = 0, expMRR = 0, chrnMRR = 0, conMRR = 0;
+
+        if (m > 0) {
+            // Pipeline: trial conversions from delayed signups
+            const converting = pipeline.shift() || 0;
+            newPaid = Math.round(converting * trialConv);
+            // Organic growth on existing base
+            newPaid += Math.round(curCust * growthRate);
+            pipeline.push(monthlySignups);
+
+            churnedCust = Math.round(curCust * churnRate);
+            newMRR = newPaid * arpu;
+            expMRR = curCust * expRate * expAmt;
+            chrnMRR = churnedCust * arpu;
+            conMRR = curCust * conRate * conAmt;
+
+            curCust = Math.max(0, curCust + newPaid - churnedCust);
+            curMRR = Math.max(0, curMRR + newMRR + expMRR - chrnMRR - conMRR);
+        }
+
+        projectionData.push({
+            month: m, mrr: curMRR, arr: curMRR * 12,
+            totalCustomers: Math.round(curCust),
+            newMRR: m > 0 ? newMRR : 0,
+            expansionMRR: m > 0 ? expMRR : 0,
+            churnedMRR: m > 0 ? chrnMRR : 0,
+            contractionMRR: m > 0 ? conMRR : 0,
+            netNewMRR: m > 0 ? (newMRR + expMRR - chrnMRR - conMRR) : 0
+        });
+    }
+
+    // Derived metrics
+    const ltv = churnRate > 0 ? arpu / churnRate : arpu * 120;
+    const ltvCac = cac > 0 ? ltv / cac : null;
+    const cacPayback = cac > 0 && arpu > 0 ? Math.ceil(cac / arpu) : null;
+
+    const m1 = projectionData[1] || projectionData[0];
+    const startMRR = projectionData[0].mrr;
+    const nrr = startMRR > 0 ? ((startMRR + m1.expansionMRR - m1.contractionMRR - m1.churnedMRR) / startMRR) * 100 : 100;
+    const lossSum = m1.churnedMRR + m1.contractionMRR;
+    const quickRatio = lossSum > 0 ? (m1.newMRR + m1.expansionMRR) / lossSum : Infinity;
+
+    // Milestones
+    const milestoneTargets = [100000, 500000, 1000000];
+    const milestoneMonths = milestoneTargets.map(t => { const hit = projectionData.find(d => d.arr >= t); return hit ? hit.month : null; });
+
+    advancedMetrics = { ltv, ltvCac, cacPayback, nrr, quickRatio, milestoneMonths, cac };
+}
+
+// ===== Milestones =====
+function renderMilestones(months) {
+    const labels = ['$100K ARR', '$500K ARR', '$1M ARR'];
+    const el = document.getElementById('milestones');
+    el.innerHTML = months.map((m, i) =>
+        `<div class="milestone-badge ${m !== null ? 'hit' : ''}"><span class="dot"></span>${m !== null ? `${labels[i]} in ${m} mo` : `${labels[i]} — beyond 24 mo`}</div>`
+    ).join('');
+}
+
+// ===== Benchmarks =====
+function renderBenchmarks(am, churnRate) {
+    const cards = [];
+    // NRR
+    const nrrClass = am.nrr >= 110 ? 'good' : am.nrr >= 100 ? 'ok' : 'warn';
+    const nrrText = am.nrr >= 110 ? 'Excellent — you grow from existing customers alone' : am.nrr >= 100 ? 'Healthy — existing customer base is stable' : 'Below 100% — your existing base is shrinking';
+    cards.push({ label: `NRR: ${am.nrr.toFixed(0)}%`, text: nrrText, cls: nrrClass });
+
+    // Quick Ratio
+    const qr = am.quickRatio === Infinity ? 99 : am.quickRatio;
+    const qrClass = qr >= 4 ? 'good' : qr >= 2 ? 'ok' : 'warn';
+    const qrText = qr >= 4 ? 'World-class growth efficiency' : qr >= 2 ? 'Healthy growth-to-loss balance' : 'Leaky bucket — losing revenue too fast';
+    cards.push({ label: `Quick Ratio: ${am.quickRatio === Infinity ? '∞' : am.quickRatio.toFixed(1)}`, text: qrText, cls: qrClass });
+
+    // Churn
+    const churnPct = churnRate * 100;
+    const chClass = churnPct <= 3 ? 'good' : churnPct <= 5 ? 'ok' : 'warn';
+    const chText = churnPct <= 3 ? 'Low churn — strong retention' : churnPct <= 5 ? 'Typical for SMB SaaS' : 'High churn — investigate product-market fit';
+    cards.push({ label: `Churn: ${churnPct.toFixed(1)}%/mo`, text: chText, cls: chClass });
+
+    // LTV:CAC or CAC Payback
+    if (am.ltvCac !== null) {
+        const lcClass = am.ltvCac >= 3 ? 'good' : am.ltvCac >= 1 ? 'ok' : 'warn';
+        const lcText = am.ltvCac >= 3 ? 'Healthy unit economics' : am.ltvCac >= 1 ? 'Marginal — optimize acquisition cost' : 'Losing money on every customer acquired';
+        cards.push({ label: `LTV:CAC: ${am.ltvCac.toFixed(1)}:1`, text: lcText, cls: lcClass });
+    }
+
+    document.getElementById('benchmarks').innerHTML = cards.map(c =>
+        `<div class="bench-card ${c.cls}"><div class="bench-label">${c.label}</div><div class="bench-text">${c.text}</div></div>`
+    ).join('');
+}
+
+// ===== Charts =====
+function switchChart(type) {
+    activeChart = type;
+    document.querySelectorAll('.chart-tab').forEach(t => t.classList.toggle('active', t.textContent.toLowerCase().includes(type === 'projection' ? 'mrr' : 'water')));
+    document.getElementById('chartLegend').classList.toggle('visible', mode === 'advanced' && type === 'projection');
+    drawChart();
+}
+
+function renderLegend() {
+    document.getElementById('chartLegend').innerHTML = `
+        <div class="legend-item"><div class="legend-dot" style="background:#c9a84c"></div>New MRR</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5dcc72"></div>Expansion</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(139,139,150,0.5)"></div>Base</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#e85d5d"></div>Churn + Contraction</div>`;
+}
+
+function drawChart() {
+    if (!projectionData.length) return;
+    if (activeChart === 'projection') {
+        if (mode === 'advanced') drawStackedChart(); else drawSimpleChart();
+    } else {
+        drawWaterfallChart();
+    }
+}
+
+function setupCanvas() {
+    const canvas = document.getElementById('mrrChart');
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    return { ctx, w: rect.width, h: rect.height };
+}
+
+function drawSimpleChart() {
+    const { ctx, w, h } = setupCanvas();
+    const pad = { top: 20, right: 16, bottom: 36, left: 64 };
+    const cW = w - pad.left - pad.right, cH = h - pad.top - pad.bottom;
+    const vals = projectionData.map(d => d.mrr);
+    const maxV = Math.max(...vals) * 1.1 || 1;
+    const xP = i => pad.left + (i / 24) * cW;
+    const yP = v => pad.top + cH - (v / maxV) * cH;
+
+    drawGrid(ctx, w, h, pad, cW, cH, maxV, yP);
+    drawMilestoneLines(ctx, w, pad, maxV, yP);
+
+    // Gradient fill
+    const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + cH);
+    grad.addColorStop(0, 'rgba(201,168,76,0.15)'); grad.addColorStop(1, 'rgba(201,168,76,0)');
+    ctx.beginPath(); ctx.moveTo(xP(0), yP(vals[0]));
+    for (let i = 1; i < vals.length; i++) { const cp = (xP(i-1) + xP(i)) / 2; ctx.bezierCurveTo(cp, yP(vals[i-1]), cp, yP(vals[i]), xP(i), yP(vals[i])); }
+    ctx.lineTo(xP(24), pad.top + cH); ctx.lineTo(xP(0), pad.top + cH); ctx.closePath();
+    ctx.fillStyle = grad; ctx.fill();
+
+    // Line
+    ctx.beginPath(); ctx.moveTo(xP(0), yP(vals[0]));
+    for (let i = 1; i < vals.length; i++) { const cp = (xP(i-1) + xP(i)) / 2; ctx.bezierCurveTo(cp, yP(vals[i-1]), cp, yP(vals[i]), xP(i), yP(vals[i])); }
+    ctx.strokeStyle = '#c9a84c'; ctx.lineWidth = 2.5; ctx.stroke();
+
+    // End dot
+    ctx.beginPath(); ctx.arc(xP(24), yP(vals[24]), 4, 0, Math.PI*2); ctx.fillStyle = '#c9a84c'; ctx.fill();
+    ctx.beginPath(); ctx.arc(xP(24), yP(vals[24]), 8, 0, Math.PI*2); ctx.fillStyle = 'rgba(201,168,76,0.2)'; ctx.fill();
+}
+
+function drawStackedChart() {
+    const { ctx, w, h } = setupCanvas();
+    const pad = { top: 20, right: 16, bottom: 36, left: 64 };
+    const cW = w - pad.left - pad.right, cH = h - pad.top - pad.bottom;
+    const vals = projectionData.map(d => d.mrr);
+    const maxV = Math.max(...vals) * 1.15 || 1;
+    const xP = i => pad.left + (i / 24) * cW;
+    const yP = v => pad.top + cH - (v / maxV) * cH;
+
+    drawGrid(ctx, w, h, pad, cW, cH, maxV, yP);
+    drawMilestoneLines(ctx, w, pad, maxV, yP);
+
+    // Build stacked layers for each month
+    const layers = projectionData.map((d, i) => {
+        if (i === 0) return { base: d.mrr, newMRR: 0, expansion: 0 };
+        const prevMRR = projectionData[i-1].mrr;
+        const base = Math.max(0, prevMRR - d.churnedMRR - d.contractionMRR);
+        return { base, newMRR: d.newMRR, expansion: d.expansionMRR };
+    });
+
+    // Draw stacked areas (bottom to top: base, expansion, new)
+    // Base layer
+    ctx.beginPath(); ctx.moveTo(xP(0), yP(layers[0].base));
+    for (let i = 1; i <= 24; i++) ctx.lineTo(xP(i), yP(layers[i].base));
+    ctx.lineTo(xP(24), yP(0)); ctx.lineTo(xP(0), yP(0)); ctx.closePath();
+    ctx.fillStyle = 'rgba(139,139,150,0.12)'; ctx.fill();
+
+    // Expansion layer (base + expansion)
+    ctx.beginPath(); ctx.moveTo(xP(0), yP(layers[0].base));
+    for (let i = 1; i <= 24; i++) ctx.lineTo(xP(i), yP(layers[i].base + layers[i].expansion));
+    for (let i = 24; i >= 1; i--) ctx.lineTo(xP(i), yP(layers[i].base));
+    ctx.lineTo(xP(0), yP(layers[0].base)); ctx.closePath();
+    ctx.fillStyle = 'rgba(93,204,114,0.2)'; ctx.fill();
+
+    // New MRR layer (base + expansion + new)
+    ctx.beginPath(); ctx.moveTo(xP(0), yP(layers[0].base));
+    for (let i = 1; i <= 24; i++) ctx.lineTo(xP(i), yP(layers[i].base + layers[i].expansion + layers[i].newMRR));
+    for (let i = 24; i >= 1; i--) ctx.lineTo(xP(i), yP(layers[i].base + layers[i].expansion));
+    ctx.lineTo(xP(0), yP(layers[0].base)); ctx.closePath();
+    ctx.fillStyle = 'rgba(201,168,76,0.2)'; ctx.fill();
+
+    // Total MRR line on top
+    ctx.beginPath(); ctx.moveTo(xP(0), yP(vals[0]));
+    for (let i = 1; i <= 24; i++) { const cp = (xP(i-1) + xP(i)) / 2; ctx.bezierCurveTo(cp, yP(vals[i-1]), cp, yP(vals[i]), xP(i), yP(vals[i])); }
+    ctx.strokeStyle = '#c9a84c'; ctx.lineWidth = 2; ctx.stroke();
+
+    // End dot
+    ctx.beginPath(); ctx.arc(xP(24), yP(vals[24]), 4, 0, Math.PI*2); ctx.fillStyle = '#c9a84c'; ctx.fill();
+}
+
+function drawWaterfallChart() {
+    const { ctx, w, h } = setupCanvas();
+    const pad = { top: 24, right: 16, bottom: 36, left: 64 };
+    const cW = w - pad.left - pad.right, cH = h - pad.top - pad.bottom;
+
+    // Get gains/losses per month
+    const bars = projectionData.slice(1).map(d => ({
+        gain: d.newMRR + d.expansionMRR,
+        loss: d.churnedMRR + d.contractionMRR,
+        net: d.netNewMRR
+    }));
+
+    const maxGain = Math.max(...bars.map(b => b.gain), 1);
+    const maxLoss = Math.max(...bars.map(b => b.loss), 1);
+    const maxAbs = Math.max(maxGain, maxLoss) * 1.2;
+
+    const midY = pad.top + cH * 0.45;
+    const barW = Math.max(4, (cW / 24) - 3);
+    const scale = (cH * 0.4) / maxAbs;
+
+    // Zero line
+    ctx.strokeStyle = 'rgba(34,34,40,0.8)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad.left, midY); ctx.lineTo(w - pad.right, midY); ctx.stroke();
+
+    // Grid labels
+    ctx.fillStyle = '#55555e'; ctx.font = '10px Outfit, sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText(fmtK(maxAbs), pad.left - 8, pad.top + 10);
+    ctx.fillText('$0', pad.left - 8, midY + 3);
+    ctx.fillText('-' + fmtK(maxAbs), pad.left - 8, pad.top + cH);
+
+    // X labels
+    ctx.textAlign = 'center';
+    [1, 6, 12, 18, 24].forEach(m => {
+        const x = pad.left + ((m - 0.5) / 24) * cW;
+        ctx.fillText('M' + m, x, h - pad.bottom + 16);
+    });
+
+    bars.forEach((b, i) => {
+        const x = pad.left + (i / 24) * cW + 1.5;
+
+        // Green bar (gain) going up
+        if (b.gain > 0) {
+            const bh = b.gain * scale;
+            ctx.fillStyle = 'rgba(93,204,114,0.7)';
+            ctx.beginPath();
+            ctx.roundRect(x, midY - bh, barW, bh, [2, 2, 0, 0]);
+            ctx.fill();
+        }
+
+        // Red bar (loss) going down
+        if (b.loss > 0) {
+            const bh = b.loss * scale;
+            ctx.fillStyle = 'rgba(232,93,93,0.6)';
+            ctx.beginPath();
+            ctx.roundRect(x, midY, barW, bh, [0, 0, 2, 2]);
+            ctx.fill();
+        }
+    });
+}
+
+function drawGrid(ctx, w, h, pad, cW, cH, maxV, yP) {
+    ctx.strokeStyle = 'rgba(34,34,40,0.6)'; ctx.lineWidth = 1; ctx.setLineDash([4, 4]);
+    for (let i = 0; i <= 4; i++) {
+        const v = maxV * (i / 4), y = yP(v);
+        ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w - pad.right, y); ctx.stroke();
+        ctx.fillStyle = '#55555e'; ctx.font = '10px Outfit, sans-serif'; ctx.textAlign = 'right';
+        ctx.fillText(fmtK(v), pad.left - 8, y + 3);
+    }
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#55555e'; ctx.font = '10px Outfit, sans-serif'; ctx.textAlign = 'center';
+    [0, 6, 12, 18, 24].forEach(m => ctx.fillText('M' + m, pad.left + (m / 24) * cW, h - pad.bottom + 20));
+}
+
+function drawMilestoneLines(ctx, w, pad, maxV, yP) {
+    const ms = [{ arr: 100000, label: '$100K ARR' }, { arr: 500000, label: '$500K ARR' }, { arr: 1000000, label: '$1M ARR' }];
+    ms.forEach(m => {
+        const mrr = m.arr / 12;
+        if (mrr <= maxV && mrr > 0) {
+            ctx.setLineDash([6, 4]); ctx.strokeStyle = 'rgba(201,168,76,0.2)'; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(pad.left, yP(mrr)); ctx.lineTo(w - pad.right, yP(mrr)); ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = 'rgba(201,168,76,0.5)'; ctx.font = '9px Syne, sans-serif'; ctx.textAlign = 'right';
+            ctx.fillText(m.label, w - pad.right, yP(mrr) - 4);
+        }
+    });
+}
+
+// ===== Table =====
+function fillTable() {
+    const isAdv = mode === 'advanced';
+    const thead = document.getElementById('projHead');
+    thead.innerHTML = isAdv
+        ? '<tr><th>Month</th><th>MRR</th><th>New</th><th>Expansion</th><th>Churned</th><th>Contraction</th><th>Net New</th><th>Customers</th></tr>'
+        : '<tr><th>Month</th><th>MRR</th><th>ARR</th><th>Subscribers</th></tr>';
+
+    const tbody = document.getElementById('projBody');
+    tbody.innerHTML = '';
+    const months = tableExpanded ? 24 : 12;
+    for (let i = 0; i <= months; i++) {
+        const d = projectionData[i];
+        const tr = document.createElement('tr');
+        if (i === 0 || i === 12 || i === 24) tr.className = 'highlight';
+        if (isAdv) {
+            tr.innerHTML = `<td>${i === 0 ? 'Now' : 'Month ' + i}</td>
+                <td>${fmtC(d.mrr)}</td>
+                <td class="col-green">${i > 0 ? '+' + fmtC(d.newMRR) : '—'}</td>
+                <td class="col-green">${i > 0 ? '+' + fmtC(d.expansionMRR) : '—'}</td>
+                <td class="col-red">${i > 0 ? '-' + fmtC(d.churnedMRR) : '—'}</td>
+                <td class="col-red">${i > 0 ? '-' + fmtC(d.contractionMRR) : '—'}</td>
+                <td style="color:${d.netNewMRR >= 0 ? 'var(--green)' : 'var(--red)'}">${i > 0 ? (d.netNewMRR >= 0 ? '+' : '') + fmtC(d.netNewMRR) : '—'}</td>
+                <td>${d.totalCustomers.toLocaleString()}</td>`;
+        } else {
+            tr.innerHTML = `<td>${i === 0 ? 'Now' : 'Month ' + i}</td><td>${fmtC(d.mrr)}</td><td>${fmtC(d.arr)}</td><td>${d.totalCustomers.toLocaleString()}</td>`;
+        }
+        tbody.appendChild(tr);
+    }
+    document.getElementById('tableToggle').textContent = tableExpanded ? 'Show 12 months' : 'Show all 24 months';
+}
+
+function toggleTable() { tableExpanded = !tableExpanded; fillTable(); }
+
+// ===== Export =====
+function copyResults() {
+    if (!projectionData.length) return;
+    const d0 = projectionData[0], d12 = projectionData[12], d24 = projectionData[24];
+    let text = `MRR Calculator Results — Cadboro Labs\n${'━'.repeat(40)}\nCurrent MRR: ${fmtC(d0.mrr)}\nCurrent ARR: ${fmtC(d0.arr)}\nSubscribers: ${d0.totalCustomers.toLocaleString()}\n\n12-Month: MRR ${fmtC(d12.mrr)} | ARR ${fmtC(d12.arr)} | ${d12.totalCustomers.toLocaleString()} customers\n24-Month: MRR ${fmtC(d24.mrr)} | ARR ${fmtC(d24.arr)} | ${d24.totalCustomers.toLocaleString()} customers`;
+    if (mode === 'advanced') {
+        const am = advancedMetrics;
+        text += `\n\nAdvanced Metrics:\n  LTV: ${fmtC(am.ltv)}\n  NRR: ${am.nrr.toFixed(1)}%\n  Quick Ratio: ${am.quickRatio === Infinity ? '∞' : am.quickRatio.toFixed(1)}`;
+        if (am.ltvCac !== null) text += `\n  LTV:CAC: ${am.ltvCac.toFixed(1)}:1`;
+    }
+    text += `\n\nGenerated at cadborolabs.com/tools/mrr-calculator/`;
+    navigator.clipboard.writeText(text).then(() => showToast('Results copied to clipboard'));
+}
+
+function downloadCSV() {
+    if (!projectionData.length) return;
+    const isAdv = mode === 'advanced';
+    let csv = isAdv
+        ? 'Month,MRR,ARR,New MRR,Expansion MRR,Churned MRR,Contraction MRR,Net New MRR,Customers\n'
+        : 'Month,MRR,ARR,Subscribers\n';
+    projectionData.forEach(d => {
+        csv += isAdv
+            ? `${d.month},${d.mrr.toFixed(2)},${d.arr.toFixed(2)},${d.newMRR.toFixed(2)},${d.expansionMRR.toFixed(2)},${d.churnedMRR.toFixed(2)},${d.contractionMRR.toFixed(2)},${d.netNewMRR.toFixed(2)},${d.totalCustomers}\n`
+            : `${d.month},${d.mrr.toFixed(2)},${d.arr.toFixed(2)},${d.totalCustomers}\n`;
+    });
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'mrr-projection-cadboro-labs.csv'; a.click();
+    URL.revokeObjectURL(url);
+    showToast('CSV downloaded');
+}
+
+function copyInstall() { navigator.clipboard.writeText('claude skill install saas-metrics-skill').then(() => showToast('Install command copied')); }
+
+// ===== Helpers =====
+function animateValue(id, target) {
+    const el = document.getElementById(id); const start = performance.now();
+    function step(ts) { const p = Math.min((ts - start) / 600, 1); el.textContent = fmtC(target * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+}
+function fmtC(v) { if (Math.abs(v) >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M'; if (Math.abs(v) >= 1e3) return '$' + (v/1e3).toFixed(v >= 1e4 ? 0 : 1) + 'K'; return '$' + Math.round(v).toLocaleString(); }
+function fmtK(v) { if (v >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M'; if (v >= 1e3) return '$' + (v/1e3).toFixed(0) + 'K'; return '$' + Math.round(v); }
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); }
+function toggleFaq(btn) { const was = btn.classList.contains('open'); document.querySelectorAll('.faq-q').forEach(q => { q.classList.remove('open'); q.nextElementSibling.style.maxHeight = null; }); if (!was) { btn.classList.add('open'); btn.nextElementSibling.style.maxHeight = btn.nextElementSibling.scrollHeight + 'px'; } }
+
+window.addEventListener('resize', () => { if (projectionData.length) drawChart(); });
+init();
+</script>
+</body>
+</html>

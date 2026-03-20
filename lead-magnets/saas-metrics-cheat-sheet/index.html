@@ -1,9 +1,942 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>SaaS Metrics Cheat Sheet</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The SaaS Metrics Cheat Sheet for Product Managers | Cadboro Labs</title>
+    <meta name="description" content="Every SaaS metric a PM needs — formulas, benchmarks, and when to use each. Free downloadable cheat sheet from Cadboro Labs.">
+    <meta name="keywords" content="SaaS metrics cheat sheet, product management metrics, MRR formula, LTV formula, churn rate benchmark, SaaS KPIs, PM metrics guide, SaaS benchmarks 2026">
+    <meta property="og:title" content="The SaaS Metrics Cheat Sheet for PMs — Cadboro Labs">
+    <meta property="og:description" content="30+ SaaS metrics with formulas, benchmarks, and free calculator links. The only reference a PM needs.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cadborolabs.com/lead-magnets/saas-metrics-cheat-sheet/">
+    <link rel="canonical" href="https://cadborolabs.com/lead-magnets/saas-metrics-cheat-sheet/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #09090b; --bg-raised: #111113; --bg-card: #16161a;
+            --border: #222228; --border-hover: #38383f;
+            --gold: #c9a84c; --gold-light: #e6d59c; --gold-dim: #6b5a2a;
+            --text: #eeeeed; --text-2: #8b8b96; --text-3: #55555e;
+            --red: #e85d5d; --green: #5dcc72; --blue: #5d9ee8;
+            --gold-glow: rgba(201,168,76,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        ::selection { background: var(--gold); color: var(--bg); }
+
+        .grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.03; z-index: 9999; }
+
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: rgba(9,9,11,0.85); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; }
+
+        .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 88px 40px 0; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+        .breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        /* HERO */
+        .hero { text-align: center; padding: 40px 0 20px; }
+        .hero-badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 100px; padding: 6px 16px; margin-bottom: 20px; }
+        .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; margin-bottom: 16px; }
+        .hero h1 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .hero p { font-size: 1.05rem; color: var(--text-2); max-width: 580px; margin: 0 auto 28px; line-height: 1.65; }
+        .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bg); background: var(--gold); border: none; border-radius: 8px; padding: 14px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .btn-secondary { display: inline-flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-2); background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 14px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-secondary:hover { border-color: var(--gold-dim); color: var(--gold); }
+        .hero-meta { font-size: 0.78rem; color: var(--text-3); margin-top: 8px; }
+
+        /* SECTION HEADERS */
+        .section { margin-bottom: 48px; }
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .section-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500; color: var(--gold); background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 6px; padding: 4px 10px; letter-spacing: 0.05em; }
+        .section-header h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+
+        /* METRIC CARDS */
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+        .metric-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; transition: border-color 0.2s, transform 0.2s; }
+        .metric-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+        .metric-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+        .metric-name { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+        .metric-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+        .tag-revenue { color: var(--green); background: rgba(93,204,114,0.1); }
+        .tag-growth { color: var(--blue); background: rgba(93,158,232,0.1); }
+        .tag-customer { color: #e8a85d; background: rgba(232,168,93,0.1); }
+        .tag-unit { color: #c95dcc; background: rgba(201,93,204,0.1); }
+        .tag-market { color: var(--gold); background: var(--gold-glow); }
+        .tag-priority { color: var(--red); background: rgba(232,93,93,0.1); }
+        .tag-satisfaction { color: #5dccc9; background: rgba(93,204,201,0.1); }
+
+        .metric-desc { font-size: 0.82rem; color: var(--text-2); margin-bottom: 14px; line-height: 1.55; }
+
+        .metric-formula { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; }
+        .metric-formula-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .metric-formula code { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--gold-light); line-height: 1.5; }
+
+        .metric-benchmark { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .benchmark-label { font-size: 0.72rem; color: var(--text-3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; font-family: 'Syne', sans-serif; white-space: nowrap; }
+        .benchmark-bar { flex: 1; height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; position: relative; }
+        .benchmark-fill { height: 100%; border-radius: 3px; }
+        .benchmark-value { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; color: var(--text); white-space: nowrap; }
+
+        .metric-footer { display: flex; align-items: center; justify-content: space-between; }
+        .metric-stages { display: flex; gap: 6px; }
+        .stage-pill { font-size: 0.62rem; font-weight: 500; color: var(--text-3); background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 2px 7px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+        .metric-link { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; color: var(--gold); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+        .metric-link:hover { color: var(--gold-light); }
+
+        /* BENCHMARKS TABLE */
+        .benchmarks-table-wrap { overflow-x: auto; margin-top: 4px; }
+        .benchmarks-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+        .benchmarks-table thead th { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+        .benchmarks-table tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-2); }
+        .benchmarks-table tbody tr:hover td { background: var(--bg-raised); color: var(--text); }
+        .benchmarks-table .metric-col { font-weight: 500; color: var(--text); white-space: nowrap; }
+        .benchmarks-table .good { color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
+        .benchmarks-table .ok { color: var(--gold); font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
+        .benchmarks-table .bad { color: var(--red); font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
+
+        /* CTA SECTION */
+        .cta-section { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; margin: 48px 0; }
+        .cta-section h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+        .cta-section h2 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .cta-section p { color: var(--text-2); font-size: 0.9rem; max-width: 480px; margin: 0 auto 24px; }
+        .tools-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+        .tool-chip { display: inline-flex; align-items: center; gap: 6px; font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text-2); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; text-decoration: none; transition: all 0.2s; }
+        .tool-chip:hover { border-color: var(--gold-dim); color: var(--gold); }
+        .tool-chip .chip-arrow { color: var(--text-3); transition: color 0.2s; }
+        .tool-chip:hover .chip-arrow { color: var(--gold); }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 48px 40px 32px; border-top: 1px solid var(--border); }
+        .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .footer-text { font-size: 0.75rem; color: var(--text-3); margin-top: 8px; }
+        .footer-text a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .footer-text a:hover { color: var(--gold); }
+
+        /* PRINT STYLES */
+        @media print {
+            nav, .grain, .hero-actions, .cta-section, footer, .metric-link, .btn-primary, .btn-secondary { display: none !important; }
+            body { background: #fff; color: #111; font-size: 10pt; }
+            .container { max-width: 100%; padding: 0 20px; }
+            .hero { padding: 10px 0; }
+            .hero h1 { font-size: 22pt; color: #111; }
+            .hero h1 em { color: #8b7430; }
+            .hero p { color: #555; }
+            .breadcrumb { display: none; }
+            .section-header { border-bottom-color: #ccc; }
+            .section-header h2 { color: #111; }
+            .section-num { background: #f5f0e0; border-color: #d4c488; color: #8b7430; }
+            .metric-card { background: #fafafa; border-color: #ddd; break-inside: avoid; }
+            .metric-name { color: #111; }
+            .metric-desc { color: #555; }
+            .metric-formula { background: #f5f5f5; border-color: #ddd; }
+            .metric-formula code { color: #8b7430; }
+            .metric-tag { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+            .benchmark-bar { display: none; }
+            .benchmarks-table thead th { color: #555; border-bottom-color: #ccc; }
+            .benchmarks-table tbody td { border-bottom-color: #eee; color: #333; }
+            .metrics-grid { gap: 12px; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-toggle { display: block; }
+            .breadcrumb { padding: 80px 20px 0; }
+            .container { padding: 0 20px; }
+            .hero h1 { font-size: 1.6rem; }
+            .cta-section { padding: 28px 20px; }
+        }
+    </style>
 </head>
 <body>
-    <h1>SaaS Metrics Cheat Sheet</h1>
+
+<svg class="grain" xmlns="http://www.w3.org/2000/svg"><filter id="g"><feTurbulence baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>
+
+<nav>
+    <a href="/" class="nav-logo">CADBORO LABS</a>
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools/">Tools</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <a href="/lead-magnets/">Resources</a><span class="sep">/</span>
+    SaaS Metrics Cheat Sheet
+</div>
+
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+        <span class="hero-badge">Free Download &mdash; 2026 Edition</span>
+        <h1>The SaaS Metrics <em>Cheat Sheet</em><br>for Product Managers</h1>
+        <p>Every formula, benchmark, and rule of thumb you need &mdash; organized by category, with links to free calculators. Pin it, print it, or bookmark it.</p>
+        <div class="hero-actions">
+            <button class="btn-primary" onclick="window.print()">&#9662; Save as PDF</button>
+            <a href="/tools/" class="btn-secondary">Open Free Tools &rarr;</a>
+        </div>
+        <p class="hero-meta">30+ metrics &middot; 7 categories &middot; Industry benchmarks &middot; Updated for 2026</p>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 1: REVENUE METRICS -->
+    <!-- ============================================= -->
+    <div class="section" id="revenue">
+        <div class="section-header">
+            <span class="section-num">01</span>
+            <h2>Revenue Metrics</h2>
+        </div>
+        <div class="metrics-grid">
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Monthly Recurring Revenue (MRR)</div>
+                    <span class="metric-tag tag-revenue">Revenue</span>
+                </div>
+                <div class="metric-desc">The total predictable revenue from all active subscriptions in a given month. The north-star metric for subscription businesses.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>MRR = &Sigma; (Monthly subscription price &times; Active subscribers)</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:70%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">MoM growth &gt; 10%</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Seed</span><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/mrr-calculator/" class="metric-link">Calculate &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Annual Recurring Revenue (ARR)</div>
+                    <span class="metric-tag tag-revenue">Revenue</span>
+                </div>
+                <div class="metric-desc">MRR annualized. Used for enterprise SaaS or annual contracts. The standard metric investors use for valuation.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>ARR = MRR &times; 12</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:60%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">YoY growth &gt; 100% (early) / &gt; 40% (growth)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/mrr-calculator/" class="metric-link">Calculate &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Average Revenue Per User (ARPU)</div>
+                    <span class="metric-tag tag-revenue">Revenue</span>
+                </div>
+                <div class="metric-desc">Revenue generated per account per month. Tracks pricing effectiveness and expansion revenue over time.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>ARPU = MRR / Total active accounts</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:55%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">Increasing QoQ (expansion &gt; churn)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Seed</span><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/pricing-calculator/" class="metric-link">Optimize &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Net Revenue Retention (NRR)</div>
+                    <span class="metric-tag tag-revenue">Revenue</span>
+                </div>
+                <div class="metric-desc">Measures revenue kept + expanded from existing customers, net of churn and contractions. The single best health indicator for SaaS.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>NRR = (Start MRR + Expansion - Contraction - Churn) / Start MRR &times; 100</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:80%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">&gt; 110% (best-in-class: 120%+)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/mrr-calculator/" class="metric-link">Calculate &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 2: CUSTOMER METRICS -->
+    <!-- ============================================= -->
+    <div class="section" id="customer">
+        <div class="section-header">
+            <span class="section-num">02</span>
+            <h2>Customer Metrics</h2>
+        </div>
+        <div class="metrics-grid">
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Customer Lifetime Value (LTV)</div>
+                    <span class="metric-tag tag-customer">Customer</span>
+                </div>
+                <div class="metric-desc">The total revenue a customer generates over their entire relationship. Critical for understanding how much you can spend to acquire customers.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula (Simple)</div>
+                    <code>LTV = ARPU / Monthly churn rate</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:75%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">LTV:CAC &gt; 3:1</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Seed</span><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/ltv-calculator/" class="metric-link">Calculate &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Customer Churn Rate</div>
+                    <span class="metric-tag tag-customer">Customer</span>
+                </div>
+                <div class="metric-desc">Percentage of customers who cancel in a given period. The silent killer of SaaS businesses &mdash; even small changes compound dramatically.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>Churn Rate = (Customers lost in period / Customers at start) &times; 100</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:65%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">&lt; 5% monthly / &lt; 7% annual (enterprise)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Seed</span><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/mrr-calculator/" class="metric-link">Track &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Revenue Churn Rate</div>
+                    <span class="metric-tag tag-customer">Customer</span>
+                </div>
+                <div class="metric-desc">Percentage of MRR lost to cancellations and downgrades. More telling than customer churn when you have variable pricing.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>Revenue Churn = (MRR lost in period / MRR at start) &times; 100</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:60%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">&lt; 2% monthly (negative = best-in-class)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/mrr-calculator/" class="metric-link">Track &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Expansion Revenue Rate</div>
+                    <span class="metric-tag tag-customer">Customer</span>
+                </div>
+                <div class="metric-desc">Revenue growth from existing customers via upsells, cross-sells, and plan upgrades. The cheapest revenue you can get.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>Expansion Rate = (Expansion MRR / Starting MRR) &times; 100</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:50%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">&gt; 20% of new revenue from expansion</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/pricing-calculator/" class="metric-link">Optimize &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 3: UNIT ECONOMICS -->
+    <!-- ============================================= -->
+    <div class="section" id="unit-economics">
+        <div class="section-header">
+            <span class="section-num">03</span>
+            <h2>Unit Economics</h2>
+        </div>
+        <div class="metrics-grid">
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Customer Acquisition Cost (CAC)</div>
+                    <span class="metric-tag tag-unit">Unit Econ</span>
+                </div>
+                <div class="metric-desc">Total cost of acquiring one customer, including all sales and marketing spend. The denominator of the most important SaaS ratio.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>CAC = Total S&amp;M spend / New customers acquired</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:70%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">CAC &lt; &frac13; of LTV</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Seed</span><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/ltv-calculator/" class="metric-link">Compare &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">LTV:CAC Ratio</div>
+                    <span class="metric-tag tag-unit">Unit Econ</span>
+                </div>
+                <div class="metric-desc">The efficiency of your growth engine. Below 3:1 means you're spending too much to acquire; above 5:1 may mean you're under-investing in growth.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>LTV:CAC = Customer Lifetime Value / Customer Acquisition Cost</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:75%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">3:1 to 5:1 (sweet spot)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/ltv-calculator/" class="metric-link">Calculate &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">CAC Payback Period</div>
+                    <span class="metric-tag tag-unit">Unit Econ</span>
+                </div>
+                <div class="metric-desc">Months to recover the cost of acquiring a customer. Shorter = faster reinvestment into growth.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>Payback = CAC / (ARPU &times; Gross margin %)</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:65%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">&lt; 12 months (SMB) / &lt; 18 months (enterprise)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/ltv-calculator/" class="metric-link">Calculate &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Gross Margin</div>
+                    <span class="metric-tag tag-unit">Unit Econ</span>
+                </div>
+                <div class="metric-desc">Revenue minus cost of goods sold (hosting, support, infrastructure). SaaS should have structurally high margins.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>Gross Margin = (Revenue - COGS) / Revenue &times; 100</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:80%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">&gt; 70% (best-in-class: 80%+)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/pricing-calculator/" class="metric-link">Optimize &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 4: MARKET SIZING -->
+    <!-- ============================================= -->
+    <div class="section" id="market">
+        <div class="section-header">
+            <span class="section-num">04</span>
+            <h2>Market Sizing</h2>
+        </div>
+        <div class="metrics-grid">
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Total Addressable Market (TAM)</div>
+                    <span class="metric-tag tag-market">Market</span>
+                </div>
+                <div class="metric-desc">The total revenue opportunity if you captured 100% of the market. Used for investor pitch and strategic direction.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula (Bottom-up)</div>
+                    <code>TAM = Total potential customers &times; Annual contract value</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">VC bar</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:60%;background:var(--gold)"></div></div>
+                    <span class="benchmark-value">&gt; $1B for venture-scale</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Seed</span><span class="stage-pill">Growth</span></div>
+                    <a href="/tools/tam-calculator/" class="metric-link">Calculate &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Serviceable Addressable Market (SAM)</div>
+                    <span class="metric-tag tag-market">Market</span>
+                </div>
+                <div class="metric-desc">The portion of TAM you can realistically serve with your current product, geography, and go-to-market.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>SAM = TAM &times; % reachable with your product/geography</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Typical</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:40%;background:var(--gold)"></div></div>
+                    <span class="benchmark-value">10&ndash;40% of TAM</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Seed</span><span class="stage-pill">Growth</span></div>
+                    <a href="/tools/tam-calculator/" class="metric-link">Calculate &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Serviceable Obtainable Market (SOM)</div>
+                    <span class="metric-tag tag-market">Market</span>
+                </div>
+                <div class="metric-desc">Your realistic near-term capture &mdash; the portion of SAM you can win given competition, resources, and brand awareness.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>SOM = SAM &times; Expected market share %</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Typical</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:25%;background:var(--gold)"></div></div>
+                    <span class="benchmark-value">1&ndash;5% of SAM in year 1&ndash;3</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Seed</span><span class="stage-pill">Growth</span></div>
+                    <a href="/tools/tam-calculator/" class="metric-link">Calculate &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 5: PRIORITIZATION -->
+    <!-- ============================================= -->
+    <div class="section" id="prioritization">
+        <div class="section-header">
+            <span class="section-num">05</span>
+            <h2>Prioritization Frameworks</h2>
+        </div>
+        <div class="metrics-grid">
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">RICE Score</div>
+                    <span class="metric-tag tag-priority">Priority</span>
+                </div>
+                <div class="metric-desc">Intercom's framework for objective feature prioritization. Balances reach, impact, confidence, and effort to produce a comparable score.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>RICE = (Reach &times; Impact &times; Confidence) / Effort</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Usage</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:85%;background:var(--red)"></div></div>
+                    <span class="benchmark-value">Rank features, compare scores relatively</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">All stages</span></div>
+                    <a href="/tools/rice-scorer/" class="metric-link">Score &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">ICE Score</div>
+                    <span class="metric-tag tag-priority">Priority</span>
+                </div>
+                <div class="metric-desc">A simpler alternative to RICE. Quick scoring for growth experiments where detailed reach data isn't available.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>ICE = Impact &times; Confidence &times; Ease (each scored 1&ndash;10)</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Usage</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:70%;background:var(--red)"></div></div>
+                    <span class="benchmark-value">Best for growth experiments &amp; quick triage</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Seed</span><span class="stage-pill">Growth</span></div>
+                    <a href="/tools/rice-scorer/" class="metric-link">Score &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">WSJF (Weighted Shortest Job First)</div>
+                    <span class="metric-tag tag-priority">Priority</span>
+                </div>
+                <div class="metric-desc">SAFe's prioritization method. Factors in cost of delay and job size. Used by enterprise teams running PI planning.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>WSJF = Cost of Delay / Job Duration</code><br>
+                    <code style="color:var(--text-3);font-size:0.72rem">CoD = User value + Time criticality + Risk reduction</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Usage</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:55%;background:var(--red)"></div></div>
+                    <span class="benchmark-value">Enterprise teams, SAFe environments</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/rice-scorer/" class="metric-link">Score &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 6: CUSTOMER SATISFACTION -->
+    <!-- ============================================= -->
+    <div class="section" id="satisfaction">
+        <div class="section-header">
+            <span class="section-num">06</span>
+            <h2>Customer Satisfaction</h2>
+        </div>
+        <div class="metrics-grid">
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Net Promoter Score (NPS)</div>
+                    <span class="metric-tag tag-satisfaction">Satisfaction</span>
+                </div>
+                <div class="metric-desc">The gold standard for customer loyalty. Measures likelihood to recommend on a 0&ndash;10 scale. Predicts growth and retention.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>NPS = % Promoters (9&ndash;10) &minus; % Detractors (0&ndash;6)</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:70%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">&gt; 30 (SaaS avg) / 50+ (great) / 70+ (world-class)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/nps-calculator/" class="metric-link">Calculate &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Customer Satisfaction Score (CSAT)</div>
+                    <span class="metric-tag tag-satisfaction">Satisfaction</span>
+                </div>
+                <div class="metric-desc">Measures satisfaction with a specific interaction or experience. Best used after support tickets, onboarding, or feature releases.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>CSAT = (Satisfied responses / Total responses) &times; 100</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:75%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">&gt; 75% (SaaS avg: 78%)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">All stages</span></div>
+                    <a href="/tools/nps-calculator/" class="metric-link">Compare &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Customer Effort Score (CES)</div>
+                    <span class="metric-tag tag-satisfaction">Satisfaction</span>
+                </div>
+                <div class="metric-desc">Measures how easy it was for a customer to accomplish a task. Low effort = higher retention. The strongest predictor of repurchase.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>CES = Avg. score on "How easy was it?" (1&ndash;7 scale)</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:68%;background:var(--green)"></div></div>
+                    <span class="benchmark-value">&gt; 5.5 / 7 (lower effort = better)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/nps-calculator/" class="metric-link">Compare &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 7: GROWTH EFFICIENCY -->
+    <!-- ============================================= -->
+    <div class="section" id="growth">
+        <div class="section-header">
+            <span class="section-num">07</span>
+            <h2>Growth Efficiency</h2>
+        </div>
+        <div class="metrics-grid">
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">SaaS Quick Ratio</div>
+                    <span class="metric-tag tag-growth">Growth</span>
+                </div>
+                <div class="metric-desc">Measures the balance between MRR gains (new + expansion) and losses (churn + contraction). Are you growing efficiently or plugging a leaky bucket?</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>Quick Ratio = (New MRR + Expansion MRR) / (Churned MRR + Contraction MRR)</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:70%;background:var(--blue)"></div></div>
+                    <span class="benchmark-value">&gt; 4 (healthy) / &gt; 2 (minimum viable)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/mrr-calculator/" class="metric-link">Calculate &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Rule of 40</div>
+                    <span class="metric-tag tag-growth">Growth</span>
+                </div>
+                <div class="metric-desc">A SaaS health heuristic: growth rate + profit margin should exceed 40%. Balances the growth-vs-profitability tradeoff.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>Rule of 40 = Revenue growth rate (%) + EBITDA margin (%)</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:60%;background:var(--blue)"></div></div>
+                    <span class="benchmark-value">&gt; 40% combined (top quartile: 60%+)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/mrr-calculator/" class="metric-link">Track &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Burn Multiple</div>
+                    <span class="metric-tag tag-growth">Growth</span>
+                </div>
+                <div class="metric-desc">How much cash you burn for each dollar of net new ARR. Emerging as a more rigorous alternative to the Rule of 40.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>Burn Multiple = Net burn / Net new ARR</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:55%;background:var(--blue)"></div></div>
+                    <span class="benchmark-value">&lt; 1.5x (great) / &lt; 2x (good) / &gt; 3x (concern)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Seed</span><span class="stage-pill">Growth</span></div>
+                    <a href="/tools/mrr-calculator/" class="metric-link">Track &rarr;</a>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-top">
+                    <div class="metric-name">Magic Number</div>
+                    <span class="metric-tag tag-growth">Growth</span>
+                </div>
+                <div class="metric-desc">Sales efficiency metric: how much ARR you generate per dollar of sales &amp; marketing. Tells you when to step on the gas.</div>
+                <div class="metric-formula">
+                    <div class="metric-formula-label">Formula</div>
+                    <code>Magic Number = (QoQ ARR growth) / (Prior Q S&amp;M spend)</code>
+                </div>
+                <div class="metric-benchmark">
+                    <span class="benchmark-label">Good</span>
+                    <div class="benchmark-bar"><div class="benchmark-fill" style="width:65%;background:var(--blue)"></div></div>
+                    <span class="benchmark-value">&gt; 0.75 (invest more) / &lt; 0.5 (fix efficiency)</span>
+                </div>
+                <div class="metric-footer">
+                    <div class="metric-stages"><span class="stage-pill">Growth</span><span class="stage-pill">Scale</span></div>
+                    <a href="/tools/mrr-calculator/" class="metric-link">Track &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- BENCHMARKS TABLE -->
+    <!-- ============================================= -->
+    <div class="section" id="benchmarks">
+        <div class="section-header">
+            <span class="section-num">&Sigma;</span>
+            <h2>Quick-Reference Benchmarks by Stage</h2>
+        </div>
+        <div class="benchmarks-table-wrap">
+            <table class="benchmarks-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Seed / Early</th>
+                        <th>Growth ($1&ndash;10M ARR)</th>
+                        <th>Scale ($10M+ ARR)</th>
+                        <th>Best-in-Class</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="metric-col">MRR Growth (MoM)</td>
+                        <td class="good">15&ndash;20%</td>
+                        <td class="ok">8&ndash;12%</td>
+                        <td class="ok">3&ndash;5%</td>
+                        <td class="good">T2D3 pace</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col">Net Revenue Retention</td>
+                        <td class="ok">&gt; 90%</td>
+                        <td class="ok">&gt; 100%</td>
+                        <td class="good">&gt; 110%</td>
+                        <td class="good">120%+</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col">Customer Churn (monthly)</td>
+                        <td class="ok">&lt; 8%</td>
+                        <td class="ok">&lt; 5%</td>
+                        <td class="good">&lt; 2%</td>
+                        <td class="good">&lt; 1%</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col">LTV:CAC Ratio</td>
+                        <td class="ok">&gt; 1.5:1</td>
+                        <td class="good">&gt; 3:1</td>
+                        <td class="good">&gt; 4:1</td>
+                        <td class="good">5:1+</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col">CAC Payback (months)</td>
+                        <td class="ok">&lt; 18</td>
+                        <td class="good">&lt; 12</td>
+                        <td class="good">&lt; 9</td>
+                        <td class="good">&lt; 6</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col">Gross Margin</td>
+                        <td class="ok">&gt; 60%</td>
+                        <td class="good">&gt; 70%</td>
+                        <td class="good">&gt; 75%</td>
+                        <td class="good">80%+</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col">Quick Ratio</td>
+                        <td class="ok">&gt; 2</td>
+                        <td class="good">&gt; 3</td>
+                        <td class="good">&gt; 4</td>
+                        <td class="good">5+</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col">NPS</td>
+                        <td class="ok">&gt; 10</td>
+                        <td class="ok">&gt; 30</td>
+                        <td class="good">&gt; 50</td>
+                        <td class="good">70+</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col">Rule of 40</td>
+                        <td class="ok">N/A (focus on growth)</td>
+                        <td class="ok">&gt; 30%</td>
+                        <td class="good">&gt; 40%</td>
+                        <td class="good">60%+</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col">Burn Multiple</td>
+                        <td class="ok">&lt; 3x</td>
+                        <td class="ok">&lt; 2x</td>
+                        <td class="good">&lt; 1.5x</td>
+                        <td class="good">&lt; 1x</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>Stop Googling formulas.<br>Start <em>calculating.</em></h2>
+        <p>Every metric on this cheat sheet has a free, interactive calculator. No signup, no paywall &mdash; just answers.</p>
+        <a href="/tools/" class="btn-primary" style="display:inline-flex;">Open Free Tools &rarr;</a>
+        <div class="tools-row">
+            <a href="/tools/mrr-calculator/" class="tool-chip">MRR Calculator <span class="chip-arrow">&rarr;</span></a>
+            <a href="/tools/pricing-calculator/" class="tool-chip">Pricing Calculator <span class="chip-arrow">&rarr;</span></a>
+            <a href="/tools/rice-scorer/" class="tool-chip">RICE Scorer <span class="chip-arrow">&rarr;</span></a>
+            <a href="/tools/tam-calculator/" class="tool-chip">TAM/SAM/SOM <span class="chip-arrow">&rarr;</span></a>
+            <a href="/tools/nps-calculator/" class="tool-chip">NPS Calculator <span class="chip-arrow">&rarr;</span></a>
+            <a href="/tools/ltv-calculator/" class="tool-chip">LTV Calculator <span class="chip-arrow">&rarr;</span></a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <a href="/" class="footer-logo">CADBORO LABS</a>
+    <p class="footer-text">Built in Victoria, BC &mdash; <a href="/tools/">Free PM Tools</a></p>
+</footer>
+
 </body>
 </html>

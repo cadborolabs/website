@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Pricing Calculator — Model Pricing Tiers & Revenue | Cadboro Labs</title>
+    <meta name="description" content="Free SaaS pricing calculator to model pricing tiers, analyze gross margins, and project revenue at scale. Input costs and customer mix to find your optimal pricing.">
+    <meta name="keywords" content="SaaS pricing calculator, SaaS pricing model, pricing tier calculator, SaaS revenue projection, gross margin calculator, ARPU calculator, SaaS pricing strategy, pricing page calculator">
+
+    <meta property="og:title" content="SaaS Pricing Calculator — Model Tiers & Revenue">
+    <meta property="og:description" content="Model SaaS pricing tiers, calculate gross margins, and project revenue at scale. Free, no signup.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cadborolabs.com/tools/pricing-calculator/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SaaS Pricing Calculator — Cadboro Labs">
+    <meta name="twitter:description" content="Free SaaS pricing calculator with margin analysis, break-even modeling, and revenue projections.">
+    <link rel="canonical" href="https://cadborolabs.com/tools/pricing-calculator/">
+
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"SaaS Pricing Calculator","description":"Free SaaS pricing calculator to model pricing tiers, calculate gross margins, and project revenue at scale.","url":"https://cadborolabs.com/tools/pricing-calculator/","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Cadboro Labs","url":"https://cadborolabs.com"}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+        {"@type":"Question","name":"How do you calculate SaaS pricing?","acceptedAnswer":{"@type":"Answer","text":"SaaS pricing is typically calculated using one of three approaches: cost-plus pricing (costs + target margin), value-based pricing (price based on customer value delivered), or competitor-based pricing (positioning relative to market). The best approach usually combines cost floors with value-based ceilings."}},
+        {"@type":"Question","name":"What is a good gross margin for SaaS?","acceptedAnswer":{"@type":"Answer","text":"A healthy SaaS gross margin is 70-80%. Best-in-class SaaS companies achieve 80%+ gross margins. Below 60% is a concern and may indicate infrastructure inefficiency or high support costs. Gross margin = (Revenue - Cost of Goods Sold) / Revenue."}},
+        {"@type":"Question","name":"How many pricing tiers should a SaaS product have?","acceptedAnswer":{"@type":"Answer","text":"Most successful SaaS products use 3-4 pricing tiers. Three tiers (Good/Better/Best) leverage the decoy effect to nudge customers toward the middle tier. More than 4 tiers creates decision paralysis. Some products succeed with just 2 tiers plus enterprise custom pricing."}},
+        {"@type":"Question","name":"Should I offer annual pricing for my SaaS?","acceptedAnswer":{"@type":"Answer","text":"Yes. Annual pricing improves cash flow, reduces churn (customers commit for 12 months), and lowers payment processing costs. The standard discount is 15-20% off monthly pricing (equivalent to 2 months free). Expect 30-50% of customers to choose annual plans."}},
+        {"@type":"Question","name":"What is ARPU and how do you calculate it?","acceptedAnswer":{"@type":"Answer","text":"ARPU (Average Revenue Per User) is your total monthly revenue divided by total paying customers. It represents the blended average of what each customer pays. ARPU = Total MRR / Total Paying Customers."}},
+        {"@type":"Question","name":"How do you determine the right price for a SaaS product?","acceptedAnswer":{"@type":"Answer","text":"Start with your cost floor (minimum viable price to be profitable), then research competitor pricing for positioning, and finally test willingness-to-pay through customer interviews or A/B tests. Price should reflect the value delivered, not just your costs."}},
+        {"@type":"Question","name":"What is cost-plus vs value-based pricing?","acceptedAnswer":{"@type":"Answer","text":"Cost-plus pricing adds a margin to your costs (e.g., $5 cost + 80% margin = $25 price). Value-based pricing sets price based on the value customers receive (e.g., saves customers $500/month, so charge $100/month). Value-based pricing typically yields higher revenue but requires deeper customer understanding."}}
+    ]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://cadborolabs.com"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://cadborolabs.com/tools/"},
+        {"@type":"ListItem","position":3,"name":"SaaS Pricing Calculator","item":"https://cadborolabs.com/tools/pricing-calculator/"}
+    ]}
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #09090b; --bg-raised: #111113; --bg-card: #16161a;
+            --border: #222228; --border-hover: #38383f;
+            --gold: #c9a84c; --gold-light: #e6d59c; --gold-dim: #6b5a2a;
+            --text: #eeeeed; --text-2: #8b8b96; --text-3: #55555e;
+            --red: #e85d5d; --green: #5dcc72; --green-dim: rgba(93,204,114,0.12);
+            --red-dim: rgba(232,93,93,0.1); --gold-glow: rgba(201,168,76,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        ::selection { background: var(--gold); color: var(--bg); }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+        .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+        .grain svg { width: 100%; height: 100%; opacity: 0.028; mix-blend-mode: overlay; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 22px 40px; background: rgba(9,9,11,0.88); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 36px; list-style: none; }
+        .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; color: var(--text-2); text-decoration: none; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; transition: all 0.3s; }
+
+        .breadcrumb { padding: 88px 40px 0; max-width: 1200px; margin: 0 auto; font-size: 0.8rem; color: var(--text-3); }
+        .breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        .tool-header { padding: 32px 0 40px; text-align: center; }
+        .tool-header h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 12px; }
+        .tool-header h1 span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .tool-header p { font-size: 1.05rem; color: var(--text-2); max-width: 600px; margin: 0 auto; }
+
+        .calc-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 24px; margin-bottom: 48px; }
+
+        .input-panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; min-width: 0; }
+        .panel-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .panel-label { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+        .section-divider { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+        .section-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .section-label-row .panel-label { margin-bottom: 0; }
+
+        .mode-toggle { display: flex; background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .mode-btn { padding: 6px 16px; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; background: none; border: none; color: var(--text-3); cursor: pointer; transition: all 0.25s; }
+        .mode-btn.active { background: var(--gold); color: var(--bg); }
+
+        .tier-row { display: grid; grid-template-columns: 2fr 1fr 1fr 36px; gap: 10px; margin-bottom: 10px; align-items: center; animation: fadeSlideIn 0.25s ease; }
+        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        .tier-row-header { display: grid; grid-template-columns: 2fr 1fr 1fr 36px; gap: 10px; margin-bottom: 8px; }
+        .tier-row-header span { font-size: 0.72rem; color: var(--text-3); font-weight: 500; }
+
+        input[type="text"], input[type="number"] { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.9rem; transition: border-color 0.2s, box-shadow 0.2s; width: 100%; -moz-appearance: textfield; }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        input:focus { outline: none; border-color: var(--gold-dim); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
+        input::placeholder { color: var(--text-3); }
+
+        .remove-tier { width: 36px; height: 36px; background: transparent; border: 1px solid var(--border); border-radius: 8px; color: var(--text-3); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 1.1rem; }
+        .remove-tier:hover { border-color: var(--red); color: var(--red); background: var(--red-dim); }
+        .add-tier { display: flex; align-items: center; gap: 8px; background: transparent; border: 1px dashed var(--border); border-radius: 8px; color: var(--text-3); padding: 10px; cursor: pointer; width: 100%; font-family: 'Outfit', sans-serif; font-size: 0.85rem; transition: all 0.2s; margin-top: 4px; }
+        .add-tier:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+        .rate-group { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+        .rate-group-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 12px; }
+        .rate-field label { display: block; font-size: 0.75rem; color: var(--text-2); margin-bottom: 6px; font-weight: 500; }
+        .rate-input-wrap { position: relative; }
+        .rate-input-wrap input { padding-right: 32px; }
+        .rate-input-wrap .unit { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: var(--text-3); pointer-events: none; }
+        .rate-input-wrap .unit-left { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: var(--text-3); pointer-events: none; }
+        .rate-input-wrap input.has-prefix { padding-left: 24px; padding-right: 12px; }
+
+        .adv-section { display: none; }
+        .adv-section.visible { display: block; animation: fadeSlideIn 0.3s ease; }
+
+        .toggle-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .toggle-label { font-size: 0.8rem; color: var(--text-2); font-weight: 500; }
+        .toggle-switch { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+        .toggle-switch .slider { position: absolute; inset: 0; background: var(--bg-raised); border: 1px solid var(--border); border-radius: 100px; cursor: pointer; transition: all 0.25s; }
+        .toggle-switch .slider::before { content: ''; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; background: var(--text-3); border-radius: 50%; transition: all 0.25s; }
+        .toggle-switch input:checked + .slider { background: var(--gold-dim); border-color: var(--gold-dim); }
+        .toggle-switch input:checked + .slider::before { background: var(--gold); transform: translateX(18px); }
+
+        .calc-btn { width: 100%; padding: 14px; margin-top: 20px; background: var(--gold); color: var(--bg); border: none; border-radius: 10px; font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.3s cubic-bezier(0.16,1,0.3,1); }
+        .calc-btn:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(201,168,76,0.25); }
+        .calc-btn:active { transform: translateY(0); }
+
+        .results-panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+        .results-placeholder { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: var(--text-3); gap: 12px; min-height: 300px; }
+        .results-placeholder svg { opacity: 0.3; }
+        .results-placeholder p { font-size: 0.9rem; max-width: 260px; }
+        .results-content { display: none; }
+        .results-content.visible { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .hero-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .hero-metric { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+        .hero-metric .label { font-family: 'Syne', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+        .hero-metric .value { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--gold); }
+        .hero-metric .sub { font-size: 0.75rem; color: var(--text-3); margin-top: 4px; }
+
+        .mini-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+        .mini-metric { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+        .mini-metric .label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .mini-metric .value { font-size: 1rem; font-weight: 600; color: var(--text); }
+        .mini-metric .value.positive { color: var(--green); }
+        .mini-metric .value.negative { color: var(--red); }
+
+        .adv-metrics { display: none; }
+        .adv-metrics.visible { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; animation: fadeIn 0.4s ease; }
+        .adv-metric { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; }
+        .adv-metric .label { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .adv-metric .value { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+
+        .benchmarks { display: none; }
+        .benchmarks.visible { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; animation: fadeIn 0.4s ease; }
+        .bench-card { padding: 10px 12px; border-radius: 8px; background: var(--bg-raised); border-left: 3px solid var(--border); }
+        .bench-card.good { border-left-color: var(--green); }
+        .bench-card.ok { border-left-color: var(--gold); }
+        .bench-card.warn { border-left-color: var(--red); }
+        .bench-card .bench-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); }
+        .bench-card .bench-text { font-size: 0.72rem; color: var(--text-2); margin-top: 2px; line-height: 1.4; }
+
+        .chart-section { margin-bottom: 16px; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .chart-header .section-label { font-family: 'Syne', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin: 0; }
+        .chart-tabs { display: flex; gap: 2px; background: var(--bg-raised); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+        .chart-tab { padding: 5px 12px; font-family: 'Outfit', sans-serif; font-size: 0.68rem; font-weight: 500; background: none; border: none; color: var(--text-3); cursor: pointer; transition: all 0.2s; }
+        .chart-tab.active { background: var(--gold-dim); color: var(--gold); }
+        .chart-wrap { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 20px; overflow: hidden; }
+        #pricingChart { width: 100%; height: 220px; display: block; }
+
+        .chart-legend { display: none; }
+        .chart-legend.visible { display: flex; gap: 16px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.68rem; color: var(--text-3); }
+        .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+        .table-section { margin-bottom: 16px; }
+        .table-section .section-label { font-family: 'Syne', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .proj-table-wrap { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; max-height: 320px; overflow-y: auto; overflow-x: auto; }
+        .proj-table-wrap::-webkit-scrollbar { width: 4px; height: 4px; }
+        .proj-table-wrap::-webkit-scrollbar-track { background: var(--bg-raised); }
+        .proj-table-wrap::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 2px; }
+        .proj-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; white-space: nowrap; }
+        .proj-table thead { position: sticky; top: 0; z-index: 2; }
+        .proj-table th { background: var(--bg-card); color: var(--text-3); font-weight: 600; font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 10px; text-align: right; border-bottom: 1px solid var(--border); }
+        .proj-table th:first-child { text-align: left; }
+        .proj-table td { padding: 8px 10px; text-align: right; color: var(--text-2); border-bottom: 1px solid rgba(34,34,40,0.5); }
+        .proj-table td:first-child { text-align: left; color: var(--text-3); }
+        .proj-table tr:hover td { background: rgba(201,168,76,0.03); }
+        .proj-table tr.highlight td { color: var(--gold); font-weight: 600; }
+        .proj-table .col-green { color: var(--green); }
+        .proj-table .col-red { color: var(--red); }
+
+        .export-row { display: flex; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border); }
+        .export-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; color: var(--text-2); font-family: 'Outfit', sans-serif; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; }
+        .export-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+        .export-btn svg { width: 14px; height: 14px; }
+
+        .seo-content { max-width: 780px; margin: 0 auto; padding: 64px 0 48px; border-top: 1px solid var(--border); }
+        .seo-content h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 16px; margin-top: 48px; }
+        .seo-content h2:first-of-type { margin-top: 0; }
+        .seo-content h2 span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .seo-content p { font-size: 0.95rem; color: var(--text-2); margin-bottom: 16px; line-height: 1.75; }
+        .seo-content ul { list-style: none; margin-bottom: 16px; }
+        .seo-content ul li { font-size: 0.95rem; color: var(--text-2); padding: 6px 0 6px 24px; position: relative; line-height: 1.65; }
+        .seo-content ul li::before { content: ''; position: absolute; left: 0; top: 14px; width: 8px; height: 8px; border: 1.5px solid var(--gold-dim); border-radius: 50%; }
+        .formula-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 20px 0; font-family: 'Instrument Serif', serif; font-size: 1.15rem; color: var(--gold-light); text-align: center; font-style: italic; }
+
+        .faq-section { margin-top: 48px; }
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-q { width: 100%; background: none; border: none; padding: 18px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left; }
+        .faq-q span { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 500; color: var(--text); }
+        .faq-q svg { flex-shrink: 0; color: var(--text-3); transition: transform 0.3s; }
+        .faq-q.open svg { transform: rotate(180deg); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+        .faq-a-inner { padding: 0 0 18px; font-size: 0.9rem; color: var(--text-2); line-height: 1.7; }
+
+        .cta-banner { max-width: 780px; margin: 0 auto 80px; background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02)); border: 1px solid var(--gold-dim); border-radius: 16px; padding: 36px; text-align: center; }
+        .cta-banner h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+        .cta-banner p { font-size: 0.9rem; color: var(--text-2); margin-bottom: 20px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .cta-install { display: inline-flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 24px; font-family: 'Outfit', monospace; font-size: 0.85rem; color: var(--gold); cursor: pointer; transition: all 0.2s; }
+        .cta-install:hover { border-color: var(--gold-dim); box-shadow: 0 4px 16px rgba(201,168,76,0.1); }
+
+        footer { border-top: 1px solid var(--border); padding: 32px 40px; text-align: center; font-size: 0.78rem; color: var(--text-3); }
+        footer a { color: var(--text-3); text-decoration: none; }
+        footer a:hover { color: var(--gold); }
+
+        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--gold); color: var(--bg); padding: 12px 24px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; z-index: 10000; opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        @media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(9,9,11,0.96); backdrop-filter: blur(24px); padding: 20px; gap: 16px; border-bottom: 1px solid var(--border); }
+            .nav-toggle { display: block; }
+            .breadcrumb { padding: 76px 20px 0; }
+            .container { padding: 0 20px; }
+            .input-panel, .results-panel { padding: 20px; }
+            .tier-row, .tier-row-header { grid-template-columns: 2fr 1fr 1fr 32px; gap: 6px; }
+            .hero-metrics { grid-template-columns: 1fr; }
+            .mini-metrics { grid-template-columns: 1fr; }
+            .adv-metrics.visible { grid-template-columns: 1fr 1fr; }
+            .benchmarks.visible { grid-template-columns: 1fr; }
+            .rate-group, .rate-group-3 { grid-template-columns: 1fr; }
+            .tool-header { padding: 24px 0 28px; }
+            .seo-content { padding: 48px 0 40px; }
+            .cta-banner { padding: 28px 20px; margin-bottom: 48px; }
+            .export-row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"><svg><filter id="grainy"><feTurbulence type="turbulence" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#grainy)"/></svg></div>
+
+<nav>
+    <a href="/" class="nav-logo">CADBORO LABS</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+        <li><a href="/#tools">Tools</a></li>
+        <li><a href="/#skills">Skills</a></li>
+        <li><a href="/#about">About</a></li>
+    </ul>
+</nav>
+
+<div class="breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <a href="/#tools">Tools</a><span class="sep">/</span>
+    SaaS Pricing Calculator
+</div>
+
+<div class="container">
+    <div class="tool-header">
+        <h1>SaaS <span>Pricing</span> Calculator</h1>
+        <p>Model your pricing tiers, analyze margins, and project revenue at any customer scale.</p>
+    </div>
+
+    <div class="calc-grid">
+        <div class="input-panel">
+            <div class="panel-top">
+                <span class="panel-label">Pricing Tiers</span>
+                <div class="mode-toggle">
+                    <button class="mode-btn active" onclick="setMode('basic')">Basic</button>
+                    <button class="mode-btn" onclick="setMode('advanced')">Advanced</button>
+                </div>
+            </div>
+
+            <div class="tier-row-header">
+                <span>Plan name</span>
+                <span>Price / mo</span>
+                <span>Customer mix</span>
+                <span></span>
+            </div>
+            <div id="tierRows"></div>
+            <button class="add-tier" onclick="addTier()">+ Add pricing tier</button>
+
+            <div class="section-divider">
+                <div class="section-label-row">
+                    <span class="panel-label">Cost Structure</span>
+                </div>
+                <div class="rate-group">
+                    <div class="rate-field">
+                        <label>Fixed monthly costs</label>
+                        <div class="rate-input-wrap">
+                            <span class="unit-left">$</span>
+                            <input type="number" id="fixedCosts" value="2000" class="has-prefix" placeholder="2000">
+                        </div>
+                    </div>
+                    <div class="rate-field">
+                        <label>Variable cost / customer / mo</label>
+                        <div class="rate-input-wrap">
+                            <span class="unit-left">$</span>
+                            <input type="number" id="variableCost" value="5" class="has-prefix" placeholder="5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider">
+                <div class="section-label-row">
+                    <span class="panel-label">Customer Volume</span>
+                </div>
+                <div class="rate-group">
+                    <div class="rate-field">
+                        <label>Current customers</label>
+                        <div class="rate-input-wrap">
+                            <input type="number" id="currentCustomers" value="200" placeholder="200">
+                        </div>
+                    </div>
+                    <div class="rate-field">
+                        <label>Target customers (12 mo)</label>
+                        <div class="rate-input-wrap">
+                            <input type="number" id="targetCustomers" value="1000" placeholder="1000">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced: Annual Pricing -->
+            <div class="adv-section" id="advAnnual">
+                <div class="section-divider">
+                    <div class="section-label-row">
+                        <span class="panel-label">Annual Pricing</span>
+                    </div>
+                    <div class="toggle-wrap">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="annualToggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span class="toggle-label">Offer annual plan</span>
+                    </div>
+                    <div class="rate-group">
+                        <div class="rate-field">
+                            <label>Annual discount</label>
+                            <div class="rate-input-wrap">
+                                <input type="number" id="annualDiscount" value="17" placeholder="17">
+                                <span class="unit">%</span>
+                            </div>
+                        </div>
+                        <div class="rate-field">
+                            <label>Annual plan adoption</label>
+                            <div class="rate-input-wrap">
+                                <input type="number" id="annualAdoption" value="40" placeholder="40">
+                                <span class="unit">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced: Freemium -->
+            <div class="adv-section" id="advFreemium">
+                <div class="section-divider">
+                    <div class="section-label-row">
+                        <span class="panel-label">Freemium / Trial</span>
+                    </div>
+                    <div class="toggle-wrap">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="freeToggle">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="toggle-label">Free tier</span>
+                    </div>
+                    <div class="rate-group">
+                        <div class="rate-field">
+                            <label>Free-to-paid conversion</label>
+                            <div class="rate-input-wrap">
+                                <input type="number" id="freeConversion" value="5" placeholder="5">
+                                <span class="unit">%</span>
+                            </div>
+                        </div>
+                        <div class="rate-field">
+                            <label>Free users</label>
+                            <div class="rate-input-wrap">
+                                <input type="number" id="freeUsers" value="1000" placeholder="1000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced: Expansion -->
+            <div class="adv-section" id="advExpansion">
+                <div class="section-divider">
+                    <div class="section-label-row">
+                        <span class="panel-label">Expansion Revenue</span>
+                    </div>
+                    <div class="rate-group">
+                        <div class="rate-field">
+                            <label>Avg expansion / customer / mo</label>
+                            <div class="rate-input-wrap">
+                                <span class="unit-left">$</span>
+                                <input type="number" id="expansionAmt" value="5" class="has-prefix" placeholder="5">
+                            </div>
+                        </div>
+                        <div class="rate-field">
+                            <label>Expansion eligible</label>
+                            <div class="rate-input-wrap">
+                                <input type="number" id="expansionPct" value="20" placeholder="20">
+                                <span class="unit">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="calc-btn" onclick="calculate()">Calculate Pricing</button>
+        </div>
+
+        <div class="results-panel">
+            <div class="results-placeholder" id="placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                <p>Add your pricing tiers and click calculate to see your revenue projections</p>
+            </div>
+            <div class="results-content" id="results">
+                <div class="hero-metrics">
+                    <div class="hero-metric">
+                        <div class="label">Blended ARPU</div>
+                        <div class="value" id="heroARPU">$0</div>
+                        <div class="sub">per customer per month</div>
+                    </div>
+                    <div class="hero-metric">
+                        <div class="label">Monthly Revenue</div>
+                        <div class="value" id="heroRevenue">$0</div>
+                        <div class="sub">at current scale</div>
+                    </div>
+                </div>
+                <div class="mini-metrics">
+                    <div class="mini-metric">
+                        <div class="label">Gross Margin</div>
+                        <div class="value" id="miniMargin">0%</div>
+                    </div>
+                    <div class="mini-metric">
+                        <div class="label">Annual Revenue</div>
+                        <div class="value" id="miniAnnual">$0</div>
+                    </div>
+                    <div class="mini-metric">
+                        <div class="label">Break-even</div>
+                        <div class="value" id="miniBreakeven">0</div>
+                    </div>
+                </div>
+
+                <div class="adv-metrics" id="advMetrics"></div>
+                <div class="benchmarks" id="benchmarks"></div>
+
+                <div class="chart-section">
+                    <div class="chart-header">
+                        <span class="section-label">Revenue Analysis</span>
+                        <div class="chart-tabs">
+                            <button class="chart-tab active" onclick="switchChart('tier')">By Tier</button>
+                            <button class="chart-tab" onclick="switchChart('margin')">Margin</button>
+                        </div>
+                    </div>
+                    <div class="chart-wrap">
+                        <canvas id="pricingChart" style="width:100%;height:220px;display:block;"></canvas>
+                    </div>
+                    <div class="chart-legend" id="chartLegend"></div>
+                </div>
+
+                <div class="table-section">
+                    <div class="section-label">Revenue at Scale</div>
+                    <div class="proj-table-wrap">
+                        <table class="proj-table" id="scaleTable">
+                            <thead><tr id="tableHead"></tr></thead>
+                            <tbody id="tableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="export-row">
+                    <button class="export-btn" onclick="copyResults()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy results
+                    </button>
+                    <button class="export-btn" onclick="downloadCSV()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="seo-content">
+        <h2>How to Price Your <span>SaaS Product</span></h2>
+        <p>There are three primary approaches to SaaS pricing, and the strongest strategies combine elements of all three. Understanding each method helps you set a price floor, benchmark against competitors, and capture the value you deliver.</p>
+        <ul>
+            <li><strong>Cost-plus pricing</strong> starts with your costs and adds a target margin. This sets your price floor — the minimum you can charge while staying profitable. Most SaaS businesses should target 70-80% gross margins.</li>
+            <li><strong>Value-based pricing</strong> prices based on the outcomes your product delivers. If your tool saves customers $500/month in manual work, charging $99/month captures a fraction of that value while remaining an easy decision for buyers.</li>
+            <li><strong>Competitor-based pricing</strong> positions you relative to alternatives. This doesn't mean matching competitor prices — it means understanding where you sit in the market and pricing accordingly.</li>
+        </ul>
+        <div class="formula-block">Blended ARPU = &Sigma;(Tier Price &times; Customer Mix %) across all tiers</div>
+        <p>The most effective pricing strategies start with a cost floor (ensuring profitability), set a value ceiling (maximum customers will pay), and position within that range based on competitive dynamics and go-to-market strategy.</p>
+
+        <h2>SaaS Pricing <span>Models</span> Explained</h2>
+        <p>The pricing model you choose affects everything from sales velocity to expansion revenue potential. Each model creates different incentives for customer behavior and growth.</p>
+        <ul>
+            <li><strong>Per-seat pricing</strong> charges per user, making revenue predictable and expansion natural as teams grow. Used by Slack, Notion, and most collaboration tools.</li>
+            <li><strong>Usage-based pricing</strong> charges by consumption (API calls, storage, messages). Revenue scales with customer success but introduces variability. Used by AWS, Twilio, Stripe.</li>
+            <li><strong>Flat-rate pricing</strong> offers a single price for full access. Simple to sell but limits expansion revenue and can underserve both small and large customers.</li>
+            <li><strong>Freemium</strong> gives a limited version for free and charges for premium features. Drives top-of-funnel volume but requires careful feature gating. Typical conversion: 2-5%.</li>
+            <li><strong>Hybrid pricing</strong> combines models — a base platform fee plus per-seat or usage charges. Increasingly common as it captures both predictable and growth-linked revenue.</li>
+        </ul>
+
+        <h2>Common SaaS Pricing <span>Mistakes</span></h2>
+        <ul>
+            <li><strong>Underpricing</strong> — the most common mistake. Founders fear losing customers to higher prices, but willingness-to-pay is almost always higher than assumed. Price increases of 20-30% rarely cause meaningful churn.</li>
+            <li><strong>Too many tiers</strong> — more than 3-4 tiers creates decision paralysis. Keep it simple: a value tier, a popular tier, and a premium tier.</li>
+            <li><strong>No annual plan</strong> — annual pricing improves cash flow, reduces churn, and simplifies revenue forecasting. Offer 15-20% off monthly pricing.</li>
+            <li><strong>Never changing prices</strong> — pricing should evolve as your product improves. Review pricing at least annually. Grandfather existing customers if needed.</li>
+            <li><strong>Ignoring unit economics</strong> — price must cover customer acquisition cost with an LTV:CAC ratio of at least 3:1 to sustain growth.</li>
+        </ul>
+
+        <h2>SaaS Pricing <span>Benchmarks</span></h2>
+        <p>Pricing benchmarks vary significantly by target market. Understanding where your ARPU falls relative to your segment helps identify pricing power and expansion opportunities.</p>
+        <ul>
+            <li><strong>SMB SaaS</strong> — ARPU typically $10-$50/mo. High volume, self-serve. Gross margins 75-85%.</li>
+            <li><strong>Mid-market SaaS</strong> — ARPU $50-$500/mo. Sales-assisted, moderate volume. Gross margins 70-80%.</li>
+            <li><strong>Enterprise SaaS</strong> — ARPU $500-$5,000+/mo. Sales-led, lower volume, higher margins. Gross margins 80-90%.</li>
+        </ul>
+        <div class="formula-block">Gross Margin = (Revenue &minus; Cost of Goods Sold) / Revenue &times; 100</div>
+        <p>Target gross margins above 70% for a healthy SaaS business. Below 60% indicates high infrastructure or support costs that need attention before scaling.</p>
+
+        <div class="faq-section">
+            <h2>Frequently Asked <span>Questions</span></h2>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>How do you calculate SaaS pricing?</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">SaaS pricing is typically calculated using cost-plus (costs + target margin), value-based (priced on customer outcomes), or competitor-based (positioning relative to market) approaches. Start with your cost floor, then price based on the value you deliver.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>What is a good gross margin for SaaS?</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">A healthy SaaS gross margin is 70-80%. Best-in-class SaaS companies achieve 80%+ gross margins. Below 60% is a concern and may indicate infrastructure inefficiency or high support costs.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>How many pricing tiers should I have?</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">Most successful SaaS products use 3-4 tiers. Three tiers leverage the decoy effect to nudge customers toward the middle option. More than 4 creates decision paralysis. Some succeed with 2 tiers plus enterprise custom pricing.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>Should I offer annual pricing?</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">Yes. Annual pricing improves cash flow, reduces churn, and lowers payment processing costs. The standard discount is 15-20% off monthly pricing (equivalent to 2 months free). Expect 30-50% of customers to choose annual plans.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>What is ARPU and how do you calculate it?</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">ARPU (Average Revenue Per User) is your total monthly revenue divided by total paying customers. For tiered pricing, the blended ARPU is the weighted average across all tiers based on customer distribution.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>How do you determine the right price for a SaaS product?</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">Start with your cost floor to ensure profitability, research competitor pricing for market positioning, then test willingness-to-pay through customer interviews or A/B tests. Price should reflect value delivered, not just your costs.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span>What is cost-plus vs value-based pricing?</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner">Cost-plus adds a margin to your costs (e.g., $5 cost + 80% margin = $25). Value-based sets price based on customer outcomes (e.g., saves $500/month, charge $100/month). Value-based typically yields higher revenue but requires deeper customer understanding.</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-banner">
+        <h3>Done modeling. Ready to analyze real data.</h3>
+        <p>The SaaS Pricing Analyzer takes your actual subscription data and tells you which tiers are driving revenue, where concentration risk is hiding, and what pricing changes would move the needle — with projected impact.</p>
+        <div class="cta-install" onclick="copyInstall()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            claude skill install saas-pricing-skill
+        </div>
+    </div>
+</div>
+
+<footer><p>&copy; 2026 <a href="/">Cadboro Labs</a>. Built in Victoria, BC.</p></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== State =====
+let mode = 'basic';
+let tiers = [
+    { name: 'Starter', price: 29, mix: 50 },
+    { name: 'Pro', price: 79, mix: 35 },
+    { name: 'Enterprise', price: 199, mix: 15 }
+];
+let scaleData = [];
+let tierRevData = [];
+let marginCurve = [];
+let advMetrics = {};
+let activeChart = 'tier';
+
+// ===== Helpers =====
+function gv(id) { return document.getElementById(id)?.value || ''; }
+function sv(id, v) { const el = document.getElementById(id); if (el) el.value = v; }
+function fmtC(v) { if (v >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M'; if (v >= 1e3) return '$' + (v/1e3).toFixed(v >= 1e4 ? 0 : 1) + 'K'; return '$' + Math.round(v).toLocaleString(); }
+function fmtK(v) { if (v >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M'; if (v >= 1e3) return '$' + Math.round(v/1e3) + 'K'; return '$' + Math.round(v); }
+function fmtN(v) { return v.toLocaleString(); }
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); }
+function toggleFaq(btn) { const wasOpen = btn.classList.contains('open'); document.querySelectorAll('.faq-q').forEach(q => { q.classList.remove('open'); q.nextElementSibling.style.maxHeight = null; }); if (!wasOpen) { btn.classList.add('open'); const a = btn.nextElementSibling; a.style.maxHeight = a.scrollHeight + 'px'; } }
+
+// ===== Mode Toggle =====
+function setMode(m) {
+    mode = m;
+    document.querySelectorAll('.mode-btn').forEach((b, i) => b.classList.toggle('active', (i === 0 && m === 'basic') || (i === 1 && m === 'advanced')));
+    document.querySelectorAll('.adv-section').forEach(s => s.classList.toggle('visible', m === 'advanced'));
+    if (scaleData.length) { calculate(); }
+}
+
+// ===== Tier Management =====
+function renderTiers() {
+    const c = document.getElementById('tierRows');
+    c.innerHTML = '';
+    tiers.forEach((t, i) => {
+        const r = document.createElement('div'); r.className = 'tier-row';
+        r.innerHTML = `<input type="text" value="${t.name}" placeholder="Plan name" oninput="tiers[${i}].name=this.value">
+            <input type="number" value="${t.price}" placeholder="0" oninput="tiers[${i}].price=parseFloat(this.value)||0">
+            <input type="number" value="${t.mix}" placeholder="0" oninput="tiers[${i}].mix=parseFloat(this.value)||0">
+            <button class="remove-tier" onclick="removeTier(${i})" title="Remove">&times;</button>`;
+        c.appendChild(r);
+    });
+}
+function addTier() { if (tiers.length >= 4) return; tiers.push({ name: '', price: 0, mix: 0 }); renderTiers(); const rows = document.querySelectorAll('.tier-row'); rows[rows.length-1]?.querySelector('input').focus(); }
+function removeTier(i) { if (tiers.length <= 1) return; tiers.splice(i, 1); renderTiers(); }
+
+// ===== URL State =====
+function saveToURL() {
+    const p = new URLSearchParams();
+    p.set('tc', tiers.length);
+    tiers.forEach((t, i) => { p.set('t'+i+'n', t.name); p.set('t'+i+'p', t.price); p.set('t'+i+'m', t.mix); });
+    p.set('fc', gv('fixedCosts')); p.set('vc', gv('variableCost'));
+    p.set('cc', gv('currentCustomers')); p.set('tc12', gv('targetCustomers'));
+    p.set('mode', mode);
+    if (mode === 'advanced') {
+        p.set('ann', document.getElementById('annualToggle').checked ? '1' : '0');
+        p.set('annd', gv('annualDiscount')); p.set('anna', gv('annualAdoption'));
+        p.set('free', document.getElementById('freeToggle').checked ? '1' : '0');
+        p.set('fconv', gv('freeConversion')); p.set('fuser', gv('freeUsers'));
+        p.set('expa', gv('expansionAmt')); p.set('expp', gv('expansionPct'));
+    }
+    history.replaceState(null, '', '?' + p.toString());
+}
+function loadFromURL() {
+    const p = new URLSearchParams(window.location.search);
+    if (!p.has('tc')) return;
+    const tc = parseInt(p.get('tc'));
+    tiers = [];
+    for (let i = 0; i < tc; i++) { tiers.push({ name: p.get('t'+i+'n') || '', price: parseFloat(p.get('t'+i+'p')) || 0, mix: parseFloat(p.get('t'+i+'m')) || 0 }); }
+    renderTiers();
+    if (p.has('fc')) sv('fixedCosts', p.get('fc'));
+    if (p.has('vc')) sv('variableCost', p.get('vc'));
+    if (p.has('cc')) sv('currentCustomers', p.get('cc'));
+    if (p.has('tc12')) sv('targetCustomers', p.get('tc12'));
+    if (p.get('mode') === 'advanced') {
+        setMode('advanced');
+        if (p.has('ann')) document.getElementById('annualToggle').checked = p.get('ann') === '1';
+        if (p.has('annd')) sv('annualDiscount', p.get('annd'));
+        if (p.has('anna')) sv('annualAdoption', p.get('anna'));
+        if (p.has('free')) document.getElementById('freeToggle').checked = p.get('free') === '1';
+        if (p.has('fconv')) sv('freeConversion', p.get('fconv'));
+        if (p.has('fuser')) sv('freeUsers', p.get('fuser'));
+        if (p.has('expa')) sv('expansionAmt', p.get('expa'));
+        if (p.has('expp')) sv('expansionPct', p.get('expp'));
+    }
+}
+
+// ===== Core Calculation =====
+function calculate() {
+    // Sync tiers from DOM
+    document.querySelectorAll('.tier-row').forEach((row, i) => {
+        const inputs = row.querySelectorAll('input');
+        tiers[i] = { name: inputs[0].value, price: parseFloat(inputs[1].value) || 0, mix: parseFloat(inputs[2].value) || 0 };
+    });
+
+    const fixedCosts = parseFloat(gv('fixedCosts')) || 0;
+    const variableCost = parseFloat(gv('variableCost')) || 0;
+    const currentCust = parseInt(gv('currentCustomers')) || 0;
+    const targetCust = parseInt(gv('targetCustomers')) || 0;
+
+    // Normalize mix
+    let totalMix = tiers.reduce((s, t) => s + t.mix, 0);
+    if (totalMix === 0) totalMix = 100;
+
+    // Blended ARPU
+    const blendedARPU = tiers.reduce((s, t) => s + (t.price * (t.mix / totalMix)), 0);
+
+    // Revenue at current scale
+    const monthlyRev = blendedARPU * currentCust;
+    const annualRev = monthlyRev * 12;
+
+    // Costs at current scale
+    const totalCosts = fixedCosts + (variableCost * currentCust);
+    const grossProfit = monthlyRev - totalCosts;
+    const grossMargin = monthlyRev > 0 ? (grossProfit / monthlyRev) * 100 : 0;
+
+    // Break-even
+    const marginPerCust = blendedARPU - variableCost;
+    const breakEven = marginPerCust > 0 ? Math.ceil(fixedCosts / marginPerCust) : Infinity;
+
+    // Revenue by tier
+    tierRevData = tiers.map(t => ({
+        name: t.name || 'Unnamed',
+        price: t.price,
+        customers: Math.round(currentCust * (t.mix / totalMix)),
+        revenue: t.price * Math.round(currentCust * (t.mix / totalMix)),
+        pct: t.mix / totalMix
+    }));
+
+    // Revenue scale table
+    const milestones = [100, 250, 500, 1000, 2500, 5000, 10000];
+    scaleData = milestones.map(n => {
+        const rev = blendedARPU * n;
+        const costs = fixedCosts + (variableCost * n);
+        const profit = rev - costs;
+        const margin = rev > 0 ? (profit / rev) * 100 : -100;
+        return { customers: n, revenue: rev, costs, profit, margin };
+    });
+
+    // Margin curve for chart
+    marginCurve = [];
+    for (let n = 0; n <= 10000; n += 50) {
+        const rev = blendedARPU * n;
+        const costs = fixedCosts + (variableCost * n);
+        const margin = rev > 0 ? ((rev - costs) / rev) * 100 : (n === 0 ? -100 : -100);
+        marginCurve.push({ customers: n, margin: Math.max(-100, Math.min(100, margin)) });
+    }
+
+    // Advanced metrics
+    advMetrics = {};
+    if (mode === 'advanced') {
+        const offerAnnual = document.getElementById('annualToggle').checked;
+        const annDisc = (parseFloat(gv('annualDiscount')) || 0) / 100;
+        const annAdopt = (parseFloat(gv('annualAdoption')) || 0) / 100;
+        let effectiveARPU = blendedARPU;
+        let annPlanRev = 0, moPlanRev = annualRev;
+
+        if (offerAnnual) {
+            const moCustomers = currentCust * (1 - annAdopt);
+            const annCustomers = currentCust * annAdopt;
+            const moRevMonth = blendedARPU * moCustomers;
+            const annRevMonth = blendedARPU * (1 - annDisc) * annCustomers;
+            effectiveARPU = currentCust > 0 ? (moRevMonth + annRevMonth) / currentCust : blendedARPU;
+            annPlanRev = blendedARPU * (1 - annDisc) * 12 * annCustomers;
+            moPlanRev = blendedARPU * 12 * moCustomers;
+        }
+
+        const hasFree = document.getElementById('freeToggle').checked;
+        const freeConv = (parseFloat(gv('freeConversion')) || 0) / 100;
+        const freeUsers = parseInt(gv('freeUsers')) || 0;
+        const paidFromFree = hasFree ? Math.round(freeUsers * freeConv) : 0;
+
+        const expAmt = parseFloat(gv('expansionAmt')) || 0;
+        const expPct = (parseFloat(gv('expansionPct')) || 0) / 100;
+        const monthlyExpansion = currentCust * expPct * expAmt;
+
+        const ltv = effectiveARPU * 24;
+
+        advMetrics = { effectiveARPU, annPlanRev, moPlanRev, ltv, paidFromFree, monthlyExpansion, offerAnnual, hasFree };
+    }
+
+    // Display results
+    document.getElementById('placeholder').style.display = 'none';
+    document.getElementById('results').classList.add('visible');
+
+    document.getElementById('heroARPU').textContent = fmtC(blendedARPU);
+    document.getElementById('heroRevenue').textContent = fmtC(monthlyRev);
+
+    const marginEl = document.getElementById('miniMargin');
+    marginEl.textContent = grossMargin.toFixed(1) + '%';
+    marginEl.className = 'value' + (grossMargin >= 70 ? ' positive' : grossMargin < 50 ? ' negative' : '');
+
+    document.getElementById('miniAnnual').textContent = fmtC(annualRev);
+    document.getElementById('miniBreakeven').textContent = breakEven === Infinity ? 'N/A' : fmtN(breakEven) + ' customers';
+
+    // Advanced display
+    const advEl = document.getElementById('advMetrics');
+    const benchEl = document.getElementById('benchmarks');
+    if (mode === 'advanced') {
+        advEl.className = 'adv-metrics visible';
+        advEl.innerHTML = `
+            <div class="adv-metric"><div class="label">Effective ARPU</div><div class="value">${fmtC(advMetrics.effectiveARPU)}</div></div>
+            <div class="adv-metric"><div class="label">Est. LTV</div><div class="value">${fmtC(advMetrics.ltv)}</div></div>
+            <div class="adv-metric"><div class="label">Annual Plan Rev</div><div class="value">${advMetrics.offerAnnual ? fmtC(advMetrics.annPlanRev) : '—'}</div></div>
+            <div class="adv-metric"><div class="label">Monthly Plan Rev</div><div class="value">${fmtC(advMetrics.moPlanRev)}</div></div>`;
+
+        // Benchmarks
+        const arpuClass = blendedARPU < 50 ? 'ok' : blendedARPU < 500 ? 'good' : 'good';
+        const arpuLabel = blendedARPU < 50 ? 'SMB segment' : blendedARPU < 500 ? 'Mid-market segment' : 'Enterprise segment';
+        const marginClass = grossMargin >= 70 ? 'good' : grossMargin >= 50 ? 'ok' : 'warn';
+        const marginLabel = grossMargin >= 80 ? 'Best-in-class margins' : grossMargin >= 70 ? 'Healthy SaaS margins' : grossMargin >= 50 ? 'Below typical SaaS margins' : 'Margins need attention';
+
+        benchEl.className = 'benchmarks visible';
+        benchEl.innerHTML = `
+            <div class="bench-card ${arpuClass}"><div class="bench-label">ARPU: ${fmtC(blendedARPU)}/mo</div><div class="bench-text">${arpuLabel}</div></div>
+            <div class="bench-card ${marginClass}"><div class="bench-label">Margin: ${grossMargin.toFixed(1)}%</div><div class="bench-text">${marginLabel}</div></div>`;
+
+        if (advMetrics.hasFree && advMetrics.paidFromFree > 0) {
+            benchEl.innerHTML += `<div class="bench-card ok"><div class="bench-label">Freemium pipeline</div><div class="bench-text">${fmtN(advMetrics.paidFromFree)} potential conversions/mo from ${fmtN(parseInt(gv('freeUsers')))} free users</div></div>`;
+        }
+        if (advMetrics.monthlyExpansion > 0) {
+            benchEl.innerHTML += `<div class="bench-card good"><div class="bench-label">Expansion Revenue</div><div class="bench-text">${fmtC(advMetrics.monthlyExpansion)}/mo from existing customers</div></div>`;
+        }
+    } else {
+        advEl.className = 'adv-metrics';
+        benchEl.className = 'benchmarks';
+    }
+
+    drawChart();
+    fillTable(currentCust, targetCust);
+    saveToURL();
+}
+
+// ===== Charts =====
+function switchChart(type) {
+    activeChart = type;
+    document.querySelectorAll('.chart-tab').forEach((t, i) => t.classList.toggle('active', (i === 0 && type === 'tier') || (i === 1 && type === 'margin')));
+    drawChart();
+}
+
+function setupCanvas() {
+    const canvas = document.getElementById('pricingChart');
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    return { ctx, w: rect.width, h: rect.height };
+}
+
+function drawChart() {
+    if (activeChart === 'tier') drawTierChart();
+    else drawMarginChart();
+}
+
+function drawTierChart() {
+    const { ctx, w, h } = setupCanvas();
+    const legend = document.getElementById('chartLegend');
+
+    const total = tierRevData.reduce((s, t) => s + t.revenue, 0);
+    if (total === 0) { legend.className = 'chart-legend'; return; }
+
+    const colors = ['#c9a84c', '#5dcc72', '#e85d5d', '#8b8b96'];
+    const cx = w / 2;
+    const cy = h / 2;
+    const outerR = Math.min(w, h) / 2 - 36;
+    const innerR = outerR * 0.6;
+
+    let startAngle = -Math.PI / 2;
+
+    tierRevData.forEach((tier, i) => {
+        if (tier.revenue === 0) return;
+        const slice = (tier.revenue / total) * Math.PI * 2;
+        const end = startAngle + slice;
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, outerR, startAngle, end);
+        ctx.arc(cx, cy, innerR, end, startAngle, true);
+        ctx.closePath();
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+
+        // Slice label
+        if (slice > 0.25) {
+            const mid = startAngle + slice / 2;
+            const lR = (outerR + innerR) / 2;
+            const lx = cx + Math.cos(mid) * lR;
+            const ly = cy + Math.sin(mid) * lR;
+            ctx.fillStyle = '#eeeeed';
+            ctx.font = '600 11px Syne, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(Math.round(tier.pct * 100) + '%', lx, ly);
+        }
+
+        startAngle = end;
+    });
+
+    // Center text
+    ctx.fillStyle = '#eeeeed';
+    ctx.font = '600 18px Syne, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(fmtC(total), cx, cy - 6);
+    ctx.fillStyle = '#55555e';
+    ctx.font = '10px Outfit, sans-serif';
+    ctx.fillText('monthly revenue', cx, cy + 12);
+
+    // Legend
+    legend.className = 'chart-legend visible';
+    legend.innerHTML = tierRevData.filter(t => t.revenue > 0).map((t, i) =>
+        `<div class="legend-item"><span class="legend-dot" style="background:${colors[i % colors.length]}"></span>${t.name} — ${fmtC(t.revenue)}</div>`
+    ).join('');
+}
+
+function drawMarginChart() {
+    const { ctx, w, h } = setupCanvas();
+    const legend = document.getElementById('chartLegend');
+    legend.className = 'chart-legend';
+
+    if (marginCurve.length === 0) return;
+
+    const pad = { top: 20, right: 16, bottom: 36, left: 54 };
+    const cW = w - pad.left - pad.right;
+    const cH = h - pad.top - pad.bottom;
+
+    const maxCust = 10000;
+    const minM = -50, maxM = 100;
+
+    const xP = n => pad.left + (n / maxCust) * cW;
+    const yP = m => pad.top + cH - ((m - minM) / (maxM - minM)) * cH;
+
+    // Grid lines
+    ctx.strokeStyle = 'rgba(85,85,94,0.15)';
+    ctx.lineWidth = 1;
+    [-50, -25, 0, 25, 50, 75, 100].forEach(m => {
+        ctx.setLineDash(m === 0 ? [6, 4] : [3, 4]);
+        ctx.beginPath();
+        ctx.moveTo(pad.left, yP(m));
+        ctx.lineTo(w - pad.right, yP(m));
+        ctx.stroke();
+        ctx.fillStyle = '#55555e';
+        ctx.font = '10px Outfit, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(m + '%', pad.left - 8, yP(m));
+    });
+    ctx.setLineDash([]);
+
+    // Zero line highlight
+    ctx.strokeStyle = 'rgba(232,93,93,0.35)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.moveTo(pad.left, yP(0));
+    ctx.lineTo(w - pad.right, yP(0));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Gradient fill
+    const grad = ctx.createLinearGradient(0, yP(100), 0, yP(-50));
+    grad.addColorStop(0, 'rgba(93,204,114,0.12)');
+    grad.addColorStop((100 - 0) / (100 - (-50)), 'rgba(93,204,114,0.03)');
+    grad.addColorStop((100 - 0) / (100 - (-50)) + 0.01, 'rgba(232,93,93,0.03)');
+    grad.addColorStop(1, 'rgba(232,93,93,0.08)');
+
+    ctx.beginPath();
+    ctx.moveTo(xP(marginCurve[0].customers), yP(marginCurve[0].margin));
+    marginCurve.forEach(d => ctx.lineTo(xP(d.customers), yP(d.margin)));
+    ctx.lineTo(xP(marginCurve[marginCurve.length - 1].customers), yP(minM));
+    ctx.lineTo(xP(marginCurve[0].customers), yP(minM));
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Main curve
+    ctx.beginPath();
+    ctx.moveTo(xP(marginCurve[0].customers), yP(marginCurve[0].margin));
+    marginCurve.forEach(d => ctx.lineTo(xP(d.customers), yP(d.margin)));
+    ctx.strokeStyle = '#c9a84c';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    // Break-even marker
+    const bePoint = marginCurve.find(d => d.margin >= 0);
+    if (bePoint) {
+        ctx.beginPath();
+        ctx.arc(xP(bePoint.customers), yP(0), 5, 0, Math.PI * 2);
+        ctx.fillStyle = '#e85d5d';
+        ctx.fill();
+        ctx.fillStyle = 'rgba(232,93,93,0.7)';
+        ctx.font = '600 9px Syne, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('BE: ' + fmtN(bePoint.customers), xP(bePoint.customers), yP(0) - 12);
+    }
+
+    // Current customers marker
+    const currentCust = parseInt(gv('currentCustomers')) || 0;
+    if (currentCust > 0 && currentCust <= maxCust) {
+        const closest = marginCurve.reduce((best, d) => Math.abs(d.customers - currentCust) < Math.abs(best.customers - currentCust) ? d : best);
+        ctx.beginPath();
+        ctx.arc(xP(closest.customers), yP(closest.margin), 5, 0, Math.PI * 2);
+        ctx.fillStyle = '#c9a84c';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(xP(closest.customers), yP(closest.margin), 8, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(201,168,76,0.3)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+
+    // X-axis labels
+    ctx.fillStyle = '#55555e';
+    ctx.font = '10px Outfit, sans-serif';
+    ctx.textAlign = 'center';
+    [0, 2500, 5000, 7500, 10000].forEach(n => {
+        ctx.fillText(n >= 1000 ? (n / 1000) + 'K' : n.toString(), xP(n), h - pad.bottom + 18);
+    });
+
+    // Axis label
+    ctx.fillStyle = '#55555e';
+    ctx.font = '9px Outfit, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('customers', w / 2, h - 4);
+}
+
+// ===== Table =====
+function fillTable(currentCust, targetCust) {
+    const head = document.getElementById('tableHead');
+    const body = document.getElementById('tableBody');
+    const isAdv = mode === 'advanced';
+
+    let cols = '<th>Customers</th><th>Monthly Rev</th><th>Total Costs</th><th>Profit</th><th>Margin</th>';
+    if (isAdv && advMetrics.offerAnnual) cols += '<th>Annual Rev (12mo)</th>';
+
+    head.innerHTML = cols;
+    body.innerHTML = '';
+
+    scaleData.forEach(d => {
+        const isHighlight = d.customers === currentCust || d.customers === targetCust;
+        const profitClass = d.profit >= 0 ? 'col-green' : 'col-red';
+        const marginClass = d.margin >= 0 ? 'col-green' : 'col-red';
+
+        let row = `<tr class="${isHighlight ? 'highlight' : ''}">
+            <td>${fmtN(d.customers)}${d.customers === currentCust ? ' ←' : d.customers === targetCust ? ' ★' : ''}</td>
+            <td>${fmtC(d.revenue)}</td>
+            <td>${fmtC(d.costs)}</td>
+            <td class="${profitClass}">${d.profit >= 0 ? '+' : ''}${fmtC(Math.abs(d.profit))}</td>
+            <td class="${marginClass}">${d.margin.toFixed(1)}%</td>`;
+
+        if (isAdv && advMetrics.offerAnnual) {
+            const annRev = d.revenue * 12;
+            row += `<td>${fmtC(annRev)}</td>`;
+        }
+        row += '</tr>';
+        body.innerHTML += row;
+    });
+}
+
+// ===== Export =====
+function copyResults() {
+    const arpu = tierRevData.length ? tierRevData.reduce((s, t) => s + t.revenue, 0) / (parseInt(gv('currentCustomers')) || 1) : 0;
+    let text = `SaaS Pricing Analysis — Cadboro Labs\n\n`;
+    text += `Blended ARPU: ${fmtC(arpu)}\n`;
+    text += `Current Customers: ${gv('currentCustomers')}\n`;
+    text += `Monthly Revenue: ${fmtC(arpu * (parseInt(gv('currentCustomers')) || 0))}\n`;
+    text += `Annual Revenue: ${fmtC(arpu * (parseInt(gv('currentCustomers')) || 0) * 12)}\n\n`;
+    text += `Tiers:\n`;
+    tierRevData.forEach(t => { text += `  ${t.name}: $${t.price}/mo — ${t.customers} customers — ${fmtC(t.revenue)}/mo\n`; });
+    if (mode === 'advanced' && advMetrics.effectiveARPU) {
+        text += `\nEffective ARPU: ${fmtC(advMetrics.effectiveARPU)}`;
+        text += `\nEst. LTV (24mo): ${fmtC(advMetrics.ltv)}`;
+    }
+    navigator.clipboard.writeText(text).then(() => showToast('Results copied to clipboard'));
+}
+
+function downloadCSV() {
+    const isAdv = mode === 'advanced';
+    let csv = 'Customers,Monthly Revenue,Total Costs,Profit,Margin %';
+    if (isAdv && advMetrics.offerAnnual) csv += ',Annual Revenue';
+    csv += '\n';
+    scaleData.forEach(d => {
+        csv += `${d.customers},${Math.round(d.revenue)},${Math.round(d.costs)},${Math.round(d.profit)},${d.margin.toFixed(1)}`;
+        if (isAdv && advMetrics.offerAnnual) csv += `,${Math.round(d.revenue * 12)}`;
+        csv += '\n';
+    });
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'pricing-analysis-cadboro-labs.csv'; a.click();
+    URL.revokeObjectURL(url);
+    showToast('CSV downloaded');
+}
+
+function copyInstall() { navigator.clipboard.writeText('claude skill install saas-pricing-skill').then(() => showToast('Install command copied')); }
+
+// ===== Init =====
+window.addEventListener('resize', () => { if (scaleData.length) drawChart(); });
+renderTiers();
+loadFromURL();
+if (window.location.search) calculate();
+</script>
+
+</body>
+</html>

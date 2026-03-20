@@ -1,9 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Tools Index</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free PM Tools — SaaS Calculators &amp; Scorers | Cadboro Labs</title>
+    <meta name="description" content="Free product management tools: MRR Calculator, SaaS Pricing Calculator, RICE Prioritization Scorer, TAM/SAM/SOM Calculator, and NPS Calculator. No signup required.">
+    <meta name="keywords" content="free PM tools, MRR calculator, SaaS pricing calculator, RICE scorer, TAM SAM SOM calculator, NPS calculator, net promoter score calculator, product management tools, free SaaS tools">
+    <meta property="og:title" content="Free PM Tools — Cadboro Labs">
+    <meta property="og:description" content="Free calculators and scorers for product managers. MRR, pricing, and prioritization.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cadborolabs.com/tools/">
+    <link rel="canonical" href="https://cadborolabs.com/tools/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #09090b; --bg-raised: #111113; --bg-card: #16161a;
+            --border: #222228; --border-hover: #38383f;
+            --gold: #c9a84c; --gold-light: #e6d59c; --gold-dim: #6b5a2a;
+            --text: #eeeeed; --text-2: #8b8b96; --text-3: #55555e;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        ::selection { background: var(--gold); color: var(--bg); }
+
+        .grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.03; z-index: 9999; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: rgba(9,9,11,0.85); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; }
+
+        .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 88px 40px 0; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+        .breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        .page-header { text-align: center; padding: 36px 0 48px; }
+        .page-header h1 { font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 12px; }
+        .page-header h1 span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .page-header p { font-size: 1rem; color: var(--text-2); max-width: 500px; margin: 0 auto; }
+
+        .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 80px; }
+
+        .tool-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; transition: all 0.3s; text-decoration: none; }
+        .tool-card:hover { border-color: var(--gold-dim); transform: translateY(-4px); box-shadow: 0 8px 32px rgba(201,168,76,0.06); }
+        .tool-num { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--gold-dim); margin-bottom: 16px; }
+        .tool-card h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+        .tool-card p { font-size: 0.88rem; color: var(--text-2); line-height: 1.6; flex: 1; margin-bottom: 20px; }
+        .tool-link { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+
+        footer { border-top: 1px solid var(--border); padding: 32px 40px; text-align: center; font-size: 0.78rem; color: var(--text-3); }
+        footer a { color: var(--text-3); text-decoration: none; }
+        footer a:hover { color: var(--gold); }
+
+        @media (max-width: 900px) { .tools-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(9,9,11,0.96); backdrop-filter: blur(24px); padding: 20px; gap: 16px; border-bottom: 1px solid var(--border); }
+            .nav-toggle { display: block; }
+            .breadcrumb { padding: 76px 20px 0; }
+            .container { padding: 0 20px; }
+            .page-header h1 { font-size: 1.8rem; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Tools</h1>
+    <div class="grain" aria-hidden="true"><svg width="100%" height="100%"><filter id="grainy"><feTurbulence type="turbulence" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#grainy)"/></svg></div>
+
+    <nav>
+        <a href="/" class="nav-logo">CADBORO LABS</a>
+        <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')"><span></span><span></span><span></span></button>
+        <ul class="nav-links">
+            <li><a href="/#tools">Tools</a></li>
+            <li><a href="/#skills">Skills</a></li>
+            <li><a href="/#about">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="/">Home</a><span class="sep">/</span>
+        <span style="color: var(--text-2)">Tools</span>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Free <span>Tools</span></h1>
+            <p>Interactive calculators and scorers for product managers. No signup, no paywall.</p>
+        </div>
+
+        <div class="tools-grid">
+            <a href="/tools/mrr-calculator/" class="tool-card">
+                <span class="tool-num">01</span>
+                <h2>MRR Calculator</h2>
+                <p>Model MRR from pricing tiers, visualize revenue projections at any customer scale, and benchmark your unit economics.</p>
+                <span class="tool-link">Open calculator &rarr;</span>
+            </a>
+            <a href="/tools/pricing-calculator/" class="tool-card">
+                <span class="tool-num">02</span>
+                <h2>SaaS Pricing Calculator</h2>
+                <p>Model pricing tiers, analyze margins, and project revenue at scale. Includes break-even analysis and benchmark comparisons.</p>
+                <span class="tool-link">Open calculator &rarr;</span>
+            </a>
+            <a href="/tools/rice-scorer/" class="tool-card">
+                <span class="tool-num">03</span>
+                <h2>RICE Prioritization Scorer</h2>
+                <p>Score features by Reach, Impact, Confidence, and Effort. Priority matrix visualization and ranked export.</p>
+                <span class="tool-link">Open scorer &rarr;</span>
+            </a>
+            <a href="/tools/tam-calculator/" class="tool-card">
+                <span class="tool-num">04</span>
+                <h2>TAM/SAM/SOM Calculator</h2>
+                <p>Size your market with bottom-up and top-down methods. Funnel visualization, growth projections, and investor-readiness scoring.</p>
+                <span class="tool-link">Open calculator &rarr;</span>
+            </a>
+            <a href="/tools/nps-calculator/" class="tool-card">
+                <span class="tool-num">05</span>
+                <h2>NPS Calculator</h2>
+                <p>Calculate your Net Promoter Score from survey data. Distribution chart, industry benchmarks, trend tracking, and statistical confidence.</p>
+                <span class="tool-link">Open calculator &rarr;</span>
+            </a>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 <a href="/">Cadboro Labs</a>. Built in Victoria, BC.</p></footer>
 </body>
 </html>

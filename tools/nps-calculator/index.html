@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPS Calculator — Measure Customer Loyalty | Cadboro Labs</title>
+    <meta name="description" content="Free NPS calculator with distribution visualization, industry benchmarks, score interpretation, and trend tracking. No signup required.">
+    <meta name="keywords" content="NPS calculator, net promoter score calculator, NPS survey calculator, NPS score calculator, customer loyalty score, NPS benchmark, NPS formula, free NPS calculator">
+    <meta property="og:title" content="NPS Calculator — Cadboro Labs">
+    <meta property="og:description" content="Free Net Promoter Score calculator with benchmarks, interpretation, and trend tracking.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cadborolabs.com/tools/nps-calculator/">
+    <link rel="canonical" href="https://cadborolabs.com/tools/nps-calculator/">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "NPS Calculator",
+        "description": "Free NPS calculator with distribution visualization, industry benchmarks, score interpretation, and trend tracking.",
+        "url": "https://cadborolabs.com/tools/nps-calculator/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@type": "Organization", "name": "Cadboro Labs", "url": "https://cadborolabs.com" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "What is Net Promoter Score (NPS)?", "acceptedAnswer": { "@type": "Answer", "text": "Net Promoter Score (NPS) is a customer loyalty metric that measures how likely customers are to recommend your product or service. Customers rate on a 0-10 scale and are categorized as Promoters (9-10), Passives (7-8), or Detractors (0-6). NPS is calculated as the percentage of Promoters minus the percentage of Detractors, yielding a score from -100 to +100." }},
+            { "@type": "Question", "name": "How do you calculate NPS?", "acceptedAnswer": { "@type": "Answer", "text": "NPS = (% of Promoters) minus (% of Detractors). First, categorize all responses: scores 9-10 are Promoters, 7-8 are Passives, and 0-6 are Detractors. Then calculate the percentage of total respondents in each group. Subtract the Detractor percentage from the Promoter percentage. For example, if 60% are Promoters and 20% are Detractors, your NPS is +40." }},
+            { "@type": "Question", "name": "What is a good NPS score?", "acceptedAnswer": { "@type": "Answer", "text": "Any positive NPS (above 0) is generally considered acceptable. A score of 30-49 is good, 50-69 is great, and 70+ is world-class. However, NPS varies significantly by industry. SaaS companies average 30-40, while B2B services average 25-30. Always benchmark against your specific industry rather than using a universal standard." }},
+            { "@type": "Question", "name": "What is the difference between Promoters, Passives, and Detractors?", "acceptedAnswer": { "@type": "Answer", "text": "Promoters (9-10) are loyal enthusiasts who actively recommend your product and drive growth through referrals. Passives (7-8) are satisfied but unenthusiastic customers vulnerable to competitive offerings. Detractors (0-6) are unhappy customers who can damage your brand through negative word-of-mouth and are at high risk of churning." }},
+            { "@type": "Question", "name": "How often should you measure NPS?", "acceptedAnswer": { "@type": "Answer", "text": "Most companies measure relationship NPS quarterly or semi-annually to track overall loyalty trends. Transactional NPS (after specific interactions like support tickets or onboarding) can be measured continuously. Avoid surveying the same customers more than once per quarter to prevent survey fatigue, which can skew results." }},
+            { "@type": "Question", "name": "What is the margin of error for NPS surveys?", "acceptedAnswer": { "@type": "Answer", "text": "NPS margin of error depends on your sample size. With 100 responses, the margin of error is approximately plus or minus 10 points at 95% confidence. With 400 responses, it drops to about plus or minus 5 points. For statistically reliable NPS, aim for at least 200 responses per measurement period." }},
+            { "@type": "Question", "name": "How can I improve my NPS?", "acceptedAnswer": { "@type": "Answer", "text": "Focus on three strategies: (1) Close the loop with Detractors by responding to their feedback and addressing root causes. (2) Convert Passives to Promoters by identifying what would delight them. (3) Amplify Promoters through referral programs and advocacy initiatives. The fastest gains usually come from reducing Detractor count by fixing the most common complaints." }}
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cadborolabs.com" },
+            { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://cadborolabs.com/tools/" },
+            { "@type": "ListItem", "position": 3, "name": "NPS Calculator", "item": "https://cadborolabs.com/tools/nps-calculator/" }
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #09090b; --bg-raised: #111113; --bg-card: #16161a;
+            --border: #222228; --border-hover: #38383f;
+            --gold: #c9a84c; --gold-light: #e6d59c; --gold-dim: #6b5a2a;
+            --text: #eeeeed; --text-2: #8b8b96; --text-3: #55555e;
+            --red: #e85d5d; --green: #5dcc72;
+            --green-dim: rgba(93,204,114,0.12); --red-dim: rgba(232,93,93,0.1);
+            --gold-glow: rgba(201,168,76,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        ::selection { background: var(--gold); color: var(--bg); }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+        .grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.03; z-index: 9999; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: rgba(9,9,11,0.85); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; }
+
+        .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 88px 40px 0; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+        .breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        .tool-header { text-align: center; padding: 24px 0 36px; }
+        .tool-header h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 8px; }
+        .tool-header h1 span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .tool-header p { font-size: 0.92rem; color: var(--text-2); max-width: 520px; margin: 0 auto; }
+
+        .calc-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 24px; margin-bottom: 48px; }
+
+        .input-panel { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+        .panel-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 8px; }
+        .panel-label { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); }
+
+        .toggle-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .mode-toggle { display: flex; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .mode-btn { background: transparent; border: none; color: var(--text-3); font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 14px; cursor: pointer; transition: all 0.2s; }
+        .mode-btn.active { background: var(--gold); color: var(--bg); }
+
+        .section-divider { margin: 20px 0 16px; }
+        .section-label-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+
+        /* Score input grid */
+        .score-section-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin: 14px 0 6px; }
+        .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 4px; }
+        .score-cell { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .score-cell label { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; cursor: default; }
+        .score-cell input { width: 100%; text-align: center; padding: 8px 4px; font-size: 0.85rem; }
+
+        .input-by-category { display: none; }
+
+        .rate-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .rate-field { display: flex; flex-direction: column; gap: 6px; }
+        .rate-field label { font-size: 0.75rem; color: var(--text-2); font-weight: 500; }
+        .rate-input-wrap { position: relative; display: flex; align-items: center; }
+        .unit { position: absolute; right: 12px; color: var(--text-3); font-size: 0.82rem; pointer-events: none; }
+        input[type="number"], input[type="text"] { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s; -moz-appearance: textfield; }
+        input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+        input[type="number"]:focus, input[type="text"]:focus { border-color: var(--gold-dim); }
+        input.has-suffix { padding-right: 28px; }
+
+        .adv-section { display: none; }
+        .adv-section.visible { display: block; animation: fadeSlideIn 0.3s ease; }
+
+        .calc-btn { width: 100%; background: var(--gold); color: var(--bg); font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border: none; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
+        .calc-btn:hover { background: var(--gold-light); }
+
+        /* Trend rows */
+        .trend-row { display: grid; grid-template-columns: 1.5fr 1fr 36px; gap: 10px; margin-bottom: 8px; align-items: center; animation: fadeSlideIn 0.25s ease; }
+        .add-period { display: flex; align-items: center; justify-content: center; gap: 8px; background: transparent; border: 1px dashed var(--border); border-radius: 8px; color: var(--text-3); padding: 8px; cursor: pointer; width: 100%; font-size: 0.82rem; font-family: 'Outfit', sans-serif; transition: all 0.2s; margin-top: 4px; }
+        .add-period:hover { border-color: var(--gold-dim); color: var(--gold); }
+        .remove-period { background: transparent; border: 1px solid var(--border); color: var(--text-3); border-radius: 6px; width: 36px; height: 36px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .remove-period:hover { border-color: var(--red); color: var(--red); }
+
+        /* Results panel */
+        .results-panel { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+        .results-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; color: var(--text-3); text-align: center; gap: 12px; }
+        .results-placeholder svg { opacity: 0.3; }
+        .results-placeholder p { font-size: 0.85rem; }
+        .results-content { display: none; }
+        .results-content.visible { display: block; animation: fadeIn 0.4s ease; }
+
+        /* NPS Hero */
+        .nps-hero { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 28px; text-align: center; margin-bottom: 16px; }
+        .nps-hero-value { font-family: 'Syne', sans-serif; font-size: 3.6rem; font-weight: 800; line-height: 1; }
+        .nps-hero-value.score-green { color: var(--green); }
+        .nps-hero-value.score-gold { color: var(--gold); }
+        .nps-hero-value.score-red { color: var(--red); }
+        .nps-hero-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-top: 6px; }
+
+        /* Distribution chart */
+        .dist-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+        .dist-header { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
+        #distChart { width: 100%; height: 60px; display: block; }
+        .chart-legend { display: flex; gap: 16px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--text-2); }
+        .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        /* Category breakdown */
+        .mini-metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .mini-metric { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; text-align: center; }
+        .mini-metric .label { font-size: 0.65rem; color: var(--text-3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+        .mini-metric .value { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; }
+        .mini-metric .sub { font-size: 0.7rem; color: var(--text-3); margin-top: 2px; }
+        .val-green { color: var(--green); }
+        .val-gold { color: var(--gold); }
+        .val-red { color: var(--red); }
+
+        /* Interpretation */
+        .interp-section { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        .interp-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .tier-badge { display: inline-flex; align-items: center; gap: 4px; padding: 5px 14px; border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+        .tier-badge.excellent, .tier-badge.great { background: var(--green-dim); color: var(--green); }
+        .tier-badge.good, .tier-badge.needs-improvement { background: var(--gold-glow); color: var(--gold); }
+        .tier-badge.critical { background: var(--red-dim); color: var(--red); }
+        .interp-text { font-size: 0.85rem; color: var(--text-2); line-height: 1.6; margin-bottom: 12px; }
+        .interp-recs { list-style: none; }
+        .interp-recs li { font-size: 0.78rem; color: var(--text-2); padding: 6px 0 6px 20px; position: relative; line-height: 1.5; }
+        .interp-recs li::before { content: ''; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; border: 1.5px solid var(--gold-dim); border-radius: 50%; }
+
+        /* Benchmark chart */
+        .chart-section { margin-bottom: 16px; }
+        .chart-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .chart-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
+        .chart-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+        #benchmarkChart { width: 100%; height: 220px; display: block; }
+        #trendChart { width: 100%; height: 220px; display: block; }
+
+        /* Advanced stats */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+        .stat-card .label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .stat-card .value { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--gold); line-height: 1.2; }
+        .stat-card .sub { font-size: 0.7rem; color: var(--text-3); margin-top: 2px; }
+        .sig-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; margin-top: 6px; }
+        .sig-badge.pass { background: var(--green-dim); color: var(--green); }
+        .sig-badge.fail { background: var(--gold-glow); color: var(--gold); }
+
+        .export-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .export-btn { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text-2); font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; text-align: center; white-space: nowrap; }
+        .export-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+        /* SEO content */
+        .seo-content { max-width: 780px; margin: 0 auto 48px; }
+        .seo-content h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; margin-top: 36px; }
+        .seo-content h2 span { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .seo-content p { color: var(--text-2); font-size: 0.9rem; line-height: 1.7; margin-bottom: 12px; }
+        .seo-content ul { list-style: none; margin: 12px 0 16px; }
+        .seo-content ul li { color: var(--text-2); font-size: 0.88rem; padding: 6px 0 6px 20px; position: relative; line-height: 1.6; }
+        .seo-content ul li::before { content: ''; position: absolute; left: 0; top: 13px; width: 6px; height: 6px; border: 1.5px solid var(--gold-dim); border-radius: 50%; }
+        .formula-block { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1rem; color: var(--gold); margin: 12px 0; text-align: center; }
+
+        .faq-section { margin-top: 36px; }
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-q { width: 100%; background: none; border: none; display: flex; align-items: center; justify-content: space-between; padding: 16px 0; cursor: pointer; text-align: left; }
+        .faq-q span { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--text); padding-right: 16px; }
+        .faq-q svg { flex-shrink: 0; transition: transform 0.3s; color: var(--text-3); }
+        .faq-q.open svg { transform: rotate(45deg); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+        .faq-a-inner { padding: 0 0 16px; font-size: 0.85rem; color: var(--text-2); line-height: 1.7; }
+
+        /* CTA */
+        .cta-banner { max-width: 780px; margin: 0 auto 80px; background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02)); border: 1px solid var(--gold-dim); border-radius: 16px; padding: 36px; text-align: center; }
+        .cta-banner h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+        .cta-banner p { font-size: 0.88rem; color: var(--text-2); margin-bottom: 20px; line-height: 1.6; max-width: 540px; margin-left: auto; margin-right: auto; margin-bottom: 20px; }
+        .cta-install { display: inline-flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 24px; font-family: 'Outfit', monospace; font-size: 0.85rem; color: var(--gold); cursor: pointer; transition: all 0.2s; }
+        .cta-install:hover { border-color: var(--gold-dim); box-shadow: 0 4px 16px rgba(201,168,76,0.1); }
+
+        footer { border-top: 1px solid var(--border); padding: 32px 40px; text-align: center; font-size: 0.78rem; color: var(--text-3); }
+        footer a { color: var(--text-3); text-decoration: none; }
+        footer a:hover { color: var(--gold); }
+
+        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--gold); color: var(--bg); padding: 12px 24px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; z-index: 10000; opacity: 0; transition: all 0.35s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(9,9,11,0.96); backdrop-filter: blur(24px); padding: 20px; gap: 16px; border-bottom: 1px solid var(--border); }
+            .nav-toggle { display: block; }
+            .breadcrumb { padding: 76px 20px 0; }
+            .container { padding: 0 20px; }
+            .input-panel, .results-panel { padding: 20px; }
+            .tool-header h1 { font-size: 1.8rem; }
+            .panel-top { flex-direction: column; align-items: flex-start; }
+            .score-grid { grid-template-columns: repeat(3, 1fr); }
+            .mini-metrics { grid-template-columns: 1fr; }
+            .rate-group { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .export-row { flex-direction: column; }
+            .cta-banner { padding: 28px 20px; margin-bottom: 48px; }
+            .trend-row { grid-template-columns: 1.5fr 1fr 32px; gap: 6px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain" aria-hidden="true"><svg width="100%" height="100%"><filter id="grainy"><feTurbulence type="turbulence" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#grainy)"/></svg></div>
+
+    <nav>
+        <a href="/" class="nav-logo">CADBORO LABS</a>
+        <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')"><span></span><span></span><span></span></button>
+        <ul class="nav-links">
+            <li><a href="/#tools">Tools</a></li>
+            <li><a href="/#skills">Skills</a></li>
+            <li><a href="/#about">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="/">Home</a><span class="sep">/</span>
+        <a href="/tools/">Tools</a><span class="sep">/</span>
+        <span style="color: var(--text-2)">NPS Calculator</span>
+    </div>
+
+    <div class="container">
+        <div class="tool-header">
+            <h1>NPS <span>Calculator</span></h1>
+            <p>Calculate your Net Promoter Score from survey data. Benchmarks, interpretation, and trend tracking included.</p>
+        </div>
+
+        <div class="calc-grid">
+            <!-- ── Input Panel ─────────────────────────────── -->
+            <div class="input-panel">
+                <div class="panel-top">
+                    <span class="panel-label">Survey Data</span>
+                    <div class="toggle-row">
+                        <div class="mode-toggle" id="inputModeToggle">
+                            <button class="mode-btn active" onclick="setInputMode('score')">By Score</button>
+                            <button class="mode-btn" onclick="setInputMode('category')">By Category</button>
+                        </div>
+                        <div class="mode-toggle" id="modeToggle">
+                            <button class="mode-btn active" onclick="setMode('basic')">Basic</button>
+                            <button class="mode-btn" onclick="setMode('advanced')">Advanced</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- By Score inputs -->
+                <div class="input-by-score" id="inputByScore">
+                    <div class="score-section-label" style="color: var(--red)">Detractors (0&ndash;6)</div>
+                    <div class="score-grid">
+                        <div class="score-cell"><label for="s0" style="color:var(--red)">0</label><input type="number" id="s0" value="2" min="0" step="1"></div>
+                        <div class="score-cell"><label for="s1" style="color:var(--red)">1</label><input type="number" id="s1" value="1" min="0" step="1"></div>
+                        <div class="score-cell"><label for="s2" style="color:var(--red)">2</label><input type="number" id="s2" value="2" min="0" step="1"></div>
+                        <div class="score-cell"><label for="s3" style="color:var(--red)">3</label><input type="number" id="s3" value="3" min="0" step="1"></div>
+                        <div class="score-cell"><label for="s4" style="color:var(--red)">4</label><input type="number" id="s4" value="4" min="0" step="1"></div>
+                        <div class="score-cell"><label for="s5" style="color:var(--red)">5</label><input type="number" id="s5" value="5" min="0" step="1"></div>
+                        <div class="score-cell"><label for="s6" style="color:var(--red)">6</label><input type="number" id="s6" value="8" min="0" step="1"></div>
+                    </div>
+
+                    <div class="score-section-label" style="color: var(--gold)">Passives (7&ndash;8)</div>
+                    <div class="score-grid">
+                        <div class="score-cell"><label for="s7" style="color:var(--gold)">7</label><input type="number" id="s7" value="15" min="0" step="1"></div>
+                        <div class="score-cell"><label for="s8" style="color:var(--gold)">8</label><input type="number" id="s8" value="18" min="0" step="1"></div>
+                    </div>
+
+                    <div class="score-section-label" style="color: var(--green)">Promoters (9&ndash;10)</div>
+                    <div class="score-grid">
+                        <div class="score-cell"><label for="s9" style="color:var(--green)">9</label><input type="number" id="s9" value="30" min="0" step="1"></div>
+                        <div class="score-cell"><label for="s10" style="color:var(--green)">10</label><input type="number" id="s10" value="22" min="0" step="1"></div>
+                    </div>
+                </div>
+
+                <!-- By Category inputs -->
+                <div class="input-by-category" id="inputByCategory">
+                    <div class="rate-group">
+                        <div class="rate-field">
+                            <label for="catPromoters" style="color:var(--green)">Promoters (9&ndash;10)</label>
+                            <input type="number" id="catPromoters" value="52" min="0" step="1" placeholder="e.g. 52">
+                        </div>
+                        <div class="rate-field">
+                            <label for="catPassives" style="color:var(--gold)">Passives (7&ndash;8)</label>
+                            <input type="number" id="catPassives" value="33" min="0" step="1" placeholder="e.g. 33">
+                        </div>
+                        <div class="rate-field">
+                            <label for="catDetractors" style="color:var(--red)">Detractors (0&ndash;6)</label>
+                            <input type="number" id="catDetractors" value="25" min="0" step="1" placeholder="e.g. 25">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced: Trend Tracking -->
+                <div class="adv-section" id="trendSection">
+                    <div class="section-divider"></div>
+                    <div class="section-label-row">
+                        <span class="panel-label">Trend Tracking</span>
+                    </div>
+                    <div id="trendRows"></div>
+                    <button class="add-period" id="addPeriodBtn" onclick="addPeriod()">+ Add survey period</button>
+                </div>
+
+                <!-- Advanced: Response Rate -->
+                <div class="adv-section" id="responseSection">
+                    <div class="section-divider"></div>
+                    <div class="section-label-row">
+                        <span class="panel-label">Response Rate</span>
+                    </div>
+                    <div class="rate-field" style="margin-bottom:16px">
+                        <label for="audienceSize">Total audience size</label>
+                        <input type="number" id="audienceSize" min="0" step="1" placeholder="e.g. 500">
+                    </div>
+                </div>
+
+                <button class="calc-btn" onclick="calculate()">Calculate NPS</button>
+            </div>
+
+            <!-- ── Results Panel ───────────────────────────── -->
+            <div class="results-panel">
+                <div class="results-placeholder" id="placeholder">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                    <p>Enter survey responses and calculate</p>
+                </div>
+
+                <div class="results-content" id="resultsContent">
+                    <!-- NPS Hero -->
+                    <div class="nps-hero">
+                        <div class="nps-hero-value" id="npsValue">0</div>
+                        <div class="nps-hero-label">Net Promoter Score</div>
+                    </div>
+
+                    <!-- Distribution Chart -->
+                    <div class="dist-wrap">
+                        <div class="dist-header">Response Distribution</div>
+                        <canvas id="distChart"></canvas>
+                        <div class="chart-legend">
+                            <div class="legend-item"><div class="legend-dot" style="background:#5dcc72"></div>Promoters (9&ndash;10)</div>
+                            <div class="legend-item"><div class="legend-dot" style="background:#c9a84c"></div>Passives (7&ndash;8)</div>
+                            <div class="legend-item"><div class="legend-dot" style="background:#e85d5d"></div>Detractors (0&ndash;6)</div>
+                        </div>
+                    </div>
+
+                    <!-- Category Breakdown -->
+                    <div class="mini-metrics">
+                        <div class="mini-metric">
+                            <div class="label">Promoters</div>
+                            <div class="value val-green" id="metricPromoters">0</div>
+                            <div class="sub" id="metricPromotersPct">0%</div>
+                        </div>
+                        <div class="mini-metric">
+                            <div class="label">Passives</div>
+                            <div class="value val-gold" id="metricPassives">0</div>
+                            <div class="sub" id="metricPassivesPct">0%</div>
+                        </div>
+                        <div class="mini-metric">
+                            <div class="label">Detractors</div>
+                            <div class="value val-red" id="metricDetractors">0</div>
+                            <div class="sub" id="metricDetractorsPct">0%</div>
+                        </div>
+                    </div>
+
+                    <!-- Interpretation -->
+                    <div class="interp-section" id="interpSection">
+                        <div class="interp-header">
+                            <span class="tier-badge" id="tierBadge">Good</span>
+                            <span style="font-size:0.78rem;color:var(--text-3)" id="interpTotal">110 responses</span>
+                        </div>
+                        <div class="interp-text" id="interpText"></div>
+                        <ul class="interp-recs" id="interpRecs"></ul>
+                    </div>
+
+                    <!-- Benchmark Chart -->
+                    <div class="chart-section">
+                        <div class="chart-header">
+                            <span class="chart-label">Industry Benchmarks</span>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="benchmarkChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Advanced: Trend Chart -->
+                    <div class="adv-section chart-section" id="trendChartSection">
+                        <div class="chart-header">
+                            <span class="chart-label">NPS Trend</span>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Advanced: Stats -->
+                    <div class="adv-section" id="statsSection">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="label">Response Rate</div>
+                                <div class="value" id="statResponseRate">&mdash;</div>
+                                <div class="sub" id="statResponseSub"></div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="label">Margin of Error</div>
+                                <div class="value" id="statMOE">&mdash;</div>
+                                <div class="sub" id="statMOESub"></div>
+                                <div id="sigBadgeWrap"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export -->
+                    <div class="export-row">
+                        <button class="export-btn" onclick="copyResults()">Copy Results</button>
+                        <button class="export-btn" onclick="downloadCSV()">Download CSV</button>
+                        <button class="export-btn" onclick="copyShareURL()">Copy URL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="container">
+        <div class="cta-banner">
+            <h3>You measured the score. Now research the market.</h3>
+            <p>The Market Research skill analyzes customer segments, competitive landscape, and market trends to turn NPS insights into strategic action.</p>
+            <div class="cta-install" onclick="copyInstall()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                claude skill install market-research-skill
+            </div>
+        </div>
+    </div>
+
+    <!-- SEO Content -->
+    <div class="container">
+        <div class="seo-content">
+            <h2>What Is <span>Net Promoter Score?</span></h2>
+            <p>Net Promoter Score (NPS) is a customer loyalty metric created by Fred Reichheld at Bain &amp; Company. It measures the likelihood that customers will recommend your product or service to others. Customers answer one question on a 0&ndash;10 scale and are grouped into three categories: Promoters (9&ndash;10), Passives (7&ndash;8), and Detractors (0&ndash;6).</p>
+            <p>NPS has become the standard loyalty metric for SaaS companies, product teams, and customer success organizations because it correlates with revenue growth, retention, and word-of-mouth acquisition. A single number that the entire company can rally around.</p>
+
+            <h2>How to <span>Calculate NPS</span></h2>
+            <p>The NPS formula subtracts the percentage of Detractors from the percentage of Promoters. Passives count toward the total but don't directly affect the score.</p>
+            <div class="formula-block">NPS = (% Promoters) &minus; (% Detractors)</div>
+            <div class="formula-block">Promoters = Respondents scoring 9 or 10</div>
+            <div class="formula-block">Detractors = Respondents scoring 0 through 6</div>
+            <p>For example, if you survey 200 customers and 100 are Promoters (50%), 60 are Passives (30%), and 40 are Detractors (20%), your NPS is 50 &minus; 20 = +30.</p>
+
+            <h2>Understanding <span>NPS Score Ranges</span></h2>
+            <ul>
+                <li><strong>70 to 100 (Excellent):</strong> World-class customer loyalty. Customers are enthusiastic advocates driving organic growth.</li>
+                <li><strong>50 to 69 (Great):</strong> Strong customer satisfaction well above industry averages.</li>
+                <li><strong>30 to 49 (Good):</strong> Solid foundation with clear room for improvement.</li>
+                <li><strong>0 to 29 (Needs Improvement):</strong> More detractors than ideal. Focus on understanding and addressing pain points.</li>
+                <li><strong>&minus;100 to &minus;1 (Critical):</strong> Significant customer dissatisfaction requiring immediate attention.</li>
+            </ul>
+
+            <h2>NPS <span>Industry Benchmarks</span></h2>
+            <p>NPS varies significantly across industries. Always benchmark against your specific sector rather than using a universal standard.</p>
+            <ul>
+                <li><strong>B2C / E-commerce:</strong> Average NPS of 39</li>
+                <li><strong>Healthcare:</strong> Average NPS of 38</li>
+                <li><strong>SaaS / Technology:</strong> Average NPS of 36</li>
+                <li><strong>Financial Services:</strong> Average NPS of 35</li>
+                <li><strong>B2B Services:</strong> Average NPS of 25</li>
+                <li><strong>Insurance:</strong> Average NPS of 21</li>
+            </ul>
+
+            <div class="faq-section">
+                <h2>Frequently Asked <span>Questions</span></h2>
+
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)"><span>What is Net Promoter Score (NPS)?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+                    <div class="faq-a"><div class="faq-a-inner">NPS is a customer loyalty metric where customers rate their likelihood to recommend on a 0&ndash;10 scale. Responses are categorized as Promoters (9&ndash;10), Passives (7&ndash;8), or Detractors (0&ndash;6). The score is calculated as the percentage of Promoters minus the percentage of Detractors, yielding a result between &minus;100 and +100. It was created by Fred Reichheld at Bain &amp; Company and published in a 2003 Harvard Business Review article.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)"><span>How do you calculate NPS?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+                    <div class="faq-a"><div class="faq-a-inner">Step 1: Categorize each response &mdash; 9&ndash;10 are Promoters, 7&ndash;8 are Passives, 0&ndash;6 are Detractors. Step 2: Calculate the percentage of total respondents in each group. Step 3: Subtract the Detractor percentage from the Promoter percentage. Example: 120 Promoters out of 300 total (40%) minus 60 Detractors (20%) = NPS of +20.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)"><span>What is a good NPS score?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+                    <div class="faq-a"><div class="faq-a-inner">Any positive NPS (above 0) means you have more Promoters than Detractors. Scores of 30&ndash;49 are considered good, 50&ndash;69 are great, and 70+ is world-class. However, context matters &mdash; SaaS companies average 30&ndash;40, while B2B services average 25&ndash;30. Always compare against your specific industry benchmark rather than using a universal standard.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)"><span>What is the difference between Promoters, Passives, and Detractors?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+                    <div class="faq-a"><div class="faq-a-inner">Promoters (9&ndash;10) are loyal enthusiasts who actively recommend your product and drive referral growth. Passives (7&ndash;8) are satisfied but unenthusiastic &mdash; they won't actively promote you and are vulnerable to competitors. Detractors (0&ndash;6) are unhappy customers who may discourage others from using your product and are at highest risk of churning.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)"><span>How often should you measure NPS?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+                    <div class="faq-a"><div class="faq-a-inner">Relationship NPS (overall satisfaction) should be measured quarterly or semi-annually. Transactional NPS (after specific interactions like support or onboarding) can be measured continuously. Avoid surveying the same customer more than once per quarter to prevent survey fatigue. Track trends over time rather than optimizing for any single measurement.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)"><span>What is the margin of error for NPS surveys?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+                    <div class="faq-a"><div class="faq-a-inner">Margin of error depends on sample size. With 100 responses, expect roughly &plusmn;10 points at 95% confidence. With 400 responses, it narrows to about &plusmn;5 points. For statistically meaningful NPS trends, aim for at least 200 responses per period. This calculator's advanced mode computes the exact margin of error for your sample size.</div></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)"><span>How can I improve my NPS?</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+                    <div class="faq-a"><div class="faq-a-inner">Three proven strategies: (1) Close the loop with every Detractor &mdash; respond to their feedback and address root causes to prevent churn. (2) Convert Passives to Promoters by identifying what would move them from satisfied to enthusiastic. (3) Empower Promoters through referral programs and advocacy channels. The fastest gains typically come from reducing Detractor count by fixing the most frequent complaints.</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 <a href="/">Cadboro Labs</a>. Built in Victoria, BC.</p></footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+    // ── State ──────────────────────────────────────────────
+    let mode = 'basic';
+    let inputMode = 'score';
+    let results = null;
+    let trendPeriods = [];
+
+    const BENCHMARKS = [
+        { label: 'B2C / E-commerce', nps: 39 },
+        { label: 'Healthcare', nps: 38 },
+        { label: 'SaaS', nps: 36 },
+        { label: 'Financial Services', nps: 35 },
+        { label: 'B2B Services', nps: 25 },
+        { label: 'Insurance', nps: 21 }
+    ];
+
+    // ── Helpers ────────────────────────────────────────────
+    function gv(id) { return document.getElementById(id).value; }
+    function sv(id, v) { document.getElementById(id).value = v; }
+    function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); }
+    function toggleFaq(btn) { const open = btn.classList.toggle('open'); const a = btn.nextElementSibling; a.style.maxHeight = open ? a.scrollHeight + 'px' : '0'; }
+
+    function setupCanvas(id) {
+        const canvas = document.getElementById(id);
+        const ctx = canvas.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        return { ctx, w: rect.width, h: rect.height };
+    }
+
+    // ── Mode Toggles ──────────────────────────────────────
+    function setMode(m) {
+        mode = m;
+        document.querySelectorAll('#modeToggle .mode-btn').forEach((b, i) =>
+            b.classList.toggle('active', (i === 0 && m === 'basic') || (i === 1 && m === 'advanced'))
+        );
+        document.querySelectorAll('.adv-section').forEach(el =>
+            el.classList.toggle('visible', m === 'advanced')
+        );
+        if (results) calculate();
+    }
+
+    function setInputMode(m) {
+        inputMode = m;
+        document.querySelectorAll('#inputModeToggle .mode-btn').forEach((b, i) =>
+            b.classList.toggle('active', (i === 0 && m === 'score') || (i === 1 && m === 'category'))
+        );
+        document.getElementById('inputByScore').style.display = m === 'score' ? 'block' : 'none';
+        document.getElementById('inputByCategory').style.display = m === 'category' ? 'block' : 'none';
+    }
+
+    // ── Trend Period Management ───────────────────────────
+    function addPeriod() {
+        if (trendPeriods.length >= 6) return;
+        trendPeriods.push({ label: 'Q' + (trendPeriods.length + 1), nps: 0 });
+        renderPeriods();
+    }
+
+    function removePeriod(i) {
+        trendPeriods.splice(i, 1);
+        renderPeriods();
+    }
+
+    function renderPeriods() {
+        const c = document.getElementById('trendRows');
+        c.innerHTML = '';
+        trendPeriods.forEach((p, i) => {
+            const r = document.createElement('div');
+            r.className = 'trend-row';
+            r.innerHTML = `<input type="text" value="${p.label}" placeholder="Period label" oninput="trendPeriods[${i}].label=this.value">
+                <input type="number" value="${p.nps}" placeholder="NPS" min="-100" max="100" step="1" oninput="trendPeriods[${i}].nps=parseInt(this.value)||0">
+                <button class="remove-period" onclick="removePeriod(${i})">&times;</button>`;
+            c.appendChild(r);
+        });
+        document.getElementById('addPeriodBtn').style.display = trendPeriods.length >= 6 ? 'none' : '';
+    }
+
+    // ── Core Calculation ──────────────────────────────────
+    function getScoreData() {
+        const scores = [];
+        for (let i = 0; i <= 10; i++) scores.push(parseInt(gv('s' + i)) || 0);
+        const detractors = scores[0] + scores[1] + scores[2] + scores[3] + scores[4] + scores[5] + scores[6];
+        const passives = scores[7] + scores[8];
+        const promoters = scores[9] + scores[10];
+        const total = detractors + passives + promoters;
+        return { scores, total, promoters, passives, detractors };
+    }
+
+    function getCategoryData() {
+        const promoters = parseInt(gv('catPromoters')) || 0;
+        const passives = parseInt(gv('catPassives')) || 0;
+        const detractors = parseInt(gv('catDetractors')) || 0;
+        const total = promoters + passives + detractors;
+        return { total, promoters, passives, detractors };
+    }
+
+    function computeNPS(promoters, passives, detractors, total) {
+        if (total === 0) return { nps: 0, pctPromoters: 0, pctPassives: 0, pctDetractors: 0 };
+        const pctPromoters = (promoters / total) * 100;
+        const pctPassives = (passives / total) * 100;
+        const pctDetractors = (detractors / total) * 100;
+        const nps = Math.round(pctPromoters - pctDetractors);
+        return { nps, pctPromoters, pctPassives, pctDetractors };
+    }
+
+    function getInterpretation(nps) {
+        if (nps >= 70) return {
+            tier: 'excellent', label: 'Excellent',
+            description: 'World-class customer loyalty. Your customers are enthusiastic advocates driving organic growth.',
+            recommendations: [
+                'Launch a formal referral program to capitalize on promoter enthusiasm',
+                'Create case studies and testimonials from your most vocal promoters',
+                'Consider premium tiers \u2014 this level of loyalty supports higher pricing'
+            ]
+        };
+        if (nps >= 50) return {
+            tier: 'great', label: 'Great',
+            description: 'Strong customer satisfaction well above average. You have significantly more advocates than critics.',
+            recommendations: [
+                'Identify what differentiates promoters from passives and double down',
+                'Interview your 9\u201310 scorers to understand what drives their loyalty',
+                'Focus on converting passives \u2014 small improvements can shift them to promoters'
+            ]
+        };
+        if (nps >= 30) return {
+            tier: 'good', label: 'Good',
+            description: 'Solid foundation with room for growth. You have more promoters than detractors but a significant passive segment.',
+            recommendations: [
+                'Survey passives to understand what would move them to promoters',
+                'Analyze detractor feedback for recurring themes and quick fixes',
+                'Set a target to improve NPS by 10 points in the next quarter'
+            ]
+        };
+        if (nps >= 0) return {
+            tier: 'needs-improvement', label: 'Needs Improvement',
+            description: 'Your promoters and detractors are roughly balanced. Focus on understanding and reducing friction points.',
+            recommendations: [
+                'Conduct follow-up interviews with detractors to identify root causes',
+                'Prioritize fixes for the most common complaints in your support data',
+                'Implement a closed-loop feedback process \u2014 respond to every detractor'
+            ]
+        };
+        return {
+            tier: 'critical', label: 'Critical',
+            description: 'Significant customer dissatisfaction. More customers are unhappy than happy, creating churn and reputation risk.',
+            recommendations: [
+                'Run emergency customer interviews \u2014 understand why so many are unhappy',
+                'Audit your onboarding flow \u2014 poor first experiences drive low scores',
+                'Consider a dedicated customer success role to reduce churn risk'
+            ]
+        };
+    }
+
+    function calculate() {
+        const data = inputMode === 'score' ? getScoreData() : getCategoryData();
+        if (data.total === 0) { showToast('Enter at least one response'); return; }
+
+        const r = computeNPS(data.promoters, data.passives, data.detractors, data.total);
+        const interp = getInterpretation(r.nps);
+
+        results = { ...r, ...data, interp };
+
+        // Hero NPS
+        const heroEl = document.getElementById('npsValue');
+        heroEl.textContent = (r.nps > 0 ? '+' : '') + r.nps;
+        heroEl.className = 'nps-hero-value ' + (r.nps >= 50 ? 'score-green' : r.nps >= 0 ? 'score-gold' : 'score-red');
+
+        // Category breakdown
+        document.getElementById('metricPromoters').textContent = data.promoters.toLocaleString();
+        document.getElementById('metricPromotersPct').textContent = r.pctPromoters.toFixed(1) + '%';
+        document.getElementById('metricPassives').textContent = data.passives.toLocaleString();
+        document.getElementById('metricPassivesPct').textContent = r.pctPassives.toFixed(1) + '%';
+        document.getElementById('metricDetractors').textContent = data.detractors.toLocaleString();
+        document.getElementById('metricDetractorsPct').textContent = r.pctDetractors.toFixed(1) + '%';
+
+        // Interpretation
+        const badge = document.getElementById('tierBadge');
+        badge.textContent = interp.label;
+        badge.className = 'tier-badge ' + interp.tier;
+        document.getElementById('interpTotal').textContent = data.total.toLocaleString() + ' responses';
+        document.getElementById('interpText').textContent = interp.description;
+        const recsList = document.getElementById('interpRecs');
+        recsList.innerHTML = '';
+        interp.recommendations.forEach(rec => {
+            const li = document.createElement('li');
+            li.textContent = rec;
+            recsList.appendChild(li);
+        });
+
+        // Show results
+        document.getElementById('placeholder').style.display = 'none';
+        document.getElementById('resultsContent').classList.add('visible');
+
+        // Charts
+        drawDistChart();
+        drawBenchmarkChart();
+
+        // Advanced features
+        if (mode === 'advanced') {
+            // Trend chart
+            if (trendPeriods.length >= 2) {
+                drawTrendChart();
+            }
+            // Response rate
+            const audSize = parseInt(gv('audienceSize')) || 0;
+            if (audSize > 0) {
+                const rr = ((data.total / audSize) * 100).toFixed(1);
+                document.getElementById('statResponseRate').textContent = rr + '%';
+                document.getElementById('statResponseSub').textContent = data.total + ' of ' + audSize.toLocaleString();
+            } else {
+                document.getElementById('statResponseRate').textContent = '\u2014';
+                document.getElementById('statResponseSub').textContent = 'Enter audience size';
+            }
+            // Margin of error
+            const z = 1.96;
+            const p = 0.5;
+            const moe = z * Math.sqrt((p * (1 - p)) / data.total);
+            const moeNPS = Math.round(moe * 100);
+            document.getElementById('statMOE').textContent = '\u00B1' + moeNPS;
+            document.getElementById('statMOESub').textContent = '95% confidence interval';
+            const sigWrap = document.getElementById('sigBadgeWrap');
+            if (moeNPS <= 5) {
+                sigWrap.innerHTML = '<span class="sig-badge pass">Statistically significant</span>';
+            } else {
+                sigWrap.innerHTML = '<span class="sig-badge fail">Low confidence \u2014 need more responses</span>';
+            }
+        }
+
+        saveToURL();
+    }
+
+    // ── Charts ────────────────────────────────────────────
+    function drawDistChart() {
+        const { ctx, w, h } = setupCanvas('distChart');
+        if (!results) return;
+
+        const r = results;
+        const barH = 28;
+        const barY = 8;
+        const total = r.pctDetractors + r.pctPassives + r.pctPromoters;
+        if (total === 0) return;
+
+        const dW = w * (r.pctDetractors / 100);
+        const paW = w * (r.pctPassives / 100);
+        const pW = w * (r.pctPromoters / 100);
+
+        // Detractors (red)
+        if (dW > 0) {
+            ctx.fillStyle = '#e85d5d';
+            ctx.beginPath();
+            if (typeof ctx.roundRect === 'function') {
+                ctx.roundRect(0, barY, dW, barH, paW > 0 || pW > 0 ? [6, 0, 0, 6] : 6);
+            } else {
+                ctx.rect(0, barY, dW, barH);
+            }
+            ctx.fill();
+        }
+
+        // Passives (gold)
+        if (paW > 0) {
+            ctx.fillStyle = '#c9a84c';
+            ctx.fillRect(dW, barY, paW, barH);
+        }
+
+        // Promoters (green)
+        if (pW > 0) {
+            ctx.fillStyle = '#5dcc72';
+            ctx.beginPath();
+            if (typeof ctx.roundRect === 'function') {
+                ctx.roundRect(dW + paW, barY, pW, barH, dW > 0 || paW > 0 ? [0, 6, 6, 0] : 6);
+            } else {
+                ctx.rect(dW + paW, barY, pW, barH);
+            }
+            ctx.fill();
+        }
+
+        // Labels below
+        ctx.font = '600 10px Syne, sans-serif';
+        ctx.textBaseline = 'top';
+        const labelY = barY + barH + 6;
+
+        if (r.pctDetractors > 8) {
+            ctx.fillStyle = '#e85d5d';
+            ctx.textAlign = 'center';
+            ctx.fillText(r.pctDetractors.toFixed(0) + '%', dW / 2, labelY);
+        }
+        if (r.pctPassives > 8) {
+            ctx.fillStyle = '#c9a84c';
+            ctx.textAlign = 'center';
+            ctx.fillText(r.pctPassives.toFixed(0) + '%', dW + paW / 2, labelY);
+        }
+        if (r.pctPromoters > 8) {
+            ctx.fillStyle = '#5dcc72';
+            ctx.textAlign = 'center';
+            ctx.fillText(r.pctPromoters.toFixed(0) + '%', dW + paW + pW / 2, labelY);
+        }
+    }
+
+    function drawBenchmarkChart() {
+        const { ctx, w, h } = setupCanvas('benchmarkChart');
+        if (!results) return;
+
+        const pad = { top: 24, right: 40, bottom: 12, left: 120 };
+        const cW = w - pad.left - pad.right;
+        const cH = h - pad.top - pad.bottom;
+
+        const all = [...BENCHMARKS.map(b => b.nps), results.nps];
+        const minV = Math.min(0, ...all) - 10;
+        const maxV = Math.max(...all) + 20;
+        const xScale = v => pad.left + ((v - minV) / (maxV - minV)) * cW;
+
+        const rowH = cH / BENCHMARKS.length;
+
+        // Zero line
+        if (minV < 0) {
+            ctx.strokeStyle = 'rgba(85,85,94,0.3)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([3, 3]);
+            ctx.beginPath();
+            ctx.moveTo(xScale(0), pad.top);
+            ctx.lineTo(xScale(0), pad.top + cH);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        BENCHMARKS.forEach((b, i) => {
+            const y = pad.top + i * rowH;
+            const barY = y + rowH * 0.25;
+            const barH = rowH * 0.5;
+            const barStart = xScale(Math.max(0, minV));
+            const barEnd = xScale(b.nps);
+
+            // Label
+            ctx.fillStyle = '#8b8b96';
+            ctx.font = '11px Outfit, sans-serif';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(b.label, pad.left - 10, y + rowH / 2);
+
+            // Bar
+            ctx.fillStyle = 'rgba(201,168,76,0.2)';
+            ctx.beginPath();
+            if (typeof ctx.roundRect === 'function') {
+                ctx.roundRect(barStart, barY, barEnd - barStart, barH, [0, 4, 4, 0]);
+            } else {
+                ctx.rect(barStart, barY, barEnd - barStart, barH);
+            }
+            ctx.fill();
+
+            // Value
+            ctx.fillStyle = '#8b8b96';
+            ctx.font = '600 10px Syne, sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText(b.nps.toString(), barEnd + 6, y + rowH / 2);
+        });
+
+        // User's NPS vertical line
+        const userX = xScale(results.nps);
+        const lineColor = results.nps >= 50 ? '#5dcc72' : results.nps >= 0 ? '#c9a84c' : '#e85d5d';
+        ctx.strokeStyle = lineColor;
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 3]);
+        ctx.beginPath();
+        ctx.moveTo(userX, pad.top - 2);
+        ctx.lineTo(userX, pad.top + cH);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // User label
+        ctx.fillStyle = lineColor;
+        ctx.font = '700 11px Syne, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('Your NPS: ' + (results.nps > 0 ? '+' : '') + results.nps, userX, pad.top - 6);
+    }
+
+    function drawTrendChart() {
+        const { ctx, w, h } = setupCanvas('trendChart');
+        if (trendPeriods.length < 2) return;
+
+        const pad = { top: 28, right: 16, bottom: 36, left: 40 };
+        const cW = w - pad.left - pad.right;
+        const cH = h - pad.top - pad.bottom;
+
+        const values = trendPeriods.map(p => p.nps);
+        const minV = Math.min(...values, 0) - 15;
+        const maxV = Math.max(...values, 50) + 15;
+        const xP = i => pad.left + (i / (trendPeriods.length - 1)) * cW;
+        const yP = v => pad.top + cH - ((v - minV) / (maxV - minV)) * cH;
+
+        // Grid lines
+        const steps = 5;
+        for (let i = 0; i <= steps; i++) {
+            const v = minV + (maxV - minV) * (i / steps);
+            const y = yP(v);
+            ctx.strokeStyle = 'rgba(85,85,94,0.15)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([3, 4]);
+            ctx.beginPath();
+            ctx.moveTo(pad.left, y);
+            ctx.lineTo(w - pad.right, y);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.fillStyle = '#55555e';
+            ctx.font = '10px Outfit, sans-serif';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(Math.round(v).toString(), pad.left - 8, y);
+        }
+
+        // Zero line
+        if (minV < 0 && maxV > 0) {
+            ctx.strokeStyle = 'rgba(232,93,93,0.3)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath();
+            ctx.moveTo(pad.left, yP(0));
+            ctx.lineTo(w - pad.right, yP(0));
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        // Area fill
+        ctx.beginPath();
+        ctx.moveTo(xP(0), yP(values[0]));
+        for (let i = 1; i < values.length; i++) ctx.lineTo(xP(i), yP(values[i]));
+        ctx.lineTo(xP(values.length - 1), pad.top + cH);
+        ctx.lineTo(xP(0), pad.top + cH);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(201,168,76,0.08)';
+        ctx.fill();
+
+        // Line
+        ctx.beginPath();
+        ctx.moveTo(xP(0), yP(values[0]));
+        for (let i = 1; i < values.length; i++) ctx.lineTo(xP(i), yP(values[i]));
+        ctx.strokeStyle = '#c9a84c';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        // Data points + value labels
+        values.forEach((v, i) => {
+            ctx.beginPath();
+            ctx.arc(xP(i), yP(v), 4, 0, Math.PI * 2);
+            ctx.fillStyle = v >= 50 ? '#5dcc72' : v >= 0 ? '#c9a84c' : '#e85d5d';
+            ctx.fill();
+            ctx.strokeStyle = '#111113';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.fillStyle = '#eeeeed';
+            ctx.font = '600 10px Syne, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            ctx.fillText((v > 0 ? '+' : '') + v, xP(i), yP(v) - 8);
+        });
+
+        // X-axis labels
+        trendPeriods.forEach((p, i) => {
+            ctx.fillStyle = '#55555e';
+            ctx.font = '10px Outfit, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText(p.label, xP(i), pad.top + cH + 8);
+        });
+    }
+
+    // ── Export ─────────────────────────────────────────────
+    function copyResults() {
+        if (!results) return;
+        let text = 'NPS Analysis\n\n';
+        text += 'NPS Score: ' + (results.nps > 0 ? '+' : '') + results.nps + '\n';
+        text += 'Rating: ' + results.interp.label + '\n\n';
+        text += 'Promoters: ' + results.promoters + ' (' + results.pctPromoters.toFixed(1) + '%)\n';
+        text += 'Passives: ' + results.passives + ' (' + results.pctPassives.toFixed(1) + '%)\n';
+        text += 'Detractors: ' + results.detractors + ' (' + results.pctDetractors.toFixed(1) + '%)\n';
+        text += 'Total Responses: ' + results.total + '\n\n';
+        text += 'Recommendations:\n';
+        results.interp.recommendations.forEach((r, i) => { text += (i + 1) + '. ' + r + '\n'; });
+        if (mode === 'advanced' && trendPeriods.length) {
+            text += '\nTrend:\n';
+            trendPeriods.forEach(p => { text += p.label + ': ' + (p.nps > 0 ? '+' : '') + p.nps + '\n'; });
+        }
+        navigator.clipboard.writeText(text).then(() => showToast('Results copied'));
+    }
+
+    function downloadCSV() {
+        if (!results) return;
+        let csv = 'Metric,Value\n';
+        csv += 'NPS Score,' + results.nps + '\n';
+        csv += 'Rating,' + results.interp.label + '\n';
+        csv += 'Promoters,' + results.promoters + '\n';
+        csv += 'Promoters %,' + results.pctPromoters.toFixed(1) + '\n';
+        csv += 'Passives,' + results.passives + '\n';
+        csv += 'Passives %,' + results.pctPassives.toFixed(1) + '\n';
+        csv += 'Detractors,' + results.detractors + '\n';
+        csv += 'Detractors %,' + results.pctDetractors.toFixed(1) + '\n';
+        csv += 'Total Responses,' + results.total + '\n';
+        csv += '\nIndustry Benchmarks,NPS\n';
+        BENCHMARKS.forEach(b => { csv += b.label + ',' + b.nps + '\n'; });
+        if (mode === 'advanced' && trendPeriods.length) {
+            csv += '\nTrend Period,NPS\n';
+            trendPeriods.forEach(p => { csv += p.label + ',' + p.nps + '\n'; });
+        }
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'nps-analysis.csv'; a.click();
+        URL.revokeObjectURL(url);
+        showToast('CSV downloaded');
+    }
+
+    function copyShareURL() { navigator.clipboard.writeText(window.location.href).then(() => showToast('URL copied')); }
+    function copyInstall() { navigator.clipboard.writeText('claude skill install market-research-skill').then(() => showToast('Install command copied')); }
+
+    // ── URL State ─────────────────────────────────────────
+    function saveToURL() {
+        const p = new URLSearchParams();
+        p.set('m', mode);
+        p.set('im', inputMode);
+        if (inputMode === 'score') {
+            for (let i = 0; i <= 10; i++) p.set('s' + i, gv('s' + i));
+        } else {
+            p.set('cp', gv('catPromoters'));
+            p.set('cpa', gv('catPassives'));
+            p.set('cd', gv('catDetractors'));
+        }
+        if (mode === 'advanced') {
+            const as = gv('audienceSize'); if (as) p.set('as', as);
+            if (trendPeriods.length) {
+                p.set('tp', trendPeriods.length);
+                trendPeriods.forEach((t, i) => {
+                    p.set('t' + i + 'l', t.label);
+                    p.set('t' + i + 'n', t.nps);
+                });
+            }
+        }
+        history.replaceState(null, '', window.location.pathname + '?' + p.toString());
+    }
+
+    function loadFromURL() {
+        const p = new URLSearchParams(window.location.search);
+        if (!p.has('im') && !p.has('s0') && !p.has('cp')) return false;
+
+        if (p.get('im') === 'category') {
+            setInputMode('category');
+            if (p.has('cp')) sv('catPromoters', p.get('cp'));
+            if (p.has('cpa')) sv('catPassives', p.get('cpa'));
+            if (p.has('cd')) sv('catDetractors', p.get('cd'));
+        } else {
+            setInputMode('score');
+            for (let i = 0; i <= 10; i++) {
+                if (p.has('s' + i)) sv('s' + i, p.get('s' + i));
+            }
+        }
+
+        if (p.get('m') === 'advanced') {
+            setMode('advanced');
+            if (p.has('as')) sv('audienceSize', p.get('as'));
+            const tp = parseInt(p.get('tp')) || 0;
+            trendPeriods = [];
+            for (let i = 0; i < tp && i < 6; i++) {
+                trendPeriods.push({
+                    label: p.get('t' + i + 'l') || 'Q' + (i + 1),
+                    nps: parseInt(p.get('t' + i + 'n')) || 0
+                });
+            }
+            renderPeriods();
+        }
+
+        return true;
+    }
+
+    // ── Init ──────────────────────────────────────────────
+    function init() {
+        if (loadFromURL()) {
+            calculate();
+        }
+    }
+
+    window.addEventListener('resize', () => {
+        if (results) {
+            drawDistChart();
+            drawBenchmarkChart();
+            if (mode === 'advanced' && trendPeriods.length >= 2) {
+                drawTrendChart();
+            }
+        }
+    });
+
+    init();
+    </script>
+</body>
+</html>

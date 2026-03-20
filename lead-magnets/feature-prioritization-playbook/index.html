@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Feature Prioritization Playbook — Which Framework Should You Use? | Cadboro Labs</title>
+    <meta name="description" content="A visual decision tree to pick the right prioritization framework. RICE vs ICE vs MoSCoW vs WSJF vs Kano vs Value/Effort — compared with examples and when to use each.">
+    <meta name="keywords" content="feature prioritization framework, RICE vs ICE, RICE vs MoSCoW, prioritization decision tree, product management prioritization, WSJF vs RICE, Kano model, feature scoring, PM playbook 2026">
+    <meta property="og:title" content="The Feature Prioritization Playbook — Cadboro Labs">
+    <meta property="og:description" content="Stop debating which framework to use. Answer 3 questions, get your framework. 6 methods compared with examples.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cadborolabs.com/lead-magnets/feature-prioritization-playbook/">
+    <link rel="canonical" href="https://cadborolabs.com/lead-magnets/feature-prioritization-playbook/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #09090b; --bg-raised: #111113; --bg-card: #16161a;
+            --border: #222228; --border-hover: #38383f;
+            --gold: #c9a84c; --gold-light: #e6d59c; --gold-dim: #6b5a2a;
+            --text: #eeeeed; --text-2: #8b8b96; --text-3: #55555e;
+            --red: #e85d5d; --green: #5dcc72; --blue: #5d9ee8;
+            --purple: #a87de8; --orange: #e8a85d; --teal: #5dccc9;
+            --gold-glow: rgba(201,168,76,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        ::selection { background: var(--gold); color: var(--bg); }
+
+        .grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.03; z-index: 9999; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: rgba(9,9,11,0.85); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; }
+
+        .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 88px 40px 0; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+        .breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        /* HERO */
+        .hero { text-align: center; padding: 40px 0 20px; }
+        .hero-badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 100px; padding: 6px 16px; margin-bottom: 20px; }
+        .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; margin-bottom: 16px; }
+        .hero h1 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .hero p { font-size: 1.05rem; color: var(--text-2); max-width: 600px; margin: 0 auto 28px; line-height: 1.65; }
+        .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bg); background: var(--gold); border: none; border-radius: 8px; padding: 14px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .btn-secondary { display: inline-flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-2); background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 14px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-secondary:hover { border-color: var(--gold-dim); color: var(--gold); }
+        .hero-meta { font-size: 0.78rem; color: var(--text-3); margin-top: 8px; }
+
+        /* SECTION HEADERS */
+        .section { margin-bottom: 48px; }
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .section-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500; color: var(--gold); background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 6px; padding: 4px 10px; letter-spacing: 0.05em; }
+        .section-header h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+
+        /* DECISION TREE */
+        .decision-tree { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 12px; }
+        .dt-intro { text-align: center; margin-bottom: 28px; }
+        .dt-intro h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+        .dt-intro p { font-size: 0.85rem; color: var(--text-2); }
+
+        .dt-question { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; transition: border-color 0.2s; }
+        .dt-question.active { border-color: var(--gold-dim); }
+        .dt-q-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+        .dt-q-text { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 14px; }
+        .dt-options { display: flex; gap: 10px; flex-wrap: wrap; }
+        .dt-opt { font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500; color: var(--text-2); background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; padding: 10px 18px; cursor: pointer; transition: all 0.2s; user-select: none; }
+        .dt-opt:hover { border-color: var(--border-hover); color: var(--text); }
+        .dt-opt.selected { border-color: var(--gold); color: var(--gold); background: var(--gold-glow); }
+
+        .dt-result { display: none; background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 12px; padding: 24px; text-align: center; margin-top: 8px; }
+        .dt-result.show { display: block; animation: fadeIn 0.3s ease; }
+        .dt-result-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+        .dt-result-framework { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+        .dt-result-why { font-size: 0.85rem; color: var(--text-2); margin-bottom: 16px; }
+        .dt-result a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: color 0.2s; }
+        .dt-result a:hover { color: var(--gold-light); }
+        .dt-reset { font-family: 'Outfit', sans-serif; font-size: 0.78rem; color: var(--text-3); background: none; border: none; cursor: pointer; margin-top: 12px; text-decoration: underline; transition: color 0.2s; }
+        .dt-reset:hover { color: var(--text-2); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* FRAMEWORK CARDS */
+        .frameworks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+        .fw-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 14px; padding: 24px; transition: border-color 0.2s, transform 0.2s; }
+        .fw-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+        .fw-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; }
+        .fw-name { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; }
+        .fw-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+        .fw-subtitle { font-size: 0.78rem; color: var(--text-3); font-style: italic; margin-bottom: 12px; }
+
+        .fw-formula { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; }
+        .fw-formula-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .fw-formula code { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--gold-light); line-height: 1.5; }
+
+        .fw-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+        .fw-list h4 { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+        .fw-list.use h4 { color: var(--green); }
+        .fw-list.avoid h4 { color: var(--red); }
+        .fw-list ul { list-style: none; font-size: 0.78rem; color: var(--text-2); line-height: 1.6; }
+        .fw-list ul li::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; margin-right: 8px; position: relative; top: -2px; }
+        .fw-list.use ul li::before { background: var(--green); }
+        .fw-list.avoid ul li::before { background: var(--red); }
+
+        .fw-example { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; }
+        .fw-example-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+        .fw-example p { font-size: 0.8rem; color: var(--text-2); line-height: 1.55; }
+        .fw-example .score { font-family: 'JetBrains Mono', monospace; color: var(--gold-light); font-size: 0.78rem; }
+
+        .fw-footer { display: flex; align-items: center; justify-content: space-between; }
+        .fw-complexity { display: flex; align-items: center; gap: 6px; }
+        .fw-complexity-label { font-size: 0.68rem; color: var(--text-3); font-family: 'Syne', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+        .fw-dots { display: flex; gap: 3px; }
+        .fw-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+        .fw-dot.filled { background: var(--gold); }
+        .fw-link { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; color: var(--gold); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+        .fw-link:hover { color: var(--gold-light); }
+
+        /* COMPARISON TABLE */
+        .compare-wrap { overflow-x: auto; }
+        .compare-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+        .compare-table thead th { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+        .compare-table tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-2); vertical-align: top; }
+        .compare-table tbody tr:hover td { background: var(--bg-raised); color: var(--text); }
+        .compare-table .fw-col { font-weight: 500; color: var(--text); white-space: nowrap; font-family: 'Syne', sans-serif; font-size: 0.82rem; }
+        .compare-table .good { color: var(--green); }
+        .compare-table .ok { color: var(--gold); }
+        .compare-table .bad { color: var(--red); }
+
+        /* SCENARIOS */
+        .scenarios-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+        .scenario { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; transition: border-color 0.2s; }
+        .scenario:hover { border-color: var(--border-hover); }
+        .scenario-icon { font-size: 1.6rem; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; }
+        .scenario-body h3 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+        .scenario-body p { font-size: 0.8rem; color: var(--text-2); line-height: 1.5; }
+        .scenario-answer { text-align: right; }
+        .scenario-answer .fw-pick { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--gold); }
+        .scenario-answer .fw-why { font-size: 0.72rem; color: var(--text-3); margin-top: 2px; }
+
+        /* CTA */
+        .cta-section { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; margin: 48px 0; }
+        .cta-section h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+        .cta-section h2 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .cta-section p { color: var(--text-2); font-size: 0.9rem; max-width: 480px; margin: 0 auto 24px; }
+        .cta-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+        .cta-chip { display: inline-flex; align-items: center; gap: 6px; font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text-2); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; text-decoration: none; transition: all 0.2s; }
+        .cta-chip:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 48px 40px 32px; border-top: 1px solid var(--border); }
+        .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .footer-text { font-size: 0.75rem; color: var(--text-3); margin-top: 8px; }
+        .footer-text a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .footer-text a:hover { color: var(--gold); }
+
+        /* PRINT */
+        @media print {
+            nav, .grain, .hero-actions, .cta-section, footer, .fw-link, .dt-reset, .btn-primary, .btn-secondary { display: none !important; }
+            body { background: #fff; color: #111; font-size: 10pt; }
+            .container { max-width: 100%; padding: 0 20px; }
+            .breadcrumb { display: none; }
+            .hero { padding: 10px 0; }
+            .hero h1 { font-size: 22pt; color: #111; }
+            .hero h1 em { color: #8b7430; }
+            .decision-tree, .fw-card, .scenario { background: #fafafa; border-color: #ddd; break-inside: avoid; }
+            .dt-question, .fw-formula, .fw-example { background: #f5f5f5; border-color: #ddd; }
+            .fw-formula code { color: #8b7430; }
+            .compare-table thead th { border-bottom-color: #ccc; }
+            .compare-table tbody td { border-bottom-color: #eee; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .frameworks-grid { grid-template-columns: 1fr; }
+            .scenario { grid-template-columns: 1fr; gap: 10px; }
+            .scenario-answer { text-align: left; }
+        }
+        @media (max-width: 640px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-toggle { display: block; }
+            .breadcrumb { padding: 80px 20px 0; }
+            .container { padding: 0 20px; }
+            .hero h1 { font-size: 1.6rem; }
+            .decision-tree { padding: 20px; }
+            .cta-section { padding: 28px 20px; }
+            .fw-lists { grid-template-columns: 1fr; }
+            .dt-options { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<svg class="grain" xmlns="http://www.w3.org/2000/svg"><filter id="g"><feTurbulence baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>
+
+<nav>
+    <a href="/" class="nav-logo">CADBORO LABS</a>
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/lead-magnets/saas-metrics-cheat-sheet/">Metrics Cheat Sheet</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <a href="/lead-magnets/">Resources</a><span class="sep">/</span>
+    Feature Prioritization Playbook
+</div>
+
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+        <span class="hero-badge">Interactive Playbook &mdash; 2026 Edition</span>
+        <h1>The Feature Prioritization <em>Playbook</em></h1>
+        <p>Stop debating which framework to use. Answer 3 questions, get your framework. Six methods compared with formulas, examples, and a decision tree.</p>
+        <div class="hero-actions">
+            <button class="btn-primary" onclick="window.print()">&#9662; Save as PDF</button>
+            <a href="/tools/rice-scorer/" class="btn-secondary">Open RICE Scorer &rarr;</a>
+        </div>
+        <p class="hero-meta">6 frameworks &middot; Interactive decision tree &middot; Real-world scenarios &middot; Side-by-side comparison</p>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 1: DECISION TREE -->
+    <!-- ============================================= -->
+    <div class="section" id="decision-tree">
+        <div class="section-header">
+            <span class="section-num">01</span>
+            <h2>Pick Your Framework</h2>
+        </div>
+
+        <div class="decision-tree">
+            <div class="dt-intro">
+                <h3>Which prioritization framework should you use?</h3>
+                <p>Answer three questions. We'll recommend the best fit.</p>
+            </div>
+
+            <!-- Q1 -->
+            <div class="dt-question active" id="q1">
+                <div class="dt-q-label">Question 1 of 3</div>
+                <div class="dt-q-text">What are you prioritizing?</div>
+                <div class="dt-options">
+                    <div class="dt-opt" onclick="answer(1,'features')">Product features / backlog items</div>
+                    <div class="dt-opt" onclick="answer(1,'experiments')">Growth experiments / quick tests</div>
+                    <div class="dt-opt" onclick="answer(1,'requirements')">Requirements for a release / MVP</div>
+                    <div class="dt-opt" onclick="answer(1,'enterprise')">Enterprise epics / PI planning</div>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="dt-question" id="q2" style="display:none">
+                <div class="dt-q-label">Question 2 of 3</div>
+                <div class="dt-q-text">How much data do you have?</div>
+                <div class="dt-options">
+                    <div class="dt-opt" onclick="answer(2,'rich')">Rich data &mdash; usage analytics, reach estimates, effort sizing</div>
+                    <div class="dt-opt" onclick="answer(2,'some')">Some data &mdash; rough estimates, gut-informed scores</div>
+                    <div class="dt-opt" onclick="answer(2,'none')">Minimal &mdash; mostly qualitative / stakeholder input</div>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="dt-question" id="q3" style="display:none">
+                <div class="dt-q-label">Question 3 of 3</div>
+                <div class="dt-q-text">What matters most right now?</div>
+                <div class="dt-options">
+                    <div class="dt-opt" onclick="answer(3,'roi')">Maximizing ROI per eng-hour</div>
+                    <div class="dt-opt" onclick="answer(3,'speed')">Moving fast &mdash; decision in minutes</div>
+                    <div class="dt-opt" onclick="answer(3,'alignment')">Stakeholder alignment &amp; buy-in</div>
+                    <div class="dt-opt" onclick="answer(3,'delight')">Understanding what customers actually want</div>
+                </div>
+            </div>
+
+            <!-- RESULT -->
+            <div class="dt-result" id="dt-result">
+                <div class="dt-result-label">Recommended Framework</div>
+                <div class="dt-result-framework" id="dt-fw-name"></div>
+                <div class="dt-result-why" id="dt-fw-why"></div>
+                <a href="/tools/rice-scorer/" id="dt-fw-link">Score your features &rarr;</a>
+                <br>
+                <button class="dt-reset" onclick="resetTree()">Start over</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 2: THE SIX FRAMEWORKS -->
+    <!-- ============================================= -->
+    <div class="section" id="frameworks">
+        <div class="section-header">
+            <span class="section-num">02</span>
+            <h2>The Six Frameworks, Explained</h2>
+        </div>
+
+        <div class="frameworks-grid">
+
+            <!-- RICE -->
+            <div class="fw-card" id="fw-rice">
+                <div class="fw-top">
+                    <div class="fw-name">RICE</div>
+                    <span class="fw-tag" style="color:var(--green);background:rgba(93,204,114,0.1)">Most Popular</span>
+                </div>
+                <div class="fw-subtitle">Reach &times; Impact &times; Confidence / Effort</div>
+                <div class="fw-formula">
+                    <div class="fw-formula-label">Formula</div>
+                    <code>RICE = (Reach &times; Impact &times; Confidence%) / Effort</code>
+                </div>
+                <div class="fw-lists">
+                    <div class="fw-list use">
+                        <h4>Use when</h4>
+                        <ul>
+                            <li>You have reach/usage data</li>
+                            <li>Need defensible, quantitative ranking</li>
+                            <li>Comparing 10+ features objectively</li>
+                        </ul>
+                    </div>
+                    <div class="fw-list avoid">
+                        <h4>Avoid when</h4>
+                        <ul>
+                            <li>No reliable reach estimates</li>
+                            <li>Prioritizing quick experiments</li>
+                            <li>Team resists scoring overhead</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fw-example">
+                    <div class="fw-example-label">Example</div>
+                    <p>"Add CSV export" &mdash; Reach: <span class="score">2,000 users/q</span>, Impact: <span class="score">2 (high)</span>, Confidence: <span class="score">80%</span>, Effort: <span class="score">3 person-weeks</span><br>RICE = <span class="score">(2000 &times; 2 &times; 0.8) / 3 = 1,067</span></p>
+                </div>
+                <div class="fw-footer">
+                    <div class="fw-complexity">
+                        <span class="fw-complexity-label">Setup</span>
+                        <div class="fw-dots"><div class="fw-dot filled"></div><div class="fw-dot filled"></div><div class="fw-dot filled"></div><div class="fw-dot"></div><div class="fw-dot"></div></div>
+                    </div>
+                    <a href="/tools/rice-scorer/" class="fw-link">Score yours &rarr;</a>
+                </div>
+            </div>
+
+            <!-- ICE -->
+            <div class="fw-card" id="fw-ice">
+                <div class="fw-top">
+                    <div class="fw-name">ICE</div>
+                    <span class="fw-tag" style="color:var(--blue);background:rgba(93,158,232,0.1)">Fastest</span>
+                </div>
+                <div class="fw-subtitle">Impact &times; Confidence &times; Ease</div>
+                <div class="fw-formula">
+                    <div class="fw-formula-label">Formula</div>
+                    <code>ICE = Impact (1&ndash;10) &times; Confidence (1&ndash;10) &times; Ease (1&ndash;10)</code>
+                </div>
+                <div class="fw-lists">
+                    <div class="fw-list use">
+                        <h4>Use when</h4>
+                        <ul>
+                            <li>Running growth experiments</li>
+                            <li>Need a score in 2 minutes</li>
+                            <li>Small team, rapid iteration</li>
+                        </ul>
+                    </div>
+                    <div class="fw-list avoid">
+                        <h4>Avoid when</h4>
+                        <ul>
+                            <li>Scores need to survive exec scrutiny</li>
+                            <li>Comparing very different initiatives</li>
+                            <li>Need auditability</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fw-example">
+                    <div class="fw-example-label">Example</div>
+                    <p>"Test new onboarding flow" &mdash; Impact: <span class="score">8</span>, Confidence: <span class="score">6</span>, Ease: <span class="score">7</span><br>ICE = <span class="score">8 &times; 6 &times; 7 = 336</span></p>
+                </div>
+                <div class="fw-footer">
+                    <div class="fw-complexity">
+                        <span class="fw-complexity-label">Setup</span>
+                        <div class="fw-dots"><div class="fw-dot filled"></div><div class="fw-dot"></div><div class="fw-dot"></div><div class="fw-dot"></div><div class="fw-dot"></div></div>
+                    </div>
+                    <a href="/tools/rice-scorer/" class="fw-link">Score yours &rarr;</a>
+                </div>
+            </div>
+
+            <!-- MoSCoW -->
+            <div class="fw-card" id="fw-moscow">
+                <div class="fw-top">
+                    <div class="fw-name">MoSCoW</div>
+                    <span class="fw-tag" style="color:var(--orange);background:rgba(232,168,93,0.1)">Best for Alignment</span>
+                </div>
+                <div class="fw-subtitle">Must / Should / Could / Won't</div>
+                <div class="fw-formula">
+                    <div class="fw-formula-label">How it works</div>
+                    <code>Sort every item into one of 4 buckets:<br>Must have &rarr; Should have &rarr; Could have &rarr; Won't have</code>
+                </div>
+                <div class="fw-lists">
+                    <div class="fw-list use">
+                        <h4>Use when</h4>
+                        <ul>
+                            <li>Scoping a release or MVP</li>
+                            <li>Need stakeholder consensus fast</li>
+                            <li>Binary "in or out" decisions</li>
+                        </ul>
+                    </div>
+                    <div class="fw-list avoid">
+                        <h4>Avoid when</h4>
+                        <ul>
+                            <li>Need to rank-order within a tier</li>
+                            <li>Everything gets labeled "Must"</li>
+                            <li>Comparing effort trade-offs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fw-example">
+                    <div class="fw-example-label">Example &mdash; MVP release scoping</div>
+                    <p><span class="score">Must:</span> User auth, core workflow, billing<br><span class="score">Should:</span> Onboarding wizard, email notifications<br><span class="score">Could:</span> Dark mode, CSV export<br><span class="score">Won't:</span> Mobile app, AI features (v2)</p>
+                </div>
+                <div class="fw-footer">
+                    <div class="fw-complexity">
+                        <span class="fw-complexity-label">Setup</span>
+                        <div class="fw-dots"><div class="fw-dot filled"></div><div class="fw-dot"></div><div class="fw-dot"></div><div class="fw-dot"></div><div class="fw-dot"></div></div>
+                    </div>
+                    <a href="/tools/rice-scorer/" class="fw-link">Score yours &rarr;</a>
+                </div>
+            </div>
+
+            <!-- WSJF -->
+            <div class="fw-card" id="fw-wsjf">
+                <div class="fw-top">
+                    <div class="fw-name">WSJF</div>
+                    <span class="fw-tag" style="color:var(--purple);background:rgba(168,125,232,0.1)">Enterprise / SAFe</span>
+                </div>
+                <div class="fw-subtitle">Weighted Shortest Job First</div>
+                <div class="fw-formula">
+                    <div class="fw-formula-label">Formula</div>
+                    <code>WSJF = Cost of Delay / Job Duration</code><br>
+                    <code style="color:var(--text-3);font-size:0.72rem">CoD = User-business value + Time criticality + Risk reduction / Opportunity enablement</code>
+                </div>
+                <div class="fw-lists">
+                    <div class="fw-list use">
+                        <h4>Use when</h4>
+                        <ul>
+                            <li>Enterprise / SAFe environment</li>
+                            <li>PI planning with multiple teams</li>
+                            <li>Time sensitivity matters (deadlines, market windows)</li>
+                        </ul>
+                    </div>
+                    <div class="fw-list avoid">
+                        <h4>Avoid when</h4>
+                        <ul>
+                            <li>Small team, no PI cadence</li>
+                            <li>Can't estimate job duration reliably</li>
+                            <li>Stakeholders unfamiliar with SAFe</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fw-example">
+                    <div class="fw-example-label">Example</div>
+                    <p>"Compliance feature for EU launch" &mdash; User value: <span class="score">8</span>, Time criticality: <span class="score">13</span>, Risk reduction: <span class="score">8</span>, Duration: <span class="score">5</span><br>WSJF = <span class="score">(8 + 13 + 8) / 5 = 5.8</span></p>
+                </div>
+                <div class="fw-footer">
+                    <div class="fw-complexity">
+                        <span class="fw-complexity-label">Setup</span>
+                        <div class="fw-dots"><div class="fw-dot filled"></div><div class="fw-dot filled"></div><div class="fw-dot filled"></div><div class="fw-dot filled"></div><div class="fw-dot"></div></div>
+                    </div>
+                    <a href="/tools/rice-scorer/" class="fw-link">Score yours &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Kano -->
+            <div class="fw-card" id="fw-kano">
+                <div class="fw-top">
+                    <div class="fw-name">Kano Model</div>
+                    <span class="fw-tag" style="color:var(--teal);background:rgba(93,204,201,0.1)">Customer Delight</span>
+                </div>
+                <div class="fw-subtitle">Categorize features by customer satisfaction impact</div>
+                <div class="fw-formula">
+                    <div class="fw-formula-label">How it works</div>
+                    <code>Survey users with functional/dysfunctional questions<br>Categorize: Must-be &rarr; Performance &rarr; Attractive &rarr; Indifferent &rarr; Reverse</code>
+                </div>
+                <div class="fw-lists">
+                    <div class="fw-list use">
+                        <h4>Use when</h4>
+                        <ul>
+                            <li>Understanding what customers actually value</li>
+                            <li>Differentiating "table stakes" from "delighters"</li>
+                            <li>Balancing feature investment across types</li>
+                        </ul>
+                    </div>
+                    <div class="fw-list avoid">
+                        <h4>Avoid when</h4>
+                        <ul>
+                            <li>Need a quick rank-order for sprint planning</li>
+                            <li>Can't run customer surveys</li>
+                            <li>Pure B2B with <10 customers</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fw-example">
+                    <div class="fw-example-label">Example categories</div>
+                    <p><span class="score">Must-be:</span> Page loads in &lt;3s (expected, no delight)<br><span class="score">Performance:</span> More integrations = more satisfied (linear)<br><span class="score">Attractive:</span> AI-powered suggestions (unexpected delight)</p>
+                </div>
+                <div class="fw-footer">
+                    <div class="fw-complexity">
+                        <span class="fw-complexity-label">Setup</span>
+                        <div class="fw-dots"><div class="fw-dot filled"></div><div class="fw-dot filled"></div><div class="fw-dot filled"></div><div class="fw-dot filled"></div><div class="fw-dot filled"></div></div>
+                    </div>
+                    <a href="/tools/nps-calculator/" class="fw-link">Measure satisfaction &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Value vs Effort -->
+            <div class="fw-card" id="fw-value-effort">
+                <div class="fw-top">
+                    <div class="fw-name">Value vs Effort</div>
+                    <span class="fw-tag" style="color:var(--red);background:rgba(232,93,93,0.1)">Visual / Workshop</span>
+                </div>
+                <div class="fw-subtitle">2&times;2 matrix: plot features by value and effort</div>
+                <div class="fw-formula">
+                    <div class="fw-formula-label">How it works</div>
+                    <code>Plot on a 2&times;2 grid:<br>High Value + Low Effort = Quick Wins (do first)<br>High Value + High Effort = Big Bets (plan carefully)<br>Low Value + Low Effort = Fill-ins (if time allows)<br>Low Value + High Effort = Money Pit (don't do)</code>
+                </div>
+                <div class="fw-lists">
+                    <div class="fw-list use">
+                        <h4>Use when</h4>
+                        <ul>
+                            <li>Workshop / whiteboard session</li>
+                            <li>Non-technical stakeholders in the room</li>
+                            <li>Need visual, intuitive output</li>
+                        </ul>
+                    </div>
+                    <div class="fw-list avoid">
+                        <h4>Avoid when</h4>
+                        <ul>
+                            <li>Need precise rank-ordering</li>
+                            <li>Too many items cluster in same quadrant</li>
+                            <li>Effort estimates are unreliable</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fw-example">
+                    <div class="fw-example-label">Example</div>
+                    <p><span class="score">Quick Win:</span> Fix broken search filter (1 day, high impact)<br><span class="score">Big Bet:</span> Rebuild permissions system (6 weeks, enables enterprise)<br><span class="score">Money Pit:</span> Redesign settings page (3 weeks, no one cares)</p>
+                </div>
+                <div class="fw-footer">
+                    <div class="fw-complexity">
+                        <span class="fw-complexity-label">Setup</span>
+                        <div class="fw-dots"><div class="fw-dot filled"></div><div class="fw-dot"></div><div class="fw-dot"></div><div class="fw-dot"></div><div class="fw-dot"></div></div>
+                    </div>
+                    <a href="/tools/rice-scorer/" class="fw-link">Score yours &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 3: COMPARISON TABLE -->
+    <!-- ============================================= -->
+    <div class="section" id="comparison">
+        <div class="section-header">
+            <span class="section-num">03</span>
+            <h2>Side-by-Side Comparison</h2>
+        </div>
+        <div class="compare-wrap">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Framework</th>
+                        <th>Best For</th>
+                        <th>Speed</th>
+                        <th>Rigor</th>
+                        <th>Stakeholder Buy-in</th>
+                        <th>Data Required</th>
+                        <th>Team Size</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-col">RICE</td>
+                        <td>Feature backlogs</td>
+                        <td class="ok">Medium</td>
+                        <td class="good">High</td>
+                        <td class="good">High</td>
+                        <td>Usage + effort data</td>
+                        <td>5&ndash;50+</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-col">ICE</td>
+                        <td>Growth experiments</td>
+                        <td class="good">Fast</td>
+                        <td class="ok">Medium</td>
+                        <td class="ok">Medium</td>
+                        <td>Minimal</td>
+                        <td>1&ndash;10</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-col">MoSCoW</td>
+                        <td>Release / MVP scoping</td>
+                        <td class="good">Fast</td>
+                        <td class="bad">Low</td>
+                        <td class="good">High</td>
+                        <td>None</td>
+                        <td>Any</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-col">WSJF</td>
+                        <td>Enterprise PI planning</td>
+                        <td class="bad">Slow</td>
+                        <td class="good">High</td>
+                        <td class="good">High</td>
+                        <td>Duration + CoD</td>
+                        <td>50+</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-col">Kano</td>
+                        <td>Customer delight research</td>
+                        <td class="bad">Slow</td>
+                        <td class="good">High</td>
+                        <td class="ok">Medium</td>
+                        <td>Survey responses</td>
+                        <td>Any</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-col">Value vs Effort</td>
+                        <td>Workshops &amp; alignment</td>
+                        <td class="good">Fast</td>
+                        <td class="bad">Low</td>
+                        <td class="good">High</td>
+                        <td>None</td>
+                        <td>Any</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 4: REAL-WORLD SCENARIOS -->
+    <!-- ============================================= -->
+    <div class="section" id="scenarios">
+        <div class="section-header">
+            <span class="section-num">04</span>
+            <h2>Real-World Scenarios</h2>
+        </div>
+        <div class="scenarios-grid">
+
+            <div class="scenario">
+                <div class="scenario-icon">&#127919;</div>
+                <div class="scenario-body">
+                    <h3>Series B startup, 50 feature requests in the backlog</h3>
+                    <p>You need to rank-order features for the next 2 quarters and defend the plan to your VP of Engineering and the board. You have decent usage analytics.</p>
+                </div>
+                <div class="scenario-answer">
+                    <div class="fw-pick">RICE</div>
+                    <div class="fw-why">Quantitative, defensible, handles large lists</div>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <div class="scenario-icon">&#9889;</div>
+                <div class="scenario-body">
+                    <h3>Growth team running 12 experiments this sprint</h3>
+                    <p>You're testing pricing page copy, onboarding tweaks, and activation nudges. Each experiment takes 1&ndash;3 days. You need to pick the top 5 fast.</p>
+                </div>
+                <div class="scenario-answer">
+                    <div class="fw-pick">ICE</div>
+                    <div class="fw-why">2-minute scoring, built for experiments</div>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <div class="scenario-icon">&#128230;</div>
+                <div class="scenario-body">
+                    <h3>Scoping an MVP with 3 stakeholders who can't agree</h3>
+                    <p>Sales wants integrations, engineering wants to fix tech debt, design wants a new onboarding. You need a shared "in vs out" decision for launch.</p>
+                </div>
+                <div class="scenario-answer">
+                    <div class="fw-pick">MoSCoW</div>
+                    <div class="fw-why">Forces "must" vs "won't" — cuts debates</div>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <div class="scenario-icon">&#127970;</div>
+                <div class="scenario-body">
+                    <h3>Enterprise org, PI planning across 8 teams</h3>
+                    <p>You're prioritizing 40 epics for the next Program Increment. Some have hard deadlines (compliance), others are growth bets. Teams use SAFe.</p>
+                </div>
+                <div class="scenario-answer">
+                    <div class="fw-pick">WSJF</div>
+                    <div class="fw-why">Built for SAFe, factors in time criticality</div>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <div class="scenario-icon">&#128161;</div>
+                <div class="scenario-body">
+                    <h3>Planning next year's roadmap — what will actually delight users?</h3>
+                    <p>You have 20 feature ideas but don't know which are table stakes vs. genuine differentiators. You have access to 500+ active users for surveys.</p>
+                </div>
+                <div class="scenario-answer">
+                    <div class="fw-pick">Kano</div>
+                    <div class="fw-why">Separates "must-be" from "delighters"</div>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <div class="scenario-icon">&#129309;</div>
+                <div class="scenario-body">
+                    <h3>Offsite with eng + design — need to align on next quarter in 2 hours</h3>
+                    <p>You're in a room with 8 people, a whiteboard, and sticky notes. No analytics handy. Need everyone bought in before they leave.</p>
+                </div>
+                <div class="scenario-answer">
+                    <div class="fw-pick">Value vs Effort</div>
+                    <div class="fw-why">Visual, intuitive, works on a whiteboard</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>Pick your framework.<br>Then <em>score your features.</em></h2>
+        <p>Our free RICE Scorer lets you plug in your features and get a ranked, shareable priority list in minutes. No signup required.</p>
+        <a href="/tools/rice-scorer/" class="btn-primary" style="display:inline-flex;">Open RICE Scorer &rarr;</a>
+        <div class="cta-links">
+            <a href="/lead-magnets/saas-metrics-cheat-sheet/" class="cta-chip">SaaS Metrics Cheat Sheet &rarr;</a>
+            <a href="/tools/mrr-calculator/" class="cta-chip">MRR Calculator &rarr;</a>
+            <a href="/tools/tam-calculator/" class="cta-chip">TAM/SAM/SOM &rarr;</a>
+            <a href="/tools/nps-calculator/" class="cta-chip">NPS Calculator &rarr;</a>
+            <a href="/tools/ltv-calculator/" class="cta-chip">LTV Calculator &rarr;</a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <a href="/" class="footer-logo">CADBORO LABS</a>
+    <p class="footer-text">Built in Victoria, BC &mdash; <a href="/tools/">Free PM Tools</a></p>
+</footer>
+
+<script>
+const state = { q1: null, q2: null, q3: null };
+
+function answer(q, val) {
+    state['q' + q] = val;
+
+    // Highlight selected option
+    const qEl = document.getElementById('q' + q);
+    qEl.querySelectorAll('.dt-opt').forEach(o => o.classList.remove('selected'));
+    event.target.classList.add('selected');
+
+    if (q === 1) {
+        document.getElementById('q2').style.display = 'block';
+        document.getElementById('q2').classList.add('active');
+        qEl.classList.remove('active');
+        document.getElementById('q2').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (q === 2) {
+        document.getElementById('q3').style.display = 'block';
+        document.getElementById('q3').classList.add('active');
+        qEl.classList.remove('active');
+        document.getElementById('q3').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (q === 3) {
+        qEl.classList.remove('active');
+        showResult();
+    }
+}
+
+function showResult() {
+    const { q1, q2, q3 } = state;
+    let fw, why, link;
+
+    // Decision logic
+    if (q1 === 'enterprise') {
+        fw = 'WSJF'; why = 'Your enterprise/SAFe context needs Cost of Delay and job sizing to prioritize across multiple teams.'; link = '/tools/rice-scorer/';
+    } else if (q1 === 'requirements') {
+        if (q3 === 'alignment') {
+            fw = 'MoSCoW'; why = 'For release scoping with stakeholder alignment, MoSCoW\'s 4 buckets force clear "in or out" decisions.'; link = '/tools/rice-scorer/';
+        } else {
+            fw = 'MoSCoW'; why = 'MoSCoW is purpose-built for scoping releases and MVPs. Sort into Must/Should/Could/Won\'t.'; link = '/tools/rice-scorer/';
+        }
+    } else if (q1 === 'experiments') {
+        fw = 'ICE'; why = 'Growth experiments need fast scoring. ICE gives you a score in 2 minutes with minimal data.'; link = '/tools/rice-scorer/';
+    } else if (q3 === 'delight') {
+        fw = 'Kano Model'; why = 'To understand what customers actually want, Kano separates table stakes from genuine delighters.'; link = '/tools/nps-calculator/';
+    } else if (q3 === 'alignment' && q2 === 'none') {
+        fw = 'Value vs Effort'; why = 'With minimal data and alignment as the goal, the 2×2 matrix works on any whiteboard and gets everyone on the same page.'; link = '/tools/rice-scorer/';
+    } else if (q3 === 'speed' || q2 === 'none') {
+        fw = 'ICE'; why = 'When speed matters and data is scarce, ICE\'s 1-10 scales get you a usable ranking in minutes.'; link = '/tools/rice-scorer/';
+    } else if (q2 === 'rich' && q3 === 'roi') {
+        fw = 'RICE'; why = 'With rich data and an ROI focus, RICE gives you the most defensible, quantitative ranking for your backlog.'; link = '/tools/rice-scorer/';
+    } else {
+        fw = 'RICE'; why = 'RICE is the most versatile framework for feature prioritization — balances reach, impact, confidence, and effort.'; link = '/tools/rice-scorer/';
+    }
+
+    const resultEl = document.getElementById('dt-result');
+    document.getElementById('dt-fw-name').textContent = fw;
+    document.getElementById('dt-fw-why').textContent = why;
+    document.getElementById('dt-fw-link').href = link;
+    resultEl.classList.add('show');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetTree() {
+    state.q1 = state.q2 = state.q3 = null;
+    document.querySelectorAll('.dt-opt').forEach(o => o.classList.remove('selected'));
+    document.getElementById('q2').style.display = 'none';
+    document.getElementById('q3').style.display = 'none';
+    document.getElementById('dt-result').classList.remove('show');
+    document.getElementById('q1').classList.add('active');
+    document.getElementById('q2').classList.remove('active');
+    document.getElementById('q3').classList.remove('active');
+    document.getElementById('q1').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+
+</body>
+</html>

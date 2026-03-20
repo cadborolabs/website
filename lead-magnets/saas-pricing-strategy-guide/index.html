@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The SaaS Pricing Strategy Guide for Product Managers | Cadboro Labs</title>
+    <meta name="description" content="Choose the right pricing model, set your tiers, and avoid the mistakes that kill margins. Frameworks, benchmarks, and real examples for SaaS PMs.">
+    <meta name="keywords" content="SaaS pricing strategy, pricing models, freemium vs free trial, value-based pricing, SaaS pricing tiers, pricing page best practices, product-led growth pricing, SaaS pricing guide 2026">
+    <meta property="og:title" content="The SaaS Pricing Strategy Guide — Cadboro Labs">
+    <meta property="og:description" content="Pricing model picker, tier builder framework, 7 common mistakes, and real teardowns. The pricing reference SaaS PMs actually need.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cadborolabs.com/lead-magnets/saas-pricing-strategy-guide/">
+    <link rel="canonical" href="https://cadborolabs.com/lead-magnets/saas-pricing-strategy-guide/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #09090b; --bg-raised: #111113; --bg-card: #16161a;
+            --border: #222228; --border-hover: #38383f;
+            --gold: #c9a84c; --gold-light: #e6d59c; --gold-dim: #6b5a2a;
+            --text: #eeeeed; --text-2: #8b8b96; --text-3: #55555e;
+            --red: #e85d5d; --green: #5dcc72; --blue: #5d9ee8;
+            --purple: #a87de8; --orange: #e8a85d; --teal: #5dccc9;
+            --gold-glow: rgba(201,168,76,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        ::selection { background: var(--gold); color: var(--bg); }
+
+        .grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.03; z-index: 9999; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: rgba(9,9,11,0.85); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px 0; transition: 0.3s; }
+
+        .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 88px 40px 0; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+        .breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        /* HERO */
+        .hero { text-align: center; padding: 40px 0 20px; }
+        .hero-badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 100px; padding: 6px 16px; margin-bottom: 20px; }
+        .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; margin-bottom: 16px; }
+        .hero h1 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .hero p { font-size: 1.05rem; color: var(--text-2); max-width: 600px; margin: 0 auto 28px; line-height: 1.65; }
+        .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bg); background: var(--gold); border: none; border-radius: 8px; padding: 14px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .btn-secondary { display: inline-flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-2); background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 14px 28px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-secondary:hover { border-color: var(--gold-dim); color: var(--gold); }
+        .hero-meta { font-size: 0.78rem; color: var(--text-3); margin-top: 8px; }
+
+        /* SECTION HEADERS */
+        .section { margin-bottom: 48px; }
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+        .section-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500; color: var(--gold); background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 6px; padding: 4px 10px; letter-spacing: 0.05em; }
+        .section-header h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+
+        /* PRICING MODEL PICKER (Interactive) */
+        .picker { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 12px; }
+        .picker-intro { text-align: center; margin-bottom: 28px; }
+        .picker-intro h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+        .picker-intro p { font-size: 0.85rem; color: var(--text-2); }
+
+        .pk-question { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; transition: border-color 0.2s; }
+        .pk-question.active { border-color: var(--gold-dim); }
+        .pk-q-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+        .pk-q-text { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 14px; }
+        .pk-options { display: flex; gap: 10px; flex-wrap: wrap; }
+        .pk-opt { font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500; color: var(--text-2); background: var(--bg-raised); border: 1px solid var(--border); border-radius: 8px; padding: 10px 18px; cursor: pointer; transition: all 0.2s; user-select: none; }
+        .pk-opt:hover { border-color: var(--border-hover); color: var(--text); }
+        .pk-opt.selected { border-color: var(--gold); color: var(--gold); background: var(--gold-glow); }
+
+        .pk-result { display: none; background: var(--gold-glow); border: 1px solid var(--gold-dim); border-radius: 12px; padding: 24px; text-align: center; margin-top: 8px; }
+        .pk-result.show { display: block; animation: fadeIn 0.3s ease; }
+        .pk-result-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+        .pk-result-model { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+        .pk-result-why { font-size: 0.85rem; color: var(--text-2); margin-bottom: 16px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .pk-result a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: color 0.2s; }
+        .pk-result a:hover { color: var(--gold-light); }
+        .pk-reset { font-family: 'Outfit', sans-serif; font-size: 0.78rem; color: var(--text-3); background: none; border: none; cursor: pointer; margin-top: 12px; text-decoration: underline; transition: color 0.2s; }
+        .pk-reset:hover { color: var(--text-2); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* MODEL CARDS */
+        .models-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+        .model-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 14px; padding: 24px; transition: border-color 0.2s, transform 0.2s; }
+        .model-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+        .model-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; }
+        .model-name { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; }
+        .model-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+        .model-subtitle { font-size: 0.78rem; color: var(--text-3); font-style: italic; margin-bottom: 12px; }
+
+        .model-how { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; }
+        .model-how-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .model-how code { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--gold-light); line-height: 1.5; }
+
+        .model-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+        .model-list h4 { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+        .model-list.pro h4 { color: var(--green); }
+        .model-list.con h4 { color: var(--red); }
+        .model-list ul { list-style: none; font-size: 0.78rem; color: var(--text-2); line-height: 1.6; }
+        .model-list ul li::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; margin-right: 8px; position: relative; top: -2px; }
+        .model-list.pro ul li::before { background: var(--green); }
+        .model-list.con ul li::before { background: var(--red); }
+
+        .model-example { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; }
+        .model-example-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+        .model-example p { font-size: 0.8rem; color: var(--text-2); line-height: 1.55; }
+        .model-example .highlight { font-family: 'JetBrains Mono', monospace; color: var(--gold-light); font-size: 0.78rem; }
+
+        .model-footer { display: flex; align-items: center; justify-content: space-between; }
+        .model-fit { display: flex; align-items: center; gap: 6px; }
+        .model-fit-label { font-size: 0.68rem; color: var(--text-3); font-family: 'Syne', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+        .model-dots { display: flex; gap: 3px; }
+        .model-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+        .model-dot.filled { background: var(--gold); }
+        .model-link { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; color: var(--gold); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+        .model-link:hover { color: var(--gold-light); }
+
+        /* COMPARISON TABLE */
+        .compare-wrap { overflow-x: auto; }
+        .compare-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+        .compare-table thead th { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+        .compare-table tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-2); vertical-align: top; }
+        .compare-table tbody tr:hover td { background: var(--bg-raised); color: var(--text); }
+        .compare-table .model-col { font-weight: 500; color: var(--text); white-space: nowrap; font-family: 'Syne', sans-serif; font-size: 0.82rem; }
+        .compare-table .good { color: var(--green); }
+        .compare-table .ok { color: var(--gold); }
+        .compare-table .bad { color: var(--red); }
+
+        /* TIER BUILDER */
+        .tier-framework { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 16px; }
+        .tier-framework h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+        .tier-framework > p { font-size: 0.85rem; color: var(--text-2); margin-bottom: 20px; }
+        .tiers-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+        .tier-col { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; transition: border-color 0.2s; }
+        .tier-col:hover { border-color: var(--border-hover); }
+        .tier-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+        .tier-name { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+        .tier-price { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--gold-light); margin-bottom: 10px; }
+        .tier-purpose { font-size: 0.78rem; color: var(--text-2); margin-bottom: 12px; font-style: italic; }
+        .tier-features { list-style: none; font-size: 0.78rem; color: var(--text-2); }
+        .tier-features li { padding: 3px 0; }
+        .tier-features li::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); margin-right: 8px; position: relative; top: -2px; }
+
+        /* MISTAKES */
+        .mistakes-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+        .mistake { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; transition: border-color 0.2s; }
+        .mistake:hover { border-color: var(--border-hover); }
+        .mistake-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; color: var(--red); background: rgba(232,93,93,0.1); border: 1px solid rgba(232,93,93,0.2); border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .mistake-body h3 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+        .mistake-body p { font-size: 0.8rem; color: var(--text-2); line-height: 1.55; }
+        .mistake-fix { margin-top: 8px; font-size: 0.78rem; color: var(--green); }
+        .mistake-fix strong { font-weight: 600; }
+
+        /* BENCHMARKS */
+        .benchmarks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+        .bench-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 20px; transition: border-color 0.2s; }
+        .bench-card:hover { border-color: var(--border-hover); }
+        .bench-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+        .bench-value { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+        .bench-value span { color: var(--gold); }
+        .bench-context { font-size: 0.78rem; color: var(--text-2); }
+        .bench-bar { height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; margin-top: 10px; }
+        .bench-fill { height: 100%; border-radius: 3px; }
+
+        /* PSYCHOLOGY */
+        .psych-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+        .psych-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; transition: border-color 0.2s; }
+        .psych-card:hover { border-color: var(--border-hover); }
+        .psych-icon { font-size: 1.4rem; margin-bottom: 10px; }
+        .psych-card h3 { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 6px; }
+        .psych-card p { font-size: 0.82rem; color: var(--text-2); line-height: 1.55; margin-bottom: 8px; }
+        .psych-example { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 0.78rem; color: var(--text-2); }
+        .psych-example .highlight { color: var(--gold-light); font-family: 'JetBrains Mono', monospace; }
+
+        /* CTA */
+        .cta-section { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; margin: 48px 0; }
+        .cta-section h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+        .cta-section h2 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--gold); }
+        .cta-section p { color: var(--text-2); font-size: 0.9rem; max-width: 480px; margin: 0 auto 24px; }
+        .cta-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+        .cta-chip { display: inline-flex; align-items: center; gap: 6px; font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text-2); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; text-decoration: none; transition: all 0.2s; }
+        .cta-chip:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 48px 40px 32px; border-top: 1px solid var(--border); }
+        .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+        .footer-text { font-size: 0.75rem; color: var(--text-3); margin-top: 8px; }
+        .footer-text a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .footer-text a:hover { color: var(--gold); }
+
+        /* PRINT */
+        @media print {
+            nav, .grain, .hero-actions, .cta-section, footer, .model-link, .pk-reset, .btn-primary, .btn-secondary { display: none !important; }
+            body { background: #fff; color: #111; font-size: 10pt; }
+            .container { max-width: 100%; padding: 0 20px; }
+            .breadcrumb { display: none; }
+            .hero { padding: 10px 0; }
+            .hero h1 { font-size: 22pt; color: #111; }
+            .hero h1 em { color: #8b7430; }
+            .picker, .model-card, .tier-framework, .tier-col, .mistake, .bench-card, .psych-card { background: #fafafa; border-color: #ddd; break-inside: avoid; }
+            .pk-question, .model-how, .model-example, .psych-example { background: #f5f5f5; border-color: #ddd; }
+            .model-how code { color: #8b7430; }
+            .compare-table thead th { border-bottom-color: #ccc; }
+            .compare-table tbody td { border-bottom-color: #eee; }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .models-grid { grid-template-columns: 1fr; }
+            .psych-grid { grid-template-columns: 1fr; }
+            .tiers-row { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .nav-toggle { display: block; }
+            .breadcrumb { padding: 80px 20px 0; }
+            .container { padding: 0 20px; }
+            .hero h1 { font-size: 1.6rem; }
+            .picker { padding: 20px; }
+            .cta-section { padding: 28px 20px; }
+            .model-lists { grid-template-columns: 1fr; }
+            .pk-options { flex-direction: column; }
+            .benchmarks-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<svg class="grain" xmlns="http://www.w3.org/2000/svg"><filter id="g"><feTurbulence baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>
+
+<nav>
+    <a href="/" class="nav-logo">CADBORO LABS</a>
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/lead-magnets/saas-metrics-cheat-sheet/">Metrics Cheat Sheet</a></li>
+        <li><a href="/lead-magnets/feature-prioritization-playbook/">Prioritization Playbook</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <a href="/lead-magnets/">Resources</a><span class="sep">/</span>
+    SaaS Pricing Strategy Guide
+</div>
+
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+        <span class="hero-badge">Strategy Guide &mdash; 2026 Edition</span>
+        <h1>The SaaS Pricing <em>Strategy Guide</em></h1>
+        <p>Choose the right pricing model, structure your tiers, and avoid the mistakes that kill margins. Frameworks, benchmarks, and psychology for SaaS PMs.</p>
+        <div class="hero-actions">
+            <button class="btn-primary" onclick="window.print()">&#9662; Save as PDF</button>
+            <a href="/tools/saas-pricing-calculator/" class="btn-secondary">Open Pricing Calculator &rarr;</a>
+        </div>
+        <p class="hero-meta">6 pricing models &middot; Tier builder framework &middot; 7 costly mistakes &middot; Pricing psychology tactics</p>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 1: PRICING MODEL PICKER -->
+    <!-- ============================================= -->
+    <div class="section" id="model-picker">
+        <div class="section-header">
+            <span class="section-num">01</span>
+            <h2>Pick Your Pricing Model</h2>
+        </div>
+
+        <div class="picker">
+            <div class="picker-intro">
+                <h3>Which pricing model fits your SaaS?</h3>
+                <p>Answer three questions. We'll recommend the best starting point.</p>
+            </div>
+
+            <!-- Q1 -->
+            <div class="pk-question active" id="pq1">
+                <div class="pk-q-label">Question 1 of 3</div>
+                <div class="pk-q-text">How do customers get value from your product?</div>
+                <div class="pk-options">
+                    <div class="pk-opt" onclick="pAnswer(1,'usage')">The more they use it, the more value they get</div>
+                    <div class="pk-opt" onclick="pAnswer(1,'seats')">More team members = more value</div>
+                    <div class="pk-opt" onclick="pAnswer(1,'features')">Different customers need different feature sets</div>
+                    <div class="pk-opt" onclick="pAnswer(1,'outcome')">Value comes from a specific measurable outcome</div>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="pk-question" id="pq2" style="display:none">
+                <div class="pk-q-label">Question 2 of 3</div>
+                <div class="pk-q-text">What's your go-to-market motion?</div>
+                <div class="pk-options">
+                    <div class="pk-opt" onclick="pAnswer(2,'plg')">Product-led &mdash; users sign up and try before buying</div>
+                    <div class="pk-opt" onclick="pAnswer(2,'sales')">Sales-led &mdash; demos, trials, and contracts</div>
+                    <div class="pk-opt" onclick="pAnswer(2,'hybrid')">Hybrid &mdash; self-serve for SMB, sales for enterprise</div>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="pk-question" id="pq3" style="display:none">
+                <div class="pk-q-label">Question 3 of 3</div>
+                <div class="pk-q-text">What's your biggest pricing challenge right now?</div>
+                <div class="pk-options">
+                    <div class="pk-opt" onclick="pAnswer(3,'conversion')">Getting free users to convert to paid</div>
+                    <div class="pk-opt" onclick="pAnswer(3,'expansion')">Growing revenue from existing customers</div>
+                    <div class="pk-opt" onclick="pAnswer(3,'positioning')">Differentiating plans and reducing confusion</div>
+                    <div class="pk-opt" onclick="pAnswer(3,'enterprise')">Landing larger deals and moving upmarket</div>
+                </div>
+            </div>
+
+            <!-- RESULT -->
+            <div class="pk-result" id="pk-result">
+                <div class="pk-result-label">Recommended Model</div>
+                <div class="pk-result-model" id="pk-model-name"></div>
+                <div class="pk-result-why" id="pk-model-why"></div>
+                <a href="/tools/saas-pricing-calculator/" id="pk-model-link">Model your pricing &rarr;</a>
+                <br>
+                <button class="pk-reset" onclick="resetPicker()">Start over</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 2: THE SIX MODELS -->
+    <!-- ============================================= -->
+    <div class="section" id="models">
+        <div class="section-header">
+            <span class="section-num">02</span>
+            <h2>Six Pricing Models, Explained</h2>
+        </div>
+
+        <div class="models-grid">
+
+            <!-- Per-Seat -->
+            <div class="model-card" id="m-seat">
+                <div class="model-top">
+                    <div class="model-name">Per-Seat / Per-User</div>
+                    <span class="model-tag" style="color:var(--green);background:rgba(93,204,114,0.1)">Most Common</span>
+                </div>
+                <div class="model-subtitle">Charge per user, per month</div>
+                <div class="model-how">
+                    <div class="model-how-label">How it works</div>
+                    <code>MRR = Number of users &times; Price per seat<br>Example: 50 users &times; $15/seat = $750/mo</code>
+                </div>
+                <div class="model-lists">
+                    <div class="model-list pro">
+                        <h4>Pros</h4>
+                        <ul>
+                            <li>Predictable revenue per account</li>
+                            <li>Simple for buyers to understand</li>
+                            <li>Natural expansion as teams grow</li>
+                        </ul>
+                    </div>
+                    <div class="model-list con">
+                        <h4>Cons</h4>
+                        <ul>
+                            <li>Discourages adoption within org</li>
+                            <li>Seat sharing / login abuse</li>
+                            <li>Revenue caps when team is fully deployed</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="model-example">
+                    <div class="model-example-label">Who does it</div>
+                    <p><span class="highlight">Slack</span> &mdash; per-user pricing encourages broad adoption, then upgrades for advanced features. <span class="highlight">Figma</span> &mdash; per-editor seat with free viewers.</p>
+                </div>
+                <div class="model-footer">
+                    <div class="model-fit">
+                        <span class="model-fit-label">PLG Fit</span>
+                        <div class="model-dots"><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot"></div><div class="model-dot"></div></div>
+                    </div>
+                    <a href="/tools/mrr-calculator/" class="model-link">Model MRR &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Usage-Based -->
+            <div class="model-card" id="m-usage">
+                <div class="model-top">
+                    <div class="model-name">Usage-Based</div>
+                    <span class="model-tag" style="color:var(--blue);background:rgba(93,158,232,0.1)">Fastest Growing</span>
+                </div>
+                <div class="model-subtitle">Pay for what you consume</div>
+                <div class="model-how">
+                    <div class="model-how-label">How it works</div>
+                    <code>MRR = Units consumed &times; Price per unit<br>Example: 500K API calls &times; $0.001 = $500/mo</code>
+                </div>
+                <div class="model-lists">
+                    <div class="model-list pro">
+                        <h4>Pros</h4>
+                        <ul>
+                            <li>Zero barrier to start &mdash; pay as you go</li>
+                            <li>Revenue scales with customer success</li>
+                            <li>Built-in expansion revenue</li>
+                        </ul>
+                    </div>
+                    <div class="model-list con">
+                        <h4>Cons</h4>
+                        <ul>
+                            <li>Revenue is unpredictable month-to-month</li>
+                            <li>Hard for buyers to forecast spend</li>
+                            <li>Churn risk during low-usage periods</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="model-example">
+                    <div class="model-example-label">Who does it</div>
+                    <p><span class="highlight">Twilio</span> &mdash; per-API-call pricing tied directly to customer value. <span class="highlight">Snowflake</span> &mdash; compute credits consumed. <span class="highlight">AWS</span> &mdash; pay for what you use.</p>
+                </div>
+                <div class="model-footer">
+                    <div class="model-fit">
+                        <span class="model-fit-label">PLG Fit</span>
+                        <div class="model-dots"><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot filled"></div></div>
+                    </div>
+                    <a href="/tools/saas-pricing-calculator/" class="model-link">Model pricing &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Tiered / Feature-Based -->
+            <div class="model-card" id="m-tiered">
+                <div class="model-top">
+                    <div class="model-name">Tiered / Feature-Gated</div>
+                    <span class="model-tag" style="color:var(--orange);background:rgba(232,168,93,0.1)">Most Flexible</span>
+                </div>
+                <div class="model-subtitle">Good-Better-Best plans gated by features</div>
+                <div class="model-how">
+                    <div class="model-how-label">How it works</div>
+                    <code>3&ndash;4 tiers, each unlocking more features<br>Starter $29 &rarr; Pro $79 &rarr; Business $199 &rarr; Enterprise custom</code>
+                </div>
+                <div class="model-lists">
+                    <div class="model-list pro">
+                        <h4>Pros</h4>
+                        <ul>
+                            <li>Captures different willingness-to-pay</li>
+                            <li>Clear upgrade path and upsell triggers</li>
+                            <li>Familiar structure buyers expect</li>
+                        </ul>
+                    </div>
+                    <div class="model-list con">
+                        <h4>Cons</h4>
+                        <ul>
+                            <li>Feature packaging is hard to get right</li>
+                            <li>Can feel arbitrary ("why is SSO enterprise-only?")</li>
+                            <li>Requires constant iteration</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="model-example">
+                    <div class="model-example-label">Who does it</div>
+                    <p><span class="highlight">HubSpot</span> &mdash; Free, Starter, Pro, Enterprise with escalating features. <span class="highlight">Notion</span> &mdash; Free for personal, Team, Business, Enterprise.</p>
+                </div>
+                <div class="model-footer">
+                    <div class="model-fit">
+                        <span class="model-fit-label">PLG Fit</span>
+                        <div class="model-dots"><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot"></div></div>
+                    </div>
+                    <a href="/tools/saas-pricing-calculator/" class="model-link">Model tiers &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Freemium -->
+            <div class="model-card" id="m-freemium">
+                <div class="model-top">
+                    <div class="model-name">Freemium</div>
+                    <span class="model-tag" style="color:var(--purple);background:rgba(168,125,232,0.1)">PLG Standard</span>
+                </div>
+                <div class="model-subtitle">Free tier + paid upgrade</div>
+                <div class="model-how">
+                    <div class="model-how-label">How it works</div>
+                    <code>Free tier with usage or feature limits<br>Users upgrade when they hit the wall<br>Typical: 2&ndash;5% of free users convert to paid</code>
+                </div>
+                <div class="model-lists">
+                    <div class="model-list pro">
+                        <h4>Pros</h4>
+                        <ul>
+                            <li>Massive top-of-funnel &mdash; zero friction</li>
+                            <li>Product sells itself through usage</li>
+                            <li>Viral loops and word-of-mouth</li>
+                        </ul>
+                    </div>
+                    <div class="model-list con">
+                        <h4>Cons</h4>
+                        <ul>
+                            <li>Free users cost money to support/host</li>
+                            <li>Low conversion if "wall" is too generous</li>
+                            <li>Devalues product perception</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="model-example">
+                    <div class="model-example-label">Who does it</div>
+                    <p><span class="highlight">Dropbox</span> &mdash; 2 GB free, upgrade for storage. <span class="highlight">Calendly</span> &mdash; free for 1 event type. <span class="highlight">Loom</span> &mdash; free with video limits.</p>
+                </div>
+                <div class="model-footer">
+                    <div class="model-fit">
+                        <span class="model-fit-label">PLG Fit</span>
+                        <div class="model-dots"><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot filled"></div></div>
+                    </div>
+                    <a href="/tools/saas-pricing-calculator/" class="model-link">Model pricing &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Flat-Rate -->
+            <div class="model-card" id="m-flat">
+                <div class="model-top">
+                    <div class="model-name">Flat-Rate</div>
+                    <span class="model-tag" style="color:var(--teal);background:rgba(93,204,201,0.1)">Simplest</span>
+                </div>
+                <div class="model-subtitle">One price, everything included</div>
+                <div class="model-how">
+                    <div class="model-how-label">How it works</div>
+                    <code>Single plan: $X/month for everything<br>No tiers, no per-seat, no usage metering<br>Example: Basecamp &mdash; $349/mo, unlimited users</code>
+                </div>
+                <div class="model-lists">
+                    <div class="model-list pro">
+                        <h4>Pros</h4>
+                        <ul>
+                            <li>Dead simple to communicate</li>
+                            <li>No pricing confusion or "gotchas"</li>
+                            <li>Attracts value-conscious buyers</li>
+                        </ul>
+                    </div>
+                    <div class="model-list con">
+                        <h4>Cons</h4>
+                        <ul>
+                            <li>Leaves money on table from power users</li>
+                            <li>No natural expansion revenue</li>
+                            <li>Hard to serve both SMB and enterprise</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="model-example">
+                    <div class="model-example-label">Who does it</div>
+                    <p><span class="highlight">Basecamp</span> &mdash; one flat price, unlimited users. <span class="highlight">Buffer</span> (formerly) &mdash; simplified to one-price model for transparency.</p>
+                </div>
+                <div class="model-footer">
+                    <div class="model-fit">
+                        <span class="model-fit-label">PLG Fit</span>
+                        <div class="model-dots"><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot"></div><div class="model-dot"></div><div class="model-dot"></div></div>
+                    </div>
+                    <a href="/tools/saas-pricing-calculator/" class="model-link">Model pricing &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Hybrid -->
+            <div class="model-card" id="m-hybrid">
+                <div class="model-top">
+                    <div class="model-name">Hybrid / Per-Seat + Usage</div>
+                    <span class="model-tag" style="color:var(--red);background:rgba(232,93,93,0.1)">Advanced</span>
+                </div>
+                <div class="model-subtitle">Platform fee + variable usage component</div>
+                <div class="model-how">
+                    <div class="model-how-label">How it works</div>
+                    <code>Base platform fee + usage overage<br>Example: $99/mo base + $0.01 per transaction<br>Or: per-seat base + usage metering on top</code>
+                </div>
+                <div class="model-lists">
+                    <div class="model-list pro">
+                        <h4>Pros</h4>
+                        <ul>
+                            <li>Predictable base + upside from usage</li>
+                            <li>Aligns price with multiple value dimensions</li>
+                            <li>Captures enterprise and SMB</li>
+                        </ul>
+                    </div>
+                    <div class="model-list con">
+                        <h4>Cons</h4>
+                        <ul>
+                            <li>Complex to communicate on a pricing page</li>
+                            <li>Billing system complexity</li>
+                            <li>Harder to forecast for buyers</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="model-example">
+                    <div class="model-example-label">Who does it</div>
+                    <p><span class="highlight">Stripe</span> &mdash; transaction fees (usage) + monthly platform add-ons. <span class="highlight">Intercom</span> &mdash; seat-based + resolution-based pricing.</p>
+                </div>
+                <div class="model-footer">
+                    <div class="model-fit">
+                        <span class="model-fit-label">PLG Fit</span>
+                        <div class="model-dots"><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot filled"></div><div class="model-dot"></div><div class="model-dot"></div></div>
+                    </div>
+                    <a href="/tools/saas-pricing-calculator/" class="model-link">Model pricing &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 3: COMPARISON TABLE -->
+    <!-- ============================================= -->
+    <div class="section" id="comparison">
+        <div class="section-header">
+            <span class="section-num">03</span>
+            <h2>Side-by-Side Comparison</h2>
+        </div>
+        <div class="compare-wrap">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Revenue Predictability</th>
+                        <th>Expansion Revenue</th>
+                        <th>Buyer Simplicity</th>
+                        <th>PLG Fit</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="model-col">Per-Seat</td>
+                        <td class="good">High</td>
+                        <td class="ok">Medium</td>
+                        <td class="good">High</td>
+                        <td class="ok">Medium</td>
+                        <td>Collaboration tools, team software</td>
+                    </tr>
+                    <tr>
+                        <td class="model-col">Usage-Based</td>
+                        <td class="bad">Low</td>
+                        <td class="good">High</td>
+                        <td class="ok">Medium</td>
+                        <td class="good">High</td>
+                        <td>APIs, infrastructure, data platforms</td>
+                    </tr>
+                    <tr>
+                        <td class="model-col">Tiered</td>
+                        <td class="good">High</td>
+                        <td class="ok">Medium</td>
+                        <td class="ok">Medium</td>
+                        <td class="good">High</td>
+                        <td>Most B2B SaaS, broad feature sets</td>
+                    </tr>
+                    <tr>
+                        <td class="model-col">Freemium</td>
+                        <td class="ok">Medium</td>
+                        <td class="ok">Medium</td>
+                        <td class="good">High</td>
+                        <td class="good">High</td>
+                        <td>Viral products, large TAM</td>
+                    </tr>
+                    <tr>
+                        <td class="model-col">Flat-Rate</td>
+                        <td class="good">High</td>
+                        <td class="bad">Low</td>
+                        <td class="good">High</td>
+                        <td class="bad">Low</td>
+                        <td>Simple products, anti-complexity positioning</td>
+                    </tr>
+                    <tr>
+                        <td class="model-col">Hybrid</td>
+                        <td class="ok">Medium</td>
+                        <td class="good">High</td>
+                        <td class="bad">Low</td>
+                        <td class="ok">Medium</td>
+                        <td>Platforms, multi-product, fintech</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 4: TIER BUILDER FRAMEWORK -->
+    <!-- ============================================= -->
+    <div class="section" id="tier-builder">
+        <div class="section-header">
+            <span class="section-num">04</span>
+            <h2>The 4-Tier Builder Framework</h2>
+        </div>
+
+        <div class="tier-framework">
+            <h3>Structure your plans around buyer intent, not feature count</h3>
+            <p>Each tier should have a clear job: attract, convert, grow, or land enterprise. Here's the framework top SaaS companies use.</p>
+
+            <div class="tiers-row">
+                <div class="tier-col">
+                    <div class="tier-label" style="color:var(--teal)">Tier 1</div>
+                    <div class="tier-name">Free / Trial</div>
+                    <div class="tier-price">$0 / 14-day trial</div>
+                    <div class="tier-purpose">Job: Remove all friction. Let users experience the core value.</div>
+                    <ul class="tier-features">
+                        <li>Core workflow only &mdash; no extras</li>
+                        <li>Usage cap or time limit</li>
+                        <li>Single user / personal use</li>
+                        <li>Community support only</li>
+                        <li>Watermark or "Powered by" badge</li>
+                    </ul>
+                </div>
+
+                <div class="tier-col">
+                    <div class="tier-label" style="color:var(--green)">Tier 2</div>
+                    <div class="tier-name">Starter / Pro</div>
+                    <div class="tier-price">$19&ndash;$79/mo</div>
+                    <div class="tier-purpose">Job: Convert activated free users. The "no-brainer" upgrade.</div>
+                    <ul class="tier-features">
+                        <li>Everything in Free, plus:</li>
+                        <li>Higher or no usage limits</li>
+                        <li>Key integrations</li>
+                        <li>Remove branding</li>
+                        <li>Email support</li>
+                        <li>This is where most revenue starts</li>
+                    </ul>
+                </div>
+
+                <div class="tier-col">
+                    <div class="tier-label" style="color:var(--gold)">Tier 3</div>
+                    <div class="tier-name">Business / Team</div>
+                    <div class="tier-price">$99&ndash;$299/mo</div>
+                    <div class="tier-purpose">Job: Grow revenue from successful customers. Expansion tier.</div>
+                    <ul class="tier-features">
+                        <li>Everything in Starter, plus:</li>
+                        <li>Team collaboration features</li>
+                        <li>Advanced analytics / reporting</li>
+                        <li>Priority support + SLA</li>
+                        <li>Custom branding / white-label</li>
+                        <li>This is your margin driver</li>
+                    </ul>
+                </div>
+
+                <div class="tier-col">
+                    <div class="tier-label" style="color:var(--purple)">Tier 4</div>
+                    <div class="tier-name">Enterprise</div>
+                    <div class="tier-price">Custom / "Contact Sales"</div>
+                    <div class="tier-purpose">Job: Land large accounts. Justify a sales team.</div>
+                    <ul class="tier-features">
+                        <li>Everything in Business, plus:</li>
+                        <li>SSO / SAML / SCIM</li>
+                        <li>Custom contracts and SLAs</li>
+                        <li>Dedicated success manager</li>
+                        <li>Audit logs, compliance, SOC 2</li>
+                        <li>This is your ACV multiplier</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="tier-framework">
+            <h3>Feature packaging rules of thumb</h3>
+            <p>Where you put each feature determines your upgrade triggers. Get this wrong and you either give away too much or gate too aggressively.</p>
+            <div class="compare-wrap">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Feature Type</th>
+                            <th>Where to Put It</th>
+                            <th>Why</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="model-col">Core value</td>
+                            <td>Free tier</td>
+                            <td>Users must experience the "aha moment" to convert</td>
+                        </tr>
+                        <tr>
+                            <td class="model-col">Convenience</td>
+                            <td>Starter</td>
+                            <td>Nice-to-haves that remove friction (integrations, export)</td>
+                        </tr>
+                        <tr>
+                            <td class="model-col">Collaboration</td>
+                            <td>Business</td>
+                            <td>Team features expand seats and drive expansion revenue</td>
+                        </tr>
+                        <tr>
+                            <td class="model-col">Admin &amp; Security</td>
+                            <td>Enterprise</td>
+                            <td>SSO, audit logs, compliance &mdash; required by procurement</td>
+                        </tr>
+                        <tr>
+                            <td class="model-col">Volume / Limits</td>
+                            <td>Graduated</td>
+                            <td>Natural upgrade trigger as usage grows</td>
+                        </tr>
+                        <tr>
+                            <td class="model-col">Support level</td>
+                            <td>Graduated</td>
+                            <td>Community &rarr; Email &rarr; Priority &rarr; Dedicated</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 5: PRICING BENCHMARKS -->
+    <!-- ============================================= -->
+    <div class="section" id="benchmarks">
+        <div class="section-header">
+            <span class="section-num">05</span>
+            <h2>SaaS Pricing Benchmarks</h2>
+        </div>
+
+        <div class="benchmarks-grid">
+            <div class="bench-card">
+                <div class="bench-label">Freemium Conversion Rate</div>
+                <div class="bench-value"><span>2&ndash;5%</span></div>
+                <div class="bench-context">Free to paid. Top quartile hits 7%+. Below 1% = free tier too generous.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:15%;background:var(--gold)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Free Trial Conversion</div>
+                <div class="bench-value"><span>15&ndash;25%</span></div>
+                <div class="bench-context">Trial to paid. Opt-in trials: 15%. Credit card required: 40&ndash;60%.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:40%;background:var(--green)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Annual Discount</div>
+                <div class="bench-value"><span>15&ndash;20%</span> off</div>
+                <div class="bench-context">Standard annual discount. Show as "2 months free" for stronger framing.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:35%;background:var(--blue)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Net Revenue Retention</div>
+                <div class="bench-value"><span>&gt;110%</span></div>
+                <div class="bench-context">Best-in-class: 120&ndash;140%. Expansion revenue must outpace churn.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:75%;background:var(--green)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Tier 2:3 Price Ratio</div>
+                <div class="bench-value"><span>2.5&ndash;3.5x</span></div>
+                <div class="bench-context">Gap between Starter and Business. Too small = no incentive. Too big = sticker shock.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:55%;background:var(--orange)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Pricing Page Visitors That Buy</div>
+                <div class="bench-value"><span>1&ndash;3%</span></div>
+                <div class="bench-context">Of total pricing page visits. High-intent pages convert 5%+.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:10%;background:var(--purple)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Price Increase Frequency</div>
+                <div class="bench-value"><span>Every 6&ndash;12</span> mo</div>
+                <div class="bench-context">Most SaaS companies undercharge. Revisit pricing at least annually.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:60%;background:var(--teal)"></div></div>
+            </div>
+            <div class="bench-card">
+                <div class="bench-label">Optimal Number of Tiers</div>
+                <div class="bench-value"><span>3&ndash;4</span></div>
+                <div class="bench-context">3 for simplicity. 4 if you have a clear enterprise motion. Never more than 5.</div>
+                <div class="bench-bar"><div class="bench-fill" style="width:50%;background:var(--gold)"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 6: 7 COSTLY MISTAKES -->
+    <!-- ============================================= -->
+    <div class="section" id="mistakes">
+        <div class="section-header">
+            <span class="section-num">06</span>
+            <h2>7 Pricing Mistakes That Kill Margins</h2>
+        </div>
+
+        <div class="mistakes-grid">
+            <div class="mistake">
+                <div class="mistake-num">1</div>
+                <div class="mistake-body">
+                    <h3>Pricing based on cost, not value</h3>
+                    <p>You calculated your hosting costs, added a margin, and called it pricing. But your customer doesn't care what it costs you to run &mdash; they care what the outcome is worth to them.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Ask "What would this be worth if it worked perfectly?" and price at 10&ndash;20% of that value.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">2</div>
+                <div class="mistake-body">
+                    <h3>Too many tiers and add-ons</h3>
+                    <p>5 plans, 3 add-ons, a usage component, and a seat multiplier. By the time the buyer figures out their price, they've already bounced to a competitor with a simpler page.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> 3&ndash;4 tiers max. One value metric. If your pricing page needs a calculator, it's too complex.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">3</div>
+                <div class="mistake-body">
+                    <h3>Giving away the "aha moment" for free forever</h3>
+                    <p>Your free tier is so generous that users never hit a reason to upgrade. You have 100K free users and 200 paying customers.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Free tier should deliver the core value loop once or twice, then create natural friction. Usage limits > feature gates.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">4</div>
+                <div class="mistake-body">
+                    <h3>Never raising prices</h3>
+                    <p>You set your price at launch, it's been 3 years, you've 10x'd the product, and the price hasn't moved. You're leaving 30&ndash;50% revenue on the table.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Review pricing every 6&ndash;12 months. Grandfather existing customers if needed, but raise for new signups.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">5</div>
+                <div class="mistake-body">
+                    <h3>Hiding the price</h3>
+                    <p>"Contact Sales" on every tier. In a PLG world, buyers expect transparent pricing. Hidden prices signal "expensive" and kill self-serve conversion.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Show prices for all tiers except true enterprise (custom contracts). "Starting at" is fine for usage-based.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">6</div>
+                <div class="mistake-body">
+                    <h3>Discounting to close every deal</h3>
+                    <p>Your sales team gives 30%+ discounts on every deal. Customers expect it, renewals require it, and your ACV shrinks every quarter.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Cap discounts at 15&ndash;20% for annual commitment only. Never discount the first deal &mdash; add more value instead.</div>
+                </div>
+            </div>
+
+            <div class="mistake">
+                <div class="mistake-num">7</div>
+                <div class="mistake-body">
+                    <h3>Same price for all customer segments</h3>
+                    <p>A 5-person startup and a 5,000-person enterprise pay the same $49/month. The enterprise gets 100x the value and would gladly pay 20x the price.</p>
+                    <div class="mistake-fix"><strong>Fix:</strong> Segment by company size, usage, or value received. Value-based pricing means different prices for different outcomes.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SECTION 7: PRICING PSYCHOLOGY -->
+    <!-- ============================================= -->
+    <div class="section" id="psychology">
+        <div class="section-header">
+            <span class="section-num">07</span>
+            <h2>Pricing Psychology That Works</h2>
+        </div>
+
+        <div class="psych-grid">
+            <div class="psych-card">
+                <div class="psych-icon">&#9875;</div>
+                <h3>Anchoring</h3>
+                <p>Show the most expensive plan first (or a high "compare at" price) to make mid-tier feel reasonable. The first number buyers see shapes every comparison after.</p>
+                <div class="psych-example">
+                    <span class="highlight">Enterprise: $599</span> &rarr; <span class="highlight">Pro: $99</span> &rarr; Starter: $29<br>
+                    Pro feels like a steal compared to Enterprise.
+                </div>
+            </div>
+
+            <div class="psych-card">
+                <div class="psych-icon">&#127919;</div>
+                <h3>Decoy Effect</h3>
+                <p>Add a plan that's intentionally less attractive to make your target plan look like the obvious choice. The decoy exists to be compared against, not purchased.</p>
+                <div class="psych-example">
+                    Basic: $29 (5 users) &rarr; <span class="highlight">Pro: $79 (unlimited users)</span> &rarr; Plus: $69 (10 users)<br>
+                    Plus is the decoy &mdash; why pay $69 for 10 when $79 gets unlimited?
+                </div>
+            </div>
+
+            <div class="psych-card">
+                <div class="psych-icon">&#128176;</div>
+                <h3>Charm Pricing vs. Round Numbers</h3>
+                <p>$9.99 works in B2C. In B2B SaaS, round numbers ($49, $99, $199) signal quality and reduce cognitive load. Use $X9 for entry tiers, round for premium.</p>
+                <div class="psych-example">
+                    B2C / SMB: <span class="highlight">$9.99/mo</span> (bargain signal)<br>
+                    B2B / Mid-market: <span class="highlight">$99/mo</span> (quality signal)
+                </div>
+            </div>
+
+            <div class="psych-card">
+                <div class="psych-icon">&#128640;</div>
+                <h3>"Most Popular" Badge</h3>
+                <p>Highlight your target plan with a "Most Popular" or "Recommended" badge. Social proof reduces decision fatigue and nudges buyers toward the plan you want them on.</p>
+                <div class="psych-example">
+                    Starter &mdash; <span class="highlight">Pro &#9733; MOST POPULAR</span> &mdash; Enterprise<br>
+                    70% of signups should land on this plan.
+                </div>
+            </div>
+
+            <div class="psych-card">
+                <div class="psych-icon">&#128197;</div>
+                <h3>Annual Framing</h3>
+                <p>Frame annual plans as "2 months free" instead of "17% off." Loss aversion makes "free months" feel more valuable than an equivalent percentage discount.</p>
+                <div class="psych-example">
+                    Weak: <span class="highlight">Save 17% with annual billing</span><br>
+                    Strong: <span class="highlight">Get 2 months free &mdash; pay for 10, get 12</span>
+                </div>
+            </div>
+
+            <div class="psych-card">
+                <div class="psych-icon">&#128274;</div>
+                <h3>Loss Aversion Triggers</h3>
+                <p>During trials, show users what they'll lose when the trial ends. "Your 3 dashboards and 45 reports will be locked" is more motivating than "Upgrade to keep access."</p>
+                <div class="psych-example">
+                    Weak: "Upgrade to Pro for more features"<br>
+                    Strong: <span class="highlight">"Your 12 saved workflows will be paused in 3 days"</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>Model your <em>pricing.</em><br>Then test it.</h2>
+        <p>Our free SaaS Pricing Calculator lets you model tiers, project MRR, and compare scenarios &mdash; no signup required.</p>
+        <a href="/tools/saas-pricing-calculator/" class="btn-primary" style="display:inline-flex;">Open Pricing Calculator &rarr;</a>
+        <div class="cta-links">
+            <a href="/tools/mrr-calculator/" class="cta-chip">MRR Calculator &rarr;</a>
+            <a href="/lead-magnets/saas-metrics-cheat-sheet/" class="cta-chip">SaaS Metrics Cheat Sheet &rarr;</a>
+            <a href="/lead-magnets/feature-prioritization-playbook/" class="cta-chip">Prioritization Playbook &rarr;</a>
+            <a href="/tools/tam-calculator/" class="cta-chip">TAM/SAM/SOM &rarr;</a>
+            <a href="/tools/nps-calculator/" class="cta-chip">NPS Calculator &rarr;</a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <a href="/" class="footer-logo">CADBORO LABS</a>
+    <p class="footer-text">Built in Victoria, BC &mdash; <a href="/tools/">Free PM Tools</a></p>
+</footer>
+
+<script>
+const pState = { q1: null, q2: null, q3: null };
+
+function pAnswer(q, val) {
+    pState['q' + q] = val;
+
+    const qEl = document.getElementById('pq' + q);
+    qEl.querySelectorAll('.pk-opt').forEach(o => o.classList.remove('selected'));
+    event.target.classList.add('selected');
+
+    if (q === 1) {
+        document.getElementById('pq2').style.display = 'block';
+        document.getElementById('pq2').classList.add('active');
+        qEl.classList.remove('active');
+        document.getElementById('pq2').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (q === 2) {
+        document.getElementById('pq3').style.display = 'block';
+        document.getElementById('pq3').classList.add('active');
+        qEl.classList.remove('active');
+        document.getElementById('pq3').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (q === 3) {
+        qEl.classList.remove('active');
+        showPricingResult();
+    }
+}
+
+function showPricingResult() {
+    const { q1, q2, q3 } = pState;
+    let model, why, link;
+
+    if (q1 === 'usage' && q3 === 'expansion') {
+        model = 'Usage-Based Pricing';
+        why = 'Your value scales with usage and you want expansion revenue. Usage-based pricing aligns your revenue directly with customer success.';
+        link = '/tools/saas-pricing-calculator/';
+    } else if (q1 === 'usage' && q2 === 'plg') {
+        model = 'Usage-Based + Free Tier';
+        why = 'Product-led + usage-based is the fastest-growing pricing model in SaaS. Start free, pay as you scale. Think Twilio or Vercel.';
+        link = '/tools/saas-pricing-calculator/';
+    } else if (q1 === 'seats' && q3 === 'enterprise') {
+        model = 'Per-Seat with Enterprise Tier';
+        why = 'Per-seat works great for collaboration tools moving upmarket. Add an Enterprise tier with SSO, SCIM, and custom contracts.';
+        link = '/tools/mrr-calculator/';
+    } else if (q1 === 'seats') {
+        model = 'Per-Seat Pricing';
+        why = 'Your value grows with team size, making per-seat the natural metric. Simple to understand, predictable revenue, natural expansion.';
+        link = '/tools/mrr-calculator/';
+    } else if (q1 === 'features' && q3 === 'positioning') {
+        model = 'Tiered / Feature-Gated';
+        why = 'Different customers need different feature sets, and you need clearer differentiation. Feature-gated tiers let you serve SMB to Enterprise with one product.';
+        link = '/tools/saas-pricing-calculator/';
+    } else if (q1 === 'features' && q3 === 'conversion') {
+        model = 'Freemium + Feature Tiers';
+        why = 'A generous free tier for conversion plus feature-gated paid tiers gives you PLG acquisition with clear upgrade triggers.';
+        link = '/tools/saas-pricing-calculator/';
+    } else if (q1 === 'outcome') {
+        model = 'Value-Based / Outcome Pricing';
+        why = 'If you can tie price to a measurable outcome (revenue generated, time saved, leads delivered), you can capture a % of the value you create. Highest margins in SaaS.';
+        link = '/tools/saas-pricing-calculator/';
+    } else if (q2 === 'plg' && q3 === 'conversion') {
+        model = 'Freemium';
+        why = 'Product-led growth + conversion focus = freemium. Let users experience value before asking for money. Optimize the free-to-paid wall.';
+        link = '/tools/saas-pricing-calculator/';
+    } else if (q2 === 'sales' && q3 === 'enterprise') {
+        model = 'Tiered + Enterprise Custom';
+        why = 'Sales-led going upmarket needs published tiers for mid-market and custom pricing for enterprise. Show value, then negotiate.';
+        link = '/tools/saas-pricing-calculator/';
+    } else if (q2 === 'hybrid') {
+        model = 'Hybrid: Seat + Usage';
+        why = 'Hybrid GTM needs hybrid pricing. Platform fee (seats) for predictable revenue + usage component for expansion. Covers SMB self-serve and enterprise sales.';
+        link = '/tools/saas-pricing-calculator/';
+    } else {
+        model = 'Tiered / Feature-Gated';
+        why = 'Tiered pricing is the most versatile SaaS model. Start with 3 tiers (Starter, Pro, Enterprise), then iterate based on conversion data.';
+        link = '/tools/saas-pricing-calculator/';
+    }
+
+    const resultEl = document.getElementById('pk-result');
+    document.getElementById('pk-model-name').textContent = model;
+    document.getElementById('pk-model-why').textContent = why;
+    document.getElementById('pk-model-link').href = link;
+    resultEl.classList.add('show');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetPicker() {
+    pState.q1 = pState.q2 = pState.q3 = null;
+    document.querySelectorAll('.pk-opt').forEach(o => o.classList.remove('selected'));
+    document.getElementById('pq2').style.display = 'none';
+    document.getElementById('pq3').style.display = 'none';
+    document.getElementById('pk-result').classList.remove('show');
+    document.getElementById('pq1').classList.add('active');
+    document.getElementById('pq2').classList.remove('active');
+    document.getElementById('pq3').classList.remove('active');
+    document.getElementById('pq1').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+
+</body>
+</html>
