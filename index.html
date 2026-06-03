@@ -567,30 +567,6 @@
             color: var(--text);
             font-weight: 500;
         }
-        .authority-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-        .stat-card {
-            padding: 22px 20px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            text-align: center;
-        }
-        .stat-number {
-            font-family: 'Instrument Serif', serif;
-            font-size: 2rem;
-            color: var(--gold);
-            line-height: 1.1;
-        }
-        .stat-label {
-            font-size: 0.72rem;
-            color: var(--text-3);
-            margin-top: 6px;
-            letter-spacing: 0.04em;
-        }
 
         /* ===== Also By (De-emphasized products) ===== */
         .also-by {
@@ -786,7 +762,6 @@
             .skills-grid { grid-template-columns: repeat(2, 1fr); }
             .steps-grid { grid-template-columns: repeat(3, 1fr); }
             .authority-content { grid-template-columns: 1fr; gap: 32px; }
-            .authority-stats { grid-template-columns: repeat(4, 1fr); }
         }
         @media (max-width: 640px) {
             nav { padding: 16px 20px; }
@@ -809,7 +784,6 @@
             .problems-grid { grid-template-columns: 1fr; }
             .skills-grid { grid-template-columns: 1fr; }
             .steps-grid { grid-template-columns: 1fr; }
-            .authority-stats { grid-template-columns: repeat(2, 1fr); }
             section { padding: 52px 18px; }
             .footer-inner { grid-template-columns: 1fr; gap: 28px; }
             .also-by .container { flex-direction: column; gap: 16px; }
@@ -1004,46 +978,46 @@
 
             <div class="skill-card animate-in stagger-5">
                 <span class="skill-num">05</span>
-                <h3 class="skill-name">Jobs-to-be-Done Research</h3>
-                <p class="skill-desc">Analyzes customer interviews to uncover jobs, pains, and gains. Synthesizes themes and surfaces the one job that matters most.</p>
+                <h3 class="skill-name">Metrics Calculator</h3>
+                <p class="skill-desc">Computes MRR, LTV, CAC, payback period, and other key metrics from raw data. Exportable charts and dashboards for board presentations.</p>
                 <div class="skill-install">
-                    <code>claude skill install jtbd-research-skill</code>
-                    <button class="copy-btn" data-copy="claude skill install jtbd-research-skill" aria-label="Copy install command">
+                    <code>claude skill install metrics-skill</code>
+                    <button class="copy-btn" data-copy="claude skill install metrics-skill" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
                 <div class="skill-links">
-                    <a href="https://github.com/brandonsgitstub/jtbd-research-skill" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
+                    <a href="https://github.com/brandonsgitstub/metrics-skill" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
                 </div>
             </div>
 
             <div class="skill-card animate-in stagger-6">
                 <span class="skill-num">06</span>
                 <h3 class="skill-name">SaaS Pricing Analyzer</h3>
-                <p class="skill-desc">Models pricing strategies, calculates MRR at scale, and recommends packaging. Includes cohort analysis and willingness-to-pay scoring.</p>
+                <p class="skill-desc">Models pricing tiers, compares willingness-to-pay, and runs sensitivity analysis. Outputs a full pricing strategy doc ready to share.</p>
                 <div class="skill-install">
-                    <code>claude skill install pricing-skill</code>
-                    <button class="copy-btn" data-copy="claude skill install pricing-skill" aria-label="Copy install command">
+                    <code>claude skill install pricing-analyzer</code>
+                    <button class="copy-btn" data-copy="claude skill install pricing-analyzer" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
                 <div class="skill-links">
-                    <a href="https://github.com/brandonsgitstub/pricing-skill" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
+                    <a href="https://github.com/brandonsgitstub/pricing-analyzer" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
                 </div>
             </div>
 
             <div class="skill-card animate-in stagger-7">
                 <span class="skill-num">07</span>
-                <h3 class="skill-name">Product Design Brief</h3>
-                <p class="skill-desc">Translates PRDs and user stories into design briefs. Includes user personas, user flows, and design system recommendations.</p>
+                <h3 class="skill-name">SaaS Pricing Analyzer</h3>
+                <p class="skill-desc">Models pricing tiers, compares willingness-to-pay, and runs sensitivity analysis. Outputs a full pricing strategy doc ready to share.</p>
                 <div class="skill-install">
-                    <code>claude skill install design-brief-skill</code>
-                    <button class="copy-btn" data-copy="claude skill install design-brief-skill" aria-label="Copy install command">
+                    <code>claude skill install pricing-analyzer</code>
+                    <button class="copy-btn" data-copy="claude skill install pricing-analyzer" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
                 <div class="skill-links">
-                    <a href="https://github.com/brandonsgitstub/design-brief-skill" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
+                    <a href="https://github.com/brandonsgitstub/pricing-analyzer" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
                 </div>
             </div>
 
@@ -1093,133 +1067,137 @@
 
             <div class="step-card animate-in stagger-3">
                 <div class="step-number">3</div>
-                <h3 class="step-title">Plugin marketplace</h3>
-                <p class="step-desc">Browse and install from a marketplace inside Claude Code. Installing a plugin brings in all the skills it bundles — add any GitHub repo as a source.</p>
-                <code class="step-code">/plugin</code>
+                <h3 class="step-title">Cadboro marketplace (one command)</h3>
+                <p class="step-desc">Add the Cadboro Labs marketplace once inside Claude Code, then install any skill by name. Updates come automatically.</p>
+                <code class="step-code">/plugin marketplace add brandonsgitstub/cadboro-marketplace</code>
+                <code class="step-code">/plugin install product-roadmap@cadboro-labs</code>
             </div>
         </div>
 
-        <div style="margin-top: 48px; padding: 28px 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; text-align: center;">
-            <p style="font-size: 0.95rem; color: var(--text-2); margin-bottom: 16px;">Then just ask:</p>
-            <code style="font-family: 'Courier New', Courier, monospace; font-size: 0.82rem; color: var(--gold); background: var(--bg); border: 1px solid var(--border); padding: 14px 16px; border-radius: 6px; display: block;">claude "Turn our backlog into a roadmap — the goal this half is activation"</code>
-            <p style="font-size: 0.75rem; color: var(--text-3); margin-top: 16px; line-height: 1.6;">Custom skills require a Pro, Max, Team, or Enterprise plan with code execution enabled. Skills don't sync across surfaces — install on each one you use.</p>
+        <div style="margin-top: 48px; text-align: center;">
+            <p style="font-size: 0.88rem; color: var(--text-2); margin-bottom: 16px;">Then just ask:</p>
+            <code class="step-code" style="display: inline-block;">claude "Turn our backlog into a roadmap — the goal this half is activation"</code>
         </div>
+
+        <p style="font-size: 0.82rem; color: var(--text-3); margin-top: 32px; text-align: center; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Custom skills require a Pro, Max, Team, or Enterprise plan with code execution enabled. Skills don't sync across surfaces — install on each one you use.
+        </p>
     </div>
 </section>
 
 <!-- Authority / Social Proof -->
-<section id="about">
+<section id="authority">
     <div class="container">
         <div class="section-label animate-in">
             <span class="label-num">04</span>
             <span class="label-line"></span>
             <span class="label-text">Built by a PM</span>
         </div>
+        <h2 class="section-title animate-in">Tools built from real product experience</h2>
 
-        <div class="authority-content">
-            <div class="authority-bio animate-in">
-                <p style="margin-bottom: 16px;">
-                    Tools built from real product experience. <strong>Brandon</strong> has shipped 3 products, reviewed 300+ apps, and led product strategy at three startups. The skills here solve the problems he faced every day — the gaps between a good idea and ship-ready spec.
-                </p>
-                <p>
-                    Each skill gets battle-tested in production. Feedback loops close fast. The goal: tools that think like PMs work.
-                </p>
+        <div class="authority-content animate-in">
+            <div class="authority-bio">
+                <p><strong>Brandon Stewart</strong> shipped products at three different stages of company growth: pre-product-market fit, scaling, and acquisition. He's shipped PRDs that actually drove shipping, defined pricing models that stuck through acquisitions, and built roadmaps that were boring enough to not need revision.</p>
             </div>
-
-            <div class="authority-stats animate-in">
-                <!-- Stats have been removed as per the update instructions -->
-            </div>
-        </div>
-
-        <div class="also-by">
-            <div class="container">
-                <span class="also-by-label">Also by Cadboro Labs</span>
-                <div class="also-by-links">
-                    <a href="/tools/" class="also-by-link">
-                        Free PM Tools
-                        <span>→</span>
-                    </a>
-                    <a href="https://github.com/brandonsgitstub" target="_blank" rel="noopener" class="also-by-link">
-                        GitHub
-                        <span>→</span>
-                    </a>
-                </div>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="70" cy="70" r="68" stroke="var(--border)" stroke-width="1"/>
+                    <circle cx="70" cy="60" r="20" fill="var(--gold-dim)"/>
+                    <path d="M50 95 Q50 80 70 80 Q90 80 90 95 Q90 120 70 125 Q50 120 50 95" fill="var(--gold-dim)"/>
+                </svg>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Also By -->
+<div class="also-by">
+    <div class="container">
+        <span class="also-by-label">Also by Cadboro Labs</span>
+        <div class="also-by-links">
+            <a href="https://azelab.com" class="also-by-link" target="_blank" rel="noopener">Azelab <span>→</span></a>
+            <a href="https://missinglettr.com" class="also-by-link" target="_blank" rel="noopener">Missinglettr <span>→</span></a>
+            <a href="https://yapform.com" class="also-by-link" target="_blank" rel="noopener">Yapform <span>→</span></a>
+        </div>
+    </div>
+</div>
 
 <!-- Footer -->
 <footer>
     <div class="footer-inner">
         <div>
             <div class="footer-brand-name">CADBORO LABS</div>
-            <p class="footer-tagline">AI-powered tools and skills for product managers. Open-source, built in public.</p>
+            <p class="footer-tagline">Open-source Claude Code skills for product managers. Built by Brandon Stewart in Victoria, BC.</p>
         </div>
         <div class="footer-newsletter">
-            <label class="footer-newsletter-label">Get updates</label>
-            <form class="newsletter-form" onsubmit="event.preventDefault();">
+            <label class="footer-newsletter-label">Join our list</label>
+            <form class="newsletter-form" method="POST" action="#">
                 <input type="email" class="newsletter-input" placeholder="your@email.com" required>
                 <button type="submit" class="newsletter-submit">Subscribe</button>
             </form>
         </div>
         <div class="footer-socials">
-            <a href="https://github.com/brandonsgitstub" target="_blank" rel="noopener" class="social-link">
-                GitHub
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener" class="social-link">
-                Twitter
-            </a>
+            <a href="https://github.com/brandonsgitstub" class="social-link" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://twitter.com/brandonsgitstub" class="social-link" target="_blank" rel="noopener">Twitter</a>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; 2026 Cadboro Labs. All rights reserved. | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+        <p>&copy; 2026 Cadboro Labs. All rights reserved.</p>
     </div>
 </footer>
 
 <script>
-    // Navigation scroll effect
+    // Scroll effects
     const nav = document.querySelector('nav');
     window.addEventListener('scroll', () => {
         nav.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Mobile menu toggle
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    navToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('open');
-    });
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
 
-    // Close menu on link click
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('open');
-        });
-    });
-
-    // Intersection Observer for animations
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, observerOptions);
 
     document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
 
-    // Copy to clipboard
+    // Copy button functionality
     document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', async () => {
+        btn.addEventListener('click', async (e) => {
             const text = btn.dataset.copy;
             try {
                 await navigator.clipboard.writeText(text);
+                const originalLabel = btn.getAttribute('aria-label');
                 btn.classList.add('copied');
-                setTimeout(() => btn.classList.remove('copied'), 2000);
+                btn.setAttribute('aria-label', 'Copied!');
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.setAttribute('aria-label', originalLabel);
+                }, 2000);
             } catch (err) {
                 console.error('Failed to copy:', err);
             }
+        });
+    });
+
+    // Mobile menu toggle
+    document.querySelector('.nav-toggle').addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.toggle('open');
+    });
+
+    // Close mobile menu when link is clicked
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.remove('open');
         });
     });
 </script>
