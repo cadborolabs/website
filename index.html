@@ -567,6 +567,18 @@
             color: var(--text);
             font-weight: 500;
         }
+        .authority-photo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .authority-photo img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--border);
+        }
 
         /* ===== Also By (De-emphasized products) ===== */
         .also-by {
@@ -1008,33 +1020,37 @@
 
             <div class="skill-card animate-in stagger-7">
                 <span class="skill-num">07</span>
-                <h3 class="skill-name">SaaS Pricing Analyzer</h3>
-                <p class="skill-desc">Models pricing tiers, compares willingness-to-pay, and runs sensitivity analysis. Outputs a full pricing strategy doc ready to share.</p>
+                <h3 class="skill-name">Roadmap Builder</h3>
+                <p class="skill-desc">Automatically sequences your prioritized features into quarters, accounting for dependencies. Generates executive summary and ship milestones.</p>
                 <div class="skill-install">
-                    <code>claude skill install pricing-analyzer</code>
-                    <button class="copy-btn" data-copy="claude skill install pricing-analyzer" aria-label="Copy install command">
+                    <code>claude skill install roadmap-builder</code>
+                    <button class="copy-btn" data-copy="claude skill install roadmap-builder" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
                 <div class="skill-links">
-                    <a href="https://github.com/brandonsgitstub/pricing-analyzer" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
+                    <a href="https://github.com/brandonsgitstub/roadmap-builder" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
                 </div>
             </div>
 
             <div class="skill-card animate-in stagger-8">
                 <span class="skill-num">08</span>
-                <h3 class="skill-name">Product Roadmap Generator</h3>
-                <p class="skill-desc">Turns a backlog, prioritization output, or rough brain dump into a structured, communicable roadmap — Now/Next/Later, themed, or quarterly. Each item carries its rationale, dependencies, and success signal, so the sequence survives a skeptical question.</p>
+                <h3 class="skill-name">Design Spec Generator</h3>
+                <p class="skill-desc">Takes PRD + roadmap and produces Figma-ready design specs with wireframes, user flows, and interaction patterns.</p>
                 <div class="skill-install">
-                    <code>claude skill install product-roadmap-skill</code>
-                    <button class="copy-btn" data-copy="claude skill install product-roadmap-skill" aria-label="Copy install command">
+                    <code>claude skill install design-spec-gen</code>
+                    <button class="copy-btn" data-copy="claude skill install design-spec-gen" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
                 <div class="skill-links">
-                    <a href="https://github.com/brandonsgitstub/product-roadmap-skill" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
+                    <a href="https://github.com/brandonsgitstub/design-spec-gen" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
                 </div>
             </div>
+        </div>
+
+        <div class="skills-cta animate-in">
+            <a href="https://github.com/brandonsgitstub" class="btn-secondary">View all skills on GitHub</a>
         </div>
     </div>
 </section>
@@ -1045,53 +1061,39 @@
         <div class="section-label animate-in">
             <span class="label-num">03</span>
             <span class="label-line"></span>
-            <span class="label-text">Get Started</span>
+            <span class="label-text">Getting Started</span>
         </div>
-        <h2 class="section-title animate-in">Install in minutes — wherever you use Claude</h2>
-        <p class="section-desc animate-in">Pick the surface you already work in. Each skill is a small, open-source bundle that drops right in.</p>
+        <h2 class="section-title animate-in">Install any skill in three steps</h2>
+        <p class="section-desc animate-in">Skills are Claude Code extensions. You need Claude Code enabled and your workspace set up.</p>
 
         <div class="steps-grid">
             <div class="step-card animate-in stagger-1">
                 <div class="step-number">1</div>
-                <h3 class="step-title">Claude apps (web &amp; desktop)</h3>
-                <p class="step-desc">In Claude's settings, open <strong>Skills</strong> under Capabilities, choose <strong>Create skill</strong>, and upload the skill folder as a ZIP.</p>
-                <code class="step-code">Settings → Skills → Create skill → upload .zip</code>
+                <h3 class="step-title">Enable Claude Code</h3>
+                <p class="step-desc">Open Claude and switch your project to <strong>Code</strong> mode. You'll see a terminal environment.</p>
             </div>
-
             <div class="step-card animate-in stagger-2">
                 <div class="step-number">2</div>
-                <h3 class="step-title">Claude Code</h3>
-                <p class="step-desc">Drop the skill into your skills directory — Claude Code picks it up automatically. Use a per-project folder to share it with your team via git.</p>
-                <code class="step-code">~/.claude/skills/product-roadmap-skill/</code>
+                <h3 class="step-title">Install the skill</h3>
+                <p class="step-desc">Run the install command for any skill. It takes seconds.</p>
+                <code class="step-code">claude skill install prd-skill</code>
             </div>
-
             <div class="step-card animate-in stagger-3">
                 <div class="step-number">3</div>
-                <h3 class="step-title">Cadboro marketplace (one command)</h3>
-                <p class="step-desc">Add the Cadboro Labs marketplace once inside Claude Code, then install any skill by name. Updates come automatically.</p>
-                <code class="step-code">/plugin marketplace add brandonsgitstub/cadboro-marketplace</code>
-                <code class="step-code">/plugin install product-roadmap@cadboro-labs</code>
+                <h3 class="step-title">Run it</h3>
+                <p class="step-desc">Invoke the skill with your data and let Claude do the work. Output is ready to ship.</p>
             </div>
         </div>
-
-        <div style="margin-top: 48px; text-align: center;">
-            <p style="font-size: 0.88rem; color: var(--text-2); margin-bottom: 16px;">Then just ask:</p>
-            <code class="step-code" style="display: inline-block;">claude "Turn our backlog into a roadmap — the goal this half is activation"</code>
-        </div>
-
-        <p style="font-size: 0.82rem; color: var(--text-3); margin-top: 32px; text-align: center; max-width: 600px; margin-left: auto; margin-right: auto;">
-            Custom skills require a Pro, Max, Team, or Enterprise plan with code execution enabled. Skills don't sync across surfaces — install on each one you use.
-        </p>
     </div>
 </section>
 
-<!-- Authority / Social Proof -->
-<section id="authority">
+<!-- Authority Section -->
+<section id="about">
     <div class="container">
         <div class="section-label animate-in">
             <span class="label-num">04</span>
             <span class="label-line"></span>
-            <span class="label-text">Built by a PM</span>
+            <span class="label-text">Built by</span>
         </div>
         <h2 class="section-title animate-in">Tools built from real product experience</h2>
 
@@ -1099,12 +1101,8 @@
             <div class="authority-bio">
                 <p><strong>Brandon Gains</strong> shipped products at three different stages of company growth: pre-product-market fit, scaling, and acquisition. He's shipped PRDs that actually drove shipping, defined pricing models that stuck through acquisitions, and built roadmaps that were boring enough to not need revision.</p>
             </div>
-            <div style="display: flex; justify-content: center; align-items: center;">
-                <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="70" cy="70" r="68" stroke="var(--border)" stroke-width="1"/>
-                    <circle cx="70" cy="60" r="20" fill="var(--gold-dim)"/>
-                    <path d="M50 95 Q50 80 70 80 Q90 80 90 95 Q90 120 70 125 Q50 120 50 95" fill="var(--gold-dim)"/>
-                </svg>
+            <div class="authority-photo">
+                <img src="/images/brandon-gains-profile.jpg" alt="Brandon Gains">
             </div>
         </div>
     </div>
@@ -1150,54 +1148,65 @@
     // Scroll effects
     const nav = document.querySelector('nav');
     window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 50);
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
     });
 
-    // Intersection Observer for fade-in animations
+    // Mobile menu toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+        });
+    }
+
+    // Scroll to top and close menu on nav link click
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            if (navToggle) {
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+
+    // Intersection Observer for animations
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -100px 0px'
     };
 
-    const observer = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+    document.querySelectorAll('.animate-in').forEach(el => {
+        observer.observe(el);
+    });
 
     // Copy button functionality
     document.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', async (e) => {
+            e.preventDefault();
             const text = btn.dataset.copy;
             try {
                 await navigator.clipboard.writeText(text);
-                const originalLabel = btn.getAttribute('aria-label');
                 btn.classList.add('copied');
-                btn.setAttribute('aria-label', 'Copied!');
                 setTimeout(() => {
                     btn.classList.remove('copied');
-                    btn.setAttribute('aria-label', originalLabel);
                 }, 2000);
             } catch (err) {
                 console.error('Failed to copy:', err);
             }
-        });
-    });
-
-    // Mobile menu toggle
-    document.querySelector('.nav-toggle').addEventListener('click', () => {
-        document.querySelector('.nav-links').classList.toggle('open');
-    });
-
-    // Close mobile menu when link is clicked
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            document.querySelector('.nav-links').classList.remove('open');
         });
     });
 </script>
