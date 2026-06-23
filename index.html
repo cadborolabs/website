@@ -767,6 +767,7 @@
         .stagger-6 { transition-delay: 0.40s; }
         .stagger-7 { transition-delay: 0.48s; }
         .stagger-8 { transition-delay: 0.56s; }
+        .stagger-9 { transition-delay: 0.64s; }
 
         /* ===== Responsive ===== */
         @media (max-width: 960px) {
@@ -873,28 +874,28 @@
                 <span class="problem-icon" aria-hidden="true">&#9998;</span>
                 <h3 class="problem-pain">PRDs take hours and still lack specificity</h3>
                 <p class="problem-desc">Engineering asks for more detail. Stakeholders want more context. You rewrite the same doc three times before sprint planning.</p>
-                <span class="problem-solution">Solved by prd-skill &rarr;</span>
+                <span class="problem-solution">Solved by prd-generator &rarr;</span>
             </div>
 
             <div class="problem-card animate-in stagger-2">
                 <span class="problem-icon" aria-hidden="true">&#9881;</span>
                 <h3 class="problem-pain">User stories lack acceptance criteria</h3>
                 <p class="problem-desc">Developers start work on vague tickets, discover edge cases mid-sprint, and scope creep becomes the norm.</p>
-                <span class="problem-solution">Solved by user-story-skill &rarr;</span>
+                <span class="problem-solution">Solved by user-story-generator &rarr;</span>
             </div>
 
             <div class="problem-card animate-in stagger-3">
                 <span class="problem-icon" aria-hidden="true">&#9878;</span>
                 <h3 class="problem-pain">Prioritization is gut-feel, not data-driven</h3>
                 <p class="problem-desc">Your backlog is a wish list. Stakeholders lobby for pet features. Nobody can explain why Feature X beat Feature Y.</p>
-                <span class="problem-solution">Solved by feature-prio-skill &rarr;</span>
+                <span class="problem-solution">Solved by feature-prioritization &rarr;</span>
             </div>
 
             <div class="problem-card animate-in stagger-4">
                 <span class="problem-icon" aria-hidden="true">&#9741;</span>
                 <h3 class="problem-pain">Customer research cycles are too slow</h3>
                 <p class="problem-desc">By the time you design an interview guide, recruit participants, and synthesize findings, the window has moved.</p>
-                <span class="problem-solution">Solved by jtbd-skill &rarr;</span>
+                <span class="problem-solution">Solved by jtbd-research &rarr;</span>
             </div>
         </div>
     </div>
@@ -908,7 +909,7 @@
             <span class="label-line"></span>
             <span class="label-text">The Toolkit</span>
         </div>
-        <h2 class="section-title animate-in">Eight skills. One complete PM workflow.</h2>
+        <h2 class="section-title animate-in">Nine skills. One complete PM workflow.</h2>
         <p class="section-desc animate-in">Each skill plugs directly into Claude Code. Research, spec, build, prioritize, design &mdash; all from your terminal.</p>
 
         <div class="skills-workflow animate-in">
@@ -933,8 +934,8 @@
                 <h3 class="skill-name">PRD Generator</h3>
                 <p class="skill-desc">Turns rough ideas into structured, eng-ready Product Requirements Documents with metrics, requirements, and milestones.</p>
                 <div class="skill-install">
-                    <code>claude skill install prd-skill</code>
-                    <button class="copy-btn" data-copy="claude skill install prd-skill" aria-label="Copy install command">
+                    <code>/plugin install prd-generator@cadboro-labs</code>
+                    <button class="copy-btn" data-copy="/plugin install prd-generator@cadboro-labs" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
@@ -948,8 +949,8 @@
                 <h3 class="skill-name">User Story Generator</h3>
                 <p class="skill-desc">Converts any feature description into dev-ready user stories with Given/When/Then acceptance criteria and edge cases.</p>
                 <div class="skill-install">
-                    <code>claude skill install user-story-skill</code>
-                    <button class="copy-btn" data-copy="claude skill install user-story-skill" aria-label="Copy install command">
+                    <code>/plugin install user-story-generator@cadboro-labs</code>
+                    <button class="copy-btn" data-copy="/plugin install user-story-generator@cadboro-labs" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
@@ -963,8 +964,8 @@
                 <h3 class="skill-name">Feature Prioritization</h3>
                 <p class="skill-desc">Scores and ranks your backlog using the RICE framework. Produces a ranked scorecard and narrative brief you can share with stakeholders.</p>
                 <div class="skill-install">
-                    <code>claude skill install feature-prio-skill</code>
-                    <button class="copy-btn" data-copy="claude skill install feature-prio-skill" aria-label="Copy install command">
+                    <code>/plugin install feature-prioritization@cadboro-labs</code>
+                    <button class="copy-btn" data-copy="/plugin install feature-prioritization@cadboro-labs" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
@@ -978,8 +979,8 @@
                 <h3 class="skill-name">JTBD Interview Guide</h3>
                 <p class="skill-desc">Generates complete Jobs-to-be-Done interview guides with screener criteria, warm-up sequences, and synthesis frameworks.</p>
                 <div class="skill-install">
-                    <code>claude skill install jtbd-skill</code>
-                    <button class="copy-btn" data-copy="claude skill install jtbd-skill" aria-label="Copy install command">
+                    <code>/plugin install jtbd-research@cadboro-labs</code>
+                    <button class="copy-btn" data-copy="/plugin install jtbd-research@cadboro-labs" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
@@ -993,64 +994,75 @@
                 <h3 class="skill-name">Metrics Calculator</h3>
                 <p class="skill-desc">Computes MRR, LTV, CAC, payback period, and other key metrics from raw data. Exportable charts and dashboards for board presentations.</p>
                 <div class="skill-install">
-                    <code>claude skill install metrics-skill</code>
-                    <button class="copy-btn" data-copy="claude skill install metrics-skill" aria-label="Copy install command">
+                    <code>/plugin install saas-metrics@cadboro-labs</code>
+                    <button class="copy-btn" data-copy="/plugin install saas-metrics@cadboro-labs" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
                 <div class="skill-links">
-                    <a href="https://github.com/brandonsgitstub/metrics-skill" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
+                    <a href="https://github.com/brandonsgitstub/saas-metrics-skill" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
                 </div>
             </div>
 
             <div class="skill-card animate-in stagger-6">
                 <span class="skill-num">06</span>
                 <h3 class="skill-name">SaaS Pricing Analyzer</h3>
-                <p class="skill-desc">Models pricing tiers, compares willingness-to-pay, and runs sensitivity analysis. Outputs a full pricing strategy doc ready to share.</p>
+                <p class="skill-desc">Models pricing tiers, analyzes margins, and projects revenue at scale. Includes break-even analysis and benchmark comparisons.</p>
                 <div class="skill-install">
-                    <code>claude skill install pricing-analyzer</code>
-                    <button class="copy-btn" data-copy="claude skill install pricing-analyzer" aria-label="Copy install command">
+                    <code>/plugin install saas-pricing@cadboro-labs</code>
+                    <button class="copy-btn" data-copy="/plugin install saas-pricing@cadboro-labs" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
                 <div class="skill-links">
-                    <a href="https://github.com/brandonsgitstub/pricing-analyzer" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
+                    <a href="https://github.com/brandonsgitstub/saas-pricing-skill" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
                 </div>
             </div>
 
             <div class="skill-card animate-in stagger-7">
                 <span class="skill-num">07</span>
                 <h3 class="skill-name">Roadmap Builder</h3>
-                <p class="skill-desc">Automatically sequences your prioritized features into quarters, accounting for dependencies. Generates executive summary and ship milestones.</p>
+                <p class="skill-desc">Transforms prioritized features into visual, narrative roadmaps aligned with OKRs, themes, and release timelines.</p>
                 <div class="skill-install">
-                    <code>claude skill install roadmap-builder</code>
-                    <button class="copy-btn" data-copy="claude skill install roadmap-builder" aria-label="Copy install command">
+                    <code>/plugin install product-roadmap@cadboro-labs</code>
+                    <button class="copy-btn" data-copy="/plugin install product-roadmap@cadboro-labs" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
                 <div class="skill-links">
-                    <a href="https://github.com/brandonsgitstub/roadmap-builder" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
+                    <a href="https://github.com/brandonsgitstub/product-roadmap-skill" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
                 </div>
             </div>
 
             <div class="skill-card animate-in stagger-8">
                 <span class="skill-num">08</span>
                 <h3 class="skill-name">Design Spec Generator</h3>
-                <p class="skill-desc">Takes PRD + roadmap and produces Figma-ready design specs with wireframes, user flows, and interaction patterns.</p>
+                <p class="skill-desc">Converts PRDs and roadmaps into design specs with wireframes, user flows, design tokens, and handoff-ready component specs.</p>
                 <div class="skill-install">
-                    <code>claude skill install design-spec-gen</code>
-                    <button class="copy-btn" data-copy="claude skill install design-spec-gen" aria-label="Copy install command">
+                    <code>/plugin install design-spec@cadboro-labs</code>
+                    <button class="copy-btn" data-copy="/plugin install design-spec@cadboro-labs" aria-label="Copy install command">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
                 <div class="skill-links">
-                    <a href="https://github.com/brandonsgitstub/design-spec-gen" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
+                    <a href="https://github.com/brandonsgitstub/design-spec-skill" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
                 </div>
             </div>
-        </div>
 
-        <div class="skills-cta animate-in">
-            <a href="https://github.com/brandonsgitstub" class="btn-secondary">View all skills on GitHub</a>
+            <div class="skill-card animate-in stagger-9">
+                <span class="skill-num">09</span>
+                <h3 class="skill-name">Anti-AI Design</h3>
+                <p class="skill-desc">Generates distinctive, non-generic frontend interfaces with design tokens, typography, and layout choices that don't read as templated AI defaults.</p>
+                <div class="skill-install">
+                    <code>/plugin install anti-ai-design@cadboro-labs</code>
+                    <button class="copy-btn" data-copy="/plugin install anti-ai-design@cadboro-labs" aria-label="Copy install command">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
+                </div>
+                <div class="skill-links">
+                    <a href="https://github.com/brandonsgitstub/anti-ai-design-skill" target="_blank" rel="noopener" class="skill-link">GitHub &rarr;</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -1063,46 +1075,61 @@
             <span class="label-line"></span>
             <span class="label-text">Getting Started</span>
         </div>
-        <h2 class="section-title animate-in">Install any skill in three steps</h2>
-        <p class="section-desc animate-in">Skills are Claude Code extensions. You need Claude Code enabled and your workspace set up.</p>
+        <h2 class="section-title animate-in">Three steps to superpowers</h2>
+        <p class="section-desc animate-in">Install in Code mode (terminal). Skills work across all your projects.</p>
 
         <div class="steps-grid">
             <div class="step-card animate-in stagger-1">
                 <div class="step-number">1</div>
-                <h3 class="step-title">Enable Claude Code</h3>
-                <p class="step-desc">Open Claude and switch your project to <strong>Code</strong> mode. You'll see a terminal environment.</p>
+                <h3 class="step-title">Open Claude Code</h3>
+                <p class="step-desc">Switch your project to <strong>Code</strong> mode (terminal). Skills install once and work across all your projects.</p>
             </div>
+
             <div class="step-card animate-in stagger-2">
                 <div class="step-number">2</div>
-                <h3 class="step-title">Install the skill</h3>
-                <p class="step-desc">Run the install command for any skill. It takes seconds.</p>
-                <code class="step-code">claude skill install prd-skill</code>
+                <h3 class="step-title">Add the marketplace</h3>
+                <p class="step-desc">Set up the marketplace once, then install any skill from it.</p>
+                <code class="step-code">/plugin marketplace add brandonsgitstub/cadboro-marketplace</code>
             </div>
+
             <div class="step-card animate-in stagger-3">
                 <div class="step-number">3</div>
-                <h3 class="step-title">Run it</h3>
-                <p class="step-desc">Invoke the skill with your data and let Claude do the work. Output is ready to ship.</p>
+                <h3 class="step-title">Install any skill</h3>
+                <p class="step-desc">Describe your task &mdash; Claude triggers the skill automatically.</p>
+                <code class="step-code">/plugin install prd-generator@cadboro-labs</code>
             </div>
+        </div>
+
+        <div class="skills-cta animate-in">
+            <p style="font-size: 0.85rem; color: var(--text-2); margin-bottom: 20px;">
+                <strong>Prefer claude.ai over the terminal?</strong> Each skill's repo has a manual-upload option:<br>
+                Enable <strong>Settings → Capabilities → Code Execution & File Creation</strong>, download the repo,<br>
+                and upload the skill folder under <strong>Customize → Skills</strong>.
+            </p>
         </div>
     </div>
 </section>
 
-<!-- Authority Section -->
-<section id="about">
+<!-- Authority / Built By -->
+<section>
     <div class="container">
         <div class="section-label animate-in">
             <span class="label-num">04</span>
             <span class="label-line"></span>
             <span class="label-text">Built by</span>
         </div>
-        <h2 class="section-title animate-in">Tools built from real product experience</h2>
 
-        <div class="authority-content animate-in">
-            <div class="authority-bio">
-                <p><strong>Brandon Gains</strong> builds software products that earn their roadmap. Across Missinglettr, Yapform, and Productera, he's set product direction, led teams of product designers from concept to ship, and stood up product marketing playbooks that connected what got built to how it got sold. Fifteen years of doing the unglamorous work that makes products stick.</p>
+        <div class="authority-content">
+            <div class="authority-bio animate-in">
+                <p>
+                    <strong>Brandon Gibson</strong> is a product leader and design engineer based in Victoria, BC. He's led teams of product designers from concept to ship at startups and Fortune 500 companies. Today, he builds design tools and open-source frameworks for product managers.
+                </p>
+                <p style="margin-top: 16px; font-size: 0.88rem;">
+                    You can find him on <a href="https://github.com/brandonsgitstub" target="_blank" rel="noopener" style="color: var(--gold); text-decoration: none;">GitHub</a>, or reach out on <a href="https://twitter.com/brandonsgitstub" target="_blank" rel="noopener" style="color: var(--gold); text-decoration: none;">X/Twitter</a>.
+                </p>
             </div>
-            <div class="authority-photo">
-                <img src="/images/brandon-gains-profile.jpg" alt="Brandon Gains">
+            <div class="authority-photo animate-in">
+                <img src="/images/portrait.jpg" alt="Brandon Gibson">
             </div>
         </div>
     </div>
@@ -1111,11 +1138,11 @@
 <!-- Also By -->
 <div class="also-by">
     <div class="container">
-        <span class="also-by-label">Also by Cadboro Labs</span>
+        <span class="also-by-label">Also by Brandon</span>
         <div class="also-by-links">
-            <a href="https://azelab.com" class="also-by-link" target="_blank" rel="noopener">Azelab <span>→</span></a>
-            <a href="https://missinglettr.com" class="also-by-link" target="_blank" rel="noopener">Missinglettr <span>→</span></a>
-            <a href="https://yapform.com" class="also-by-link" target="_blank" rel="noopener">Yapform <span>→</span></a>
+            <a href="https://www.azelab.com/" target="_blank" rel="noopener" class="also-by-link">Azelab <span>→</span></a>
+            <a href="https://www.missinglettr.com/" target="_blank" rel="noopener" class="also-by-link">Missing Lettr <span>→</span></a>
+            <a href="https://yapform.com/" target="_blank" rel="noopener" class="also-by-link">Yapform <span>→</span></a>
         </div>
     </div>
 </div>
@@ -1125,90 +1152,98 @@
     <div class="footer-inner">
         <div>
             <div class="footer-brand-name">CADBORO LABS</div>
-            <p class="footer-tagline">Open-source Claude Code skills for product managers. Built by Brandon Gains.</p>
+            <p class="footer-tagline">Open-source AI tools for product managers. Built in Victoria, BC.</p>
         </div>
+
         <div class="footer-newsletter">
-            <label class="footer-newsletter-label">Join our list</label>
-            <form class="newsletter-form" method="POST" action="#">
-                <input type="email" class="newsletter-input" placeholder="your@email.com" required>
+            <div class="footer-newsletter-label">Newsletter</div>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thanks! Check your email.');">
+                <input type="email" class="newsletter-input" placeholder="Enter email" required>
                 <button type="submit" class="newsletter-submit">Subscribe</button>
             </form>
         </div>
+
         <div class="footer-socials">
-            <a href="https://github.com/brandonsgitstub" class="social-link" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://twitter.com/brandonsgitstub" class="social-link" target="_blank" rel="noopener">Twitter</a>
+            <a href="https://github.com/brandonsgitstub" target="_blank" rel="noopener" class="social-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="https://twitter.com/brandonsgitstub" target="_blank" rel="noopener" class="social-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 002.856-3.51 10 10 0 01-2.836.856 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+            </a>
         </div>
     </div>
+
     <div class="footer-bottom">
-        <p>&copy; 2026 Cadboro Labs. All rights reserved.</p>
+        <p>&copy; 2026 Cadboro Labs. All skills are <a href="https://github.com/brandonsgitstub" target="_blank" rel="noopener">open source</a>.</p>
     </div>
 </footer>
 
 <script>
-    // Scroll effects
-    const nav = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
+// Smooth scroll and nav highlight
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            // Close mobile menu
+            const nav = document.querySelector('.nav-links');
+            if (nav.classList.contains('open')) {
+                nav.classList.remove('open');
+            }
         }
     });
+});
 
-    // Mobile menu toggle
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    if (navToggle) {
-        navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
-            navToggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
-        });
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+    } else {
+        nav.classList.remove('scrolled');
     }
+});
 
-    // Scroll to top and close menu on nav link click
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('open');
-            if (navToggle) {
-                navToggle.setAttribute('aria-expanded', 'false');
-            }
+// Intersection Observer for fade-in animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+// Copy button functionality
+document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const code = this.getAttribute('data-copy');
+        navigator.clipboard.writeText(code).then(() => {
+            const originalHTML = this.innerHTML;
+            this.classList.add('copied');
+            this.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+            setTimeout(() => {
+                this.classList.remove('copied');
+                this.innerHTML = originalHTML;
+            }, 2000);
         });
     });
+});
 
-    // Intersection Observer for animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.animate-in').forEach(el => {
-        observer.observe(el);
-    });
-
-    // Copy button functionality
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
-            e.preventDefault();
-            const text = btn.dataset.copy;
-            try {
-                await navigator.clipboard.writeText(text);
-                btn.classList.add('copied');
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                }, 2000);
-            } catch (err) {
-                console.error('Failed to copy:', err);
-            }
-        });
-    });
+// Mobile nav toggle
+document.querySelector('.nav-toggle').addEventListener('click', function() {
+    document.querySelector('.nav-links').classList.toggle('open');
+});
 </script>
 
 </body>
